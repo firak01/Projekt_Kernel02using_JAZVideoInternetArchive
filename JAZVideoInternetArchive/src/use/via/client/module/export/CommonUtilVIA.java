@@ -83,7 +83,7 @@ public class CommonUtilVIA  implements IConstantZZZ {
 			sAllRaw = StringZZZ.replace(sAllRaw, "�", "-");
 			
 			//20170105: Fehler: Vor der "Bereichsaufteilung" erst noch den Bemerkungsteil von den anderen Teilen abtrennen.
-			
+			//TODO GOON
 			
 			
 			//1. Ersetzen von Unterstrichen. Wichtig: Das muss für jden Bereich separat geschehen, z.B. weil an den Origin�ren Dateinamen Kommentare angeh�ngt worden sind
