@@ -1,0 +1,3718 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- **********************************************************************
+     * 
+     * domino_6_0.xsd
+     *
+     * This schema describes the structure of DXL, the Domino XML Language, 
+     * for Notes/Domino version 6.0.
+     * 
+     * Copyright (c) 1999-2003 IBM.
+     * All rights reserved.
+     *	
+     *********************************************************************** -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+					 xmlns="http://www.lotus.com/dxl" 
+					 targetNamespace="http://www.lotus.com/dxl" 
+					 elementFormDefault="qualified">
+
+	<!-- **********************************************************************
+		*	
+     * The following is the list of valid root elements in a DXL document. 
+     * Their content models are represented in separate <xsd:complexType> 
+     * elements by the same name throughout the rest of the document.
+		*
+     *********************************************************************** -->
+	<xsd:element name="note" type="note"/>
+	<xsd:element name="document" type="document"/>
+	<xsd:element name="form" type="form"/>
+	<xsd:element name="helpaboutdocument" type="helpaboutdocument"/>
+	<xsd:element name="helpusingdocument" type="helpusingdocument"/>
+	<xsd:element name="imageresource" type="imageresource"/>
+	<xsd:element name="sharedfield" type="sharedfield"/>
+	<xsd:element name="subform" type="subform"/>
+	<xsd:element name="page" type="page"/>
+	<xsd:element name="view" type="view"/>
+	<xsd:element name="folder" type="folder"/>
+	<xsd:element name="database" type="database"/>
+	<xsd:element name="acl" type="acl"/>
+	<xsd:element name="agent" type="agent"/>
+	<xsd:element name="sharedactions" type="sharedactions"/>
+	<xsd:element name="scriptlibrary" type="scriptlibrary"/>
+	<xsd:element name="profiledocument" type="profiledocument"/>
+	<xsd:element name="appletresource" type="appletresource"/>
+	<xsd:element name="dataconnection" type="dataconnection"/>
+	<xsd:element name="frameset" type="frameset"/>
+	<xsd:element name="databasescript" type="databasescript"/>
+	<xsd:element name="agentdata" type="agentdata"/>
+
+	<!-- **********************************************************************
+     * Group:        design.elements
+     * Description:  Lists all design elements
+     *********************************************************************** -->
+	<xsd:group name="design.elements">
+		<xsd:choice>
+			<xsd:element name="form" type="form"/>
+			<xsd:element name="subform" type="subform"/>
+			<xsd:element name="page" type="page"/>
+			<xsd:element name="frameset" type="frameset"/>
+			<xsd:element name="view" type="view"/>
+			<xsd:element name="folder" type="folder"/>
+			<xsd:element name="sharedfield" type="sharedfield"/>
+			<xsd:element name="sharedactions" type="sharedactions"/>
+			<xsd:element name="imageresource" type="imageresource"/>
+			<xsd:element name="appletresource" type="appletresource"/>
+			<xsd:element name="agent" type="agent"/>
+			<xsd:element name="agentdata" type="agentdata"/>
+			<xsd:element name="scriptlibrary" type="scriptlibrary"/>
+			<xsd:element name="databasescript" type="databasescript"/>
+			<xsd:element name="helpusingdocument" type="helpusingdocument"/>
+			<xsd:element name="helpaboutdocument" type="helpaboutdocument"/>
+			<xsd:element name="dataconnection" type="dataconnection"/>
+		</xsd:choice>
+	</xsd:group>
+
+	<!-- **********************************************************************
+     * Group:        note.types
+     * Description:  Lists all note types
+     *********************************************************************** -->
+	<xsd:group name="note.types">
+		<xsd:choice>
+			<xsd:element name="note" type="note"/>
+			<xsd:element name="document" type="document"/>
+			<xsd:element name="profiledocument" type="profiledocument"/>
+			<xsd:group ref="design.elements"/>
+		</xsd:choice>
+	</xsd:group>
+
+	<!-- **********************************************************************
+     * Group:        note.prolog
+     * Description:  Lists elements required at the beginning of all notes
+     *********************************************************************** -->
+	<xsd:group name="note.prolog">
+		<xsd:sequence>
+			<xsd:element name="noteinfo" type="noteinfo" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="updatedby" type="updatedby" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="revisions" type="revisions" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="wassignedby" type="wassignedby" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="textproperties" type="textproperties" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:group>
+
+	<!-- **********************************************************************
+     * Group:        note.epilog
+     * Description:  Lists elements required at the end of all notes
+     *********************************************************************** -->
+	<xsd:group name="note.epilog">
+		<xsd:sequence>
+			<xsd:element name="item" type="item" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:group>
+
+	<!-- **********************************************************************
+     * Group:        simple.types
+     * Description:  Simple types that can occur in an item, fieldchoice, 
+     *               or entrydata element
+     *********************************************************************** -->
+	<xsd:group name="simple.types">
+		<xsd:choice>
+			<xsd:element name="text" type="text"/>
+			<xsd:element name="number" type="xsd:string"/>
+			<xsd:element name="datetime" type="datetime"/>
+			<xsd:element name="textlist" type="textlist"/>
+			<xsd:element name="numberlist" type="numberlist"/>
+			<xsd:element name="datetimelist" type="datetimelist"/>
+			<xsd:element name="itemdata" type="itemdata"/>
+		</xsd:choice>
+	</xsd:group>
+
+	<!-- **********************************************************************
+     * Group:        item.complex.types
+     * Description:  Complex types that can occur in an item, or fieldchoice 
+     *               element
+     *********************************************************************** -->
+	<xsd:group name="item.complex.types">
+		<xsd:choice>
+			<xsd:element name="formula" type="formula"/>
+			<xsd:element name="richtext" type="richtext"/>
+			<xsd:element name="object" type="object"/>
+		</xsd:choice>
+	</xsd:group>
+
+	<xsd:group name="image.formats">
+		<xsd:choice>
+			<xsd:element name="gif" type="gif"/>
+			<xsd:element name="jpeg" type="jpeg"/>
+			<xsd:element name="notesbitmap" type="xsd:base64Binary"/>
+			<xsd:element name="cgm" type="cgm"/>
+		</xsd:choice>
+	</xsd:group>
+	
+	<xsd:group name="richtext.block">
+		<xsd:choice>
+			<xsd:element name="par" type="par"/>
+			<xsd:element name="pardef" type="pardef"/>
+			<xsd:element name="table" type="table"/>
+			<xsd:element name="subformref" type="subformref"/>
+			<xsd:element name="section" type="section"/>
+			<xsd:element name="block" type="block"/>
+		</xsd:choice>
+	</xsd:group>
+	
+	<xsd:group name="richtext.nonhot.inline">
+		<xsd:choice>
+			<xsd:element name="run" type="run"/>
+			<xsd:element name="break" type="break"/>
+			<xsd:element name="field" type="field"/>
+			<xsd:element name="sharedfieldref" type="sharedfieldref"/>
+			<xsd:element name="picture" type="picture"/>
+			<xsd:element name="horizrule" type="horizrule"/>
+			<xsd:element name="anchor" type="anchor"/>
+			<xsd:element name="embeddeddatepicker" type="embeddeddatepicker"/>
+			<xsd:element name="embeddedfileuploadcontrol" type="embeddedfileuploadcontrol"/>
+			<xsd:element name="embeddedfolderpane" type="embeddedfolderpane"/>
+			<xsd:element name="embeddednavigator" type="embeddednavigator"/>
+			<xsd:element name="embeddedoutline" type="embeddedoutline"/>
+			<xsd:element name="embeddedview" type="embeddedview"/>
+			<xsd:element name="imagemap" type="imagemap"/>
+			<xsd:element name="span" type="span"/>
+			<xsd:element name="namedelementref" type="namedelementref"/>
+			<xsd:element name="nonxmlchar" type="nonxmlchar"/>
+			<xsd:element name="embeddedcontrol" type="embeddedcontrol"/>
+			<xsd:element name="richtextdata" type="richtextdata"/>
+		</xsd:choice>
+	</xsd:group>
+	<xsd:group name="richtext.links">
+		<xsd:choice>
+			<xsd:element name="doclink" type="doclink"/>
+			<xsd:element name="viewlink" type="viewlink"/>
+			<xsd:element name="databaselink" type="databaselink"/>
+			<xsd:element name="urllink" type="urllink"/>
+			<xsd:element name="namedelementlink" type="namedelementlink"/>
+		</xsd:choice>
+	</xsd:group>
+	<xsd:group name="richtext.hot.inline">
+		<xsd:choice>
+			<xsd:group ref="richtext.links"/>
+			<xsd:element name="attachmentref" type="attachmentref"/>
+			<xsd:element name="button" type="button"/>
+			<xsd:element name="computedtext" type="computedtext"/>
+			<xsd:element name="popup" type="popup"/>
+			<xsd:element name="javaapplet" type="javaapplet"/>
+			<xsd:element name="actionhotspot" type="actionhotspot"/>
+			<xsd:element name="objectref" type="objectref"/>
+			<xsd:element name="region" type="region"/>
+		</xsd:choice>
+	</xsd:group>
+	<xsd:group name="richtext.inline">
+		<xsd:choice>
+			<xsd:group ref="richtext.nonhot.inline"/>
+			<xsd:group ref="richtext.hot.inline"/>
+		</xsd:choice>
+	</xsd:group>
+	<xsd:group name="design.note.prolog">
+		<xsd:sequence>
+			<xsd:group ref="note.prolog"/>
+		</xsd:sequence>
+	</xsd:group>
+	<xsd:group name="named.design.note.prolog">
+		<xsd:sequence>
+			<xsd:group ref="design.note.prolog"/>
+		</xsd:sequence>
+	</xsd:group>
+	<xsd:group name="send.value.types">
+		<xsd:choice>
+			<xsd:element name="text" type="text"/>
+			<xsd:element name="textlist" type="textlist"/>
+			<xsd:element name="formula" type="formula"/>
+		</xsd:choice>
+	</xsd:group>
+	<xsd:complexType name="created">
+		<xsd:sequence>
+			<xsd:element name="datetime" type="datetime"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="modified">
+		<xsd:sequence>
+			<xsd:element name="datetime" type="datetime"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="datetime">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="dst" type="xsd:boolean" use="optional" default="false"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="nonxmlchar">
+		<xsd:attribute name="value" type="noteshex" use="optional"/>
+	</xsd:complexType>
+
+	<!-- **********************************************************************
+     * SimpleType:   database.types
+     * Description:  Enumerates all possible values for the database 
+     *               element's type attribute
+     *********************************************************************** -->
+	<xsd:simpleType name="database.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="standard"/>
+			<xsd:enumeration value="library"/>
+			<xsd:enumeration value="addressbook"/>
+			<xsd:enumeration value="lightaddressbook"/>
+			<xsd:enumeration value="multidbsearch"/>
+			<xsd:enumeration value="portfolio"/>
+			<xsd:enumeration value="imapproxy"/>
+			<xsd:enumeration value="newsproxy"/>
+			<xsd:enumeration value="subscriptions"/>
+			<xsd:enumeration value="mailbox"/>
+			<xsd:enumeration value="personaljournal"/>
+			<xsd:enumeration value="mailfile"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<!-- **********************************************************************
+     * ComplexType:      database
+     * Description:  Represents a complete Notes database.
+     *
+     * Attributes:
+     * fromtemplate:   
+     *     The name of the template this database inherits from.
+     * showinopendialog: 
+     *     When true, database appears in database open's database 
+     *     dialogbox.
+     * advancedtemplate:
+     *     If true, list as an advanced template in the New Database 
+     *     dialog.  
+     * markmodifiedunread:
+     *     If true, modified documents appear unread
+     * multidbindexed:
+     *     If true, database is included in the multi database indexing
+     * multilingual:
+     *     If true, database is multilingual.  Associated attributes: 
+     *     defaultlanguage, defaultregion, defaultsortorder
+     * defaultlanguage:
+     *     Will not appear if there is no default language even when 
+     *     multilingual is true
+     * defaultregion:
+     *     Not present when null, even when multilingual is true.
+     * defaultsortorder:
+     *     Not present when null, even when multilingual is true
+     * maintainunread:
+     *     Unread marks are maintained
+     * increasemaxfields:
+     *     Allow more fields in the database
+     * maxupdatedbyentries:
+     *     No max if set to zero or missing
+     * maxrevisionentries:
+     *     Max if set to zero or ommited
+     * softdeletionsexpirein:
+     *     Number of hours to keep soft deletions for undelete.
+     * nourlopen:
+     *     Do not allow this database to be opened via a URL.
+     * copyprofiledocswithdesign:
+     *     For use with templates
+     * uselz1:
+     *     Use LZ1 compression for attachments in the database.
+     *********************************************************************** -->
+	<xsd:complexType name="database">
+		<xsd:sequence>
+			<xsd:element name="databaseinfo" type="databaseinfo" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="acl" type="acl" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="fulltextsettings" type="fulltextsettings" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="launchsettings" type="launchsettings" minOccurs="0" maxOccurs="1"/>
+			<xsd:choice minOccurs="0" maxOccurs="unbounded">
+				<xsd:group ref="note.types"/>
+			</xsd:choice>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="root.attrs"/>
+		<xsd:attribute name="path" type="xsd:string" use="optional"/>
+		<xsd:attribute name="title" type="xsd:string" use="optional"/>
+		<xsd:attribute name="categories" type="xsd:string" use="optional"/>
+		<xsd:attribute name="templatename" type="xsd:string" use="optional"/>
+		<xsd:attribute name="fromtemplate" type="xsd:string" use="optional"/>
+		<xsd:attribute name="type" type="database.types" use="optional" default="standard"/>
+		<xsd:attribute name="allowstoredforms" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attribute name="allowbackgroundagents" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attribute name="imageloadsdeferred" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="usejavascriptinpages" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attribute name="requiressl" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="allowdesignlocking" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="allowexternalconnections" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="showinopendialog" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attribute name="advancedtemplate" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="markmodifiedunread" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attribute name="multidbindexed" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="multilingual" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="defaultlanguage" type="xsd:string" use="optional"/>
+		<xsd:attribute name="defaultregion" type="xsd:string" use="optional"/>
+		<xsd:attribute name="defaultsortorder" type="xsd:string" use="optional"/>
+		<xsd:attribute name="maintainunread" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attribute name="optimizetablebitmaps" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="overwritefreespace" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attribute name="savelastaccessed" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="logtransactions" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attribute name="allowsoftdeletion" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="allowspecialhierarchy" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attribute name="allowheadlinemonitors" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attribute name="increasemaxfields" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="maxupdatedbyentries" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="maxrevisionentries" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="softdeletionsexpirein" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="nourlopen" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="unicodestandardsorting" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="allowdocumentlocking" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="copyprofiledocswithdesign" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="singlecopytemplate" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="uselz1" type="xsd:boolean" use="optional" default="false"/>
+	</xsd:complexType>
+
+	<!-- **********************************************************************
+     * AttributeGroup: root.attrs
+     * Description:    Attributes that occur on all root elements
+     *********************************************************************** -->
+	<xsd:attributeGroup name="root.attrs">
+		<xsd:attribute name="version" type="xsd:float" use="optional"/>
+		<xsd:attribute name="maintenanceversion" type="xsd:float" use="optional"/>
+		<xsd:attribute name="milestonebuild" type="xsd:float" use="optional"/>
+		<xsd:attribute name="replicaid" type="noteshex" use="optional"/>
+	</xsd:attributeGroup>
+
+	<!-- **********************************************************************
+     * ComplexType:      databaseinfo
+     * Description:  Stores standard database information
+     *********************************************************************** -->
+	<xsd:complexType name="databaseinfo">
+		<xsd:sequence>
+			<xsd:element name="datamodified" type="datamodified" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="designmodified" type="designmodified" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="created" type="created" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="modified" type="modified" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="dbid" type="noteshex" use="optional"/>
+		<xsd:attribute name="replicaid" type="noteshex" use="optional"/>
+		<xsd:attribute name="odsversion" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="diskspace" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="numberofdocuments" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="percentused" type="xsd:float" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="datamodified">
+		<xsd:sequence>
+			<xsd:element name="datetime" type="datetime"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="designmodified">
+		<xsd:sequence>
+			<xsd:element name="datetime" type="datetime"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="acl">
+		<xsd:sequence>
+			<xsd:element name="role" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="aclentry" type="aclentry" minOccurs="1" maxOccurs="unbounded"/>
+			<xsd:element name="logentry" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="root.attrs"/>
+		<xsd:attribute name="adminserver" type="xsd:string" use="optional" default=""/>
+		<xsd:attribute name="adminservermaymodify" type="acl.adminservermaymodify" use="optional" default="none"/>
+		<xsd:attribute name="adminreaderauthor" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="consistentacl" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="maxinternetaccess" type="acl.levels" use="optional" default="editor"/>
+	</xsd:complexType>
+	<xsd:simpleType name="acl.adminservermaymodify">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="none"/>
+			<xsd:enumeration value="authorreaderfields"/>
+			<xsd:enumeration value="namesfields"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="acl.levels">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="noaccess"/>
+			<xsd:enumeration value="depositor"/>
+			<xsd:enumeration value="reader"/>
+			<xsd:enumeration value="author"/>
+			<xsd:enumeration value="editor"/>
+			<xsd:enumeration value="designer"/>
+			<xsd:enumeration value="manager"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="aclentry">
+		<xsd:sequence>
+			<xsd:element name="role" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+		<xsd:attribute name="level" type="acl.levels" use="required"/>
+		<xsd:attribute name="default" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="type" type="aclentry.types" use="optional" default="unspecified"/>
+		<xsd:attribute name="createdocs" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="deletedocs" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="createpersonalagents" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="createpersonalviews" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="createsharedviews" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="createlsjavaagents" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="readpublicdocs" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="writepublicdocs" type="xsd:boolean" use="optional"/>
+	</xsd:complexType>
+	<xsd:simpleType name="aclentry.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="unspecified"/>
+			<xsd:enumeration value="person"/>
+			<xsd:enumeration value="server"/>
+			<xsd:enumeration value="mixedgroup"/>
+			<xsd:enumeration value="persongroup"/>
+			<xsd:enumeration value="servergroup"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="fulltextsettings">
+		<xsd:sequence>
+			<xsd:element name="lastindexed" type="lastindexed" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="size" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="update" type="fulltextsettings.updatetypes" use="optional"/>
+		<xsd:attribute name="unindexeddocumentcount" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="casesensitive" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="breakat" type="fulltextsettings.breaktypes" use="optional" default="words"/>
+		<xsd:attribute name="includeattachments" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="attachmenttype" type="fulltextsettings.attachment.type" use="optional" default="rawtextonly"/>
+		<xsd:attribute name="includeencryptedfields" type="xsd:boolean" use="optional" default="true"/>
+	</xsd:complexType>
+	<xsd:simpleType name="fulltextsettings.updatetypes">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="daily"/>
+			<xsd:enumeration value="hourly"/>
+			<xsd:enumeration value="immediate"/>
+			<xsd:enumeration value="scheduled"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="fulltextsettings.breaktypes">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="words"/>
+			<xsd:enumeration value="wordssentencesparagraphs"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="fulltextsettings.attachment.type">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="rawtextonly"/>
+			<xsd:enumeration value="includebinary"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="lastindexed">
+		<xsd:sequence>
+			<xsd:element name="datetime" type="datetime"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="launchsettings">
+		<xsd:sequence>
+			<xsd:element name="noteslaunch" type="noteslaunch" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="weblaunch" type="weblaunch" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="noteslaunch">
+		<xsd:attributeGroup ref="launch.common.attrs"/>
+		<xsd:attribute name="restorelastview" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="showaboutdocument" type="launch.notes.showaboutdocument" use="optional"/>
+		<xsd:attribute name="previewdefault" type="launch.notes.previewdefault" use="optional"/>
+		<xsd:attribute name="navigatortype" type="launch.navigatortypes" use="optional"/>
+	</xsd:complexType>
+	<xsd:attributeGroup name="launch.common.attrs">
+		<xsd:attribute name="whenopened" use="optional">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="openaboutdocument"/>
+					<xsd:enumeration value="openframeset"/>
+					<xsd:enumeration value="opennavigatorinwindow"/>
+					<xsd:enumeration value="openfirstdoclink"/>
+					<xsd:enumeration value="restorelastview"/>
+					<xsd:enumeration value="opennavigator"/>
+					<xsd:enumeration value="openfirstaboutattachment"/>
+					<xsd:enumeration value="usenotesoptions"/>
+					<xsd:enumeration value="openpage"/>
+					<xsd:enumeration value="openspecifieddoclink"/>
+					<xsd:enumeration value="openfirstdocumentinview"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="frameset" type="xsd:string" use="optional"/>
+		<xsd:attribute name="navigator" type="xsd:string" use="optional"/>
+	</xsd:attributeGroup>
+	<xsd:simpleType name="launch.notes.showaboutdocument">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="firstopen"/>
+			<xsd:enumeration value="firstopenandchanged"/>
+			<xsd:enumeration value="never"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="launch.notes.previewdefault">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="bottomright"/>
+			<xsd:enumeration value="bottom"/>
+			<xsd:enumeration value="right"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="launch.navigatortypes">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="page"/>
+			<xsd:enumeration value="standard"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="weblaunch">
+		<xsd:sequence>
+			<xsd:element name="doclink" type="doclink" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="launch.common.attrs"/>
+		<xsd:attribute name="page" type="xsd:string" use="optional"/>
+		<xsd:attribute name="view" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="note">
+		<xsd:sequence>
+			<xsd:group ref="note.prolog"/>
+			<xsd:group ref="note.epilog"/>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="note.attrs"/>
+		<xsd:attribute name="class" type="note.classes" use="required"/>
+		<xsd:attribute name="default" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="private" type="xsd:boolean" use="optional"/>
+	</xsd:complexType>
+	<xsd:attributeGroup name="note.attrs">
+		<xsd:attributeGroup ref="root.attrs"/>
+		<xsd:attribute name="key" type="xsd:ID" use="optional"/>
+	</xsd:attributeGroup>
+	<xsd:simpleType name="note.classes">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="document"/>
+			<xsd:enumeration value="helpaboutdocument"/>
+			<xsd:enumeration value="form"/>
+			<xsd:enumeration value="view"/>
+			<xsd:enumeration value="icon"/>
+			<xsd:enumeration value="helpindex"/>
+			<xsd:enumeration value="helpusingdocument"/>
+			<xsd:enumeration value="filter"/>
+			<xsd:enumeration value="sharedfield"/>
+			<xsd:enumeration value="replicationformula"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="noteinfo">
+		<xsd:sequence>
+			<xsd:element name="created" type="created" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="modified" type="modified" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="revised" type="revised" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="lastaccessed" type="lastaccessed" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="addedtofile" type="addedtofile" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="noteid" type="noteshex" use="optional"/>
+		<xsd:attribute name="unid" type="unidhex" use="optional"/>
+		<xsd:attribute name="sequence" type="xsd:integer" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="revised">
+		<xsd:sequence>
+			<xsd:element name="datetime" type="datetime"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="lastaccessed">
+		<xsd:sequence>
+			<xsd:element name="datetime" type="datetime"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="addedtofile">
+		<xsd:sequence>
+			<xsd:element name="datetime" type="datetime"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="textproperties">
+		<xsd:sequence>
+			<xsd:element name="textproperty" type="textproperty" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="textproperty">
+		<xsd:attribute name="propid" type="xsd:integer" use="required"/>
+		<xsd:attributeGroup ref="language.attrs"/>
+	</xsd:complexType>
+	<xsd:attributeGroup name="language.attrs">
+		<xsd:attribute name="language" type="xsd:string" use="optional"/>
+	</xsd:attributeGroup>
+	<xsd:complexType name="wassignedby">
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="document">
+		<xsd:sequence>
+			<xsd:group ref="note.prolog"/>
+			<xsd:group ref="note.epilog"/>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="note.attrs"/>
+		<xsd:attribute name="form" type="xsd:string" use="optional"/>
+		<xsd:attribute name="parent" type="xsd:string" use="optional"/>
+		<xsd:attribute name="response" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="conflict" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="truncated" type="xsd:boolean" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="profiledocument">
+		<xsd:sequence>
+			<xsd:group ref="note.prolog"/>
+			<xsd:group ref="note.epilog"/>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="root.attrs"/>
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+		<xsd:attribute name="username" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="item">
+		<xsd:choice>
+			<xsd:group ref="simple.types"/>
+			<xsd:group ref="item.complex.types"/>
+		</xsd:choice>
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+		<xsd:attribute name="sign" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="seal" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="sealed" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="summary" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="authors" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="names" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="readers" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="placeholder" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="protected" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="unchanged" type="xsd:boolean" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="text" mixed="true">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="break" type="break"/>
+			<xsd:element name="nonxmlchar" type="nonxmlchar"/>
+		</xsd:choice>
+	</xsd:complexType>
+	<xsd:complexType name="textlist">
+		<xsd:sequence>
+			<xsd:element name="text" type="text" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="numberlist">
+		<xsd:sequence>
+			<xsd:element name="number" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="datetimelist">
+		<xsd:sequence>
+			<xsd:element name="datetime" type="datetime" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="datetimepair" type="datetimepair" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="datetimepair">
+		<xsd:sequence>
+			<xsd:element name="datetime" type="datetime" minOccurs="2" maxOccurs="2"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="itemdata">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="type" type="noteshex" use="required"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="file">
+		<xsd:sequence>
+			<xsd:element name="created" type="created"/>
+			<xsd:element name="modified" type="modified"/>
+			<xsd:element name="filedata" type="xsd:base64Binary"/>
+		</xsd:sequence>
+		<xsd:attribute name="hosttype" type="file.hosttype" use="required"/>
+		<xsd:attribute name="compression" type="file.compression" use="optional" default="none"/>
+		<xsd:attribute name="desiredcompression" type="xsd:string" use="optional"/>
+		<xsd:attribute name="flags" type="file.flags" use="optional"/>
+		<xsd:attribute name="attribute" type="file.attributes" use="optional"/>
+		<xsd:attribute name="encoding" type="file.encoding" use="optional" default="none"/>
+		<xsd:attribute name="name" type="xsd:string" use="optional"/>
+		<xsd:attribute name="application" type="xsd:string" use="optional"/>
+		<xsd:attribute name="type" type="xsd:string" use="optional"/>
+		<xsd:attribute name="resourcestart" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="resourcesize" type="xsd:integer" use="optional"/>
+	</xsd:complexType>
+	<xsd:simpleType name="file.hosttype">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="cdstorage"/>
+			<xsd:enumeration value="msdos"/>
+			<xsd:enumeration value="mac"/>
+			<xsd:enumeration value="hpfs"/>
+			<xsd:enumeration value="bytearrayext"/>
+			<xsd:enumeration value="bytearraypage"/>
+			<xsd:enumeration value="stream"/>
+			<xsd:enumeration value="link"/>
+			<xsd:enumeration value="unknown"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="file.compression">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="none"/>
+			<xsd:enumeration value="huffman"/>
+			<xsd:enumeration value="lz1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="file.flags">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="storedindoc"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="file.attributes">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="readonly"/>
+			<xsd:enumeration value="private"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="file.encoding">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="none"/>
+			<xsd:enumeration value="base64"/>
+			<xsd:enumeration value="quotedprintable"/>
+			<xsd:enumeration value="uuencode"/>
+			<xsd:enumeration value="unknown"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="object">
+		<xsd:sequence>
+			<xsd:element name="file" type="file"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="formula">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="compiled" type="xsd:boolean" use="optional"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="background">
+		<xsd:choice minOccurs="0" maxOccurs="1">
+			<xsd:element name="gif" type="gif"/>
+			<xsd:element name="jpeg" type="jpeg"/>
+			<xsd:element name="notesbitmap" type="xsd:base64Binary"/>
+			<xsd:element name="cgm" type="cgm"/>
+			<xsd:element name="imageref" type="imageref"/>
+		</xsd:choice>
+		<xsd:attribute name="allowoverride" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="hide" type="background.hide.tokens" use="optional" default="none"/>
+		<xsd:attribute name="tile" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="repeat" type="cellbackground.repeats" use="optional" default="tile"/>
+	</xsd:complexType>
+	<xsd:simpleType name="background.hide.tokens">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="none"/>
+			<xsd:enumeration value="editdesign"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="cellbackground.repeats">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="once"/>
+			<xsd:enumeration value="vrepeat"/>
+			<xsd:enumeration value="hrepeat"/>
+			<xsd:enumeration value="tile"/>
+			<xsd:enumeration value="center"/>
+			<xsd:enumeration value="resize"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="border">
+		<xsd:attribute name="style" type="border.styles" use="optional" default="none"/>
+		<xsd:attribute name="width" type="xsd:string" use="optional" default="0"/>
+		<xsd:attribute name="insidewidth" type="xsd:string" use="optional" default="0"/>
+		<xsd:attribute name="outsidewidth" type="xsd:string" use="optional" default="0"/>
+		<xsd:attribute name="color" type="xsd:string" use="optional" default="black"/>
+		<xsd:attribute name="dropshadow" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="dropshadowwidth" type="xsd:string" use="optional" default="12px"/>
+	</xsd:complexType>
+	<xsd:simpleType name="border.styles">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="none"/>
+			<xsd:enumeration value="solid"/>
+			<xsd:enumeration value="double"/>
+			<xsd:enumeration value="dot"/>
+			<xsd:enumeration value="dash"/>
+			<xsd:enumeration value="inset"/>
+			<xsd:enumeration value="outset"/>
+			<xsd:enumeration value="ridge"/>
+			<xsd:enumeration value="groove"/>
+			<xsd:enumeration value="picture"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="richtext">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:group ref="richtext.block"/>
+		</xsd:choice>
+	</xsd:complexType>
+	<xsd:complexType name="block">
+		<xsd:sequence>
+			<xsd:element name="font" type="font" minOccurs="0" maxOccurs="1"/>
+			<xsd:choice minOccurs="0" maxOccurs="unbounded">
+				<xsd:group ref="richtext.block"/>
+			</xsd:choice>
+		</xsd:sequence>
+		<xsd:attribute name="html" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attributeGroup ref="reading.order.attrs"/>
+		<xsd:attributeGroup ref="space.attrs"/>
+		<xsd:attribute name="textpropid" type="xsd:integer" use="optional"/>
+	</xsd:complexType>
+	<xsd:attributeGroup name="reading.order.attrs">
+		<xsd:attribute name="readingorder" use="optional" default="lefttoright">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="righttoleft"/>
+					<xsd:enumeration value="lefttoright"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:attributeGroup>
+	<xsd:attributeGroup name="space.attrs">
+		<xsd:attribute name="keepindentation" type="xsd:boolean" use="optional"/>
+	</xsd:attributeGroup>
+	<xsd:complexType name="run" mixed="true">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="font" type="font"/>
+			<xsd:element name="run" type="run"/>
+			<xsd:element name="break" type="break"/>
+			<xsd:element name="field" type="field"/>
+			<xsd:element name="sharedfieldref" type="sharedfieldref"/>
+			<xsd:element name="picture" type="picture"/>
+			<xsd:element name="horizrule" type="horizrule"/>
+			<xsd:element name="anchor" type="anchor"/>
+			<xsd:element name="embeddeddatepicker" type="embeddeddatepicker"/>
+			<xsd:element name="embeddedfileuploadcontrol" type="embeddedfileuploadcontrol"/>
+			<xsd:element name="embeddedfolderpane" type="embeddedfolderpane"/>
+			<xsd:element name="embeddednavigator" type="embeddednavigator"/>
+			<xsd:element name="embeddedoutline" type="embeddedoutline"/>
+			<xsd:element name="embeddedview" type="embeddedview"/>
+			<xsd:element name="imagemap" type="imagemap"/>
+			<xsd:element name="span" type="span"/>
+			<xsd:element name="namedelementref" type="namedelementref"/>
+			<xsd:element name="nonxmlchar" type="nonxmlchar"/>
+			<xsd:element name="embeddedcontrol" type="embeddedcontrol"/>
+			<xsd:element name="richtextdata" type="richtextdata"/>
+			<xsd:element name="doclink" type="doclink"/>
+			<xsd:element name="viewlink" type="viewlink"/>
+			<xsd:element name="databaselink" type="databaselink"/>
+			<xsd:element name="urllink" type="urllink"/>
+			<xsd:element name="namedelementlink" type="namedelementlink"/>
+			<xsd:element name="attachmentref" type="attachmentref"/>
+			<xsd:element name="button" type="button"/>
+			<xsd:element name="computedtext" type="computedtext"/>
+			<xsd:element name="popup" type="popup"/>
+			<xsd:element name="javaapplet" type="javaapplet"/>
+			<xsd:element name="actionhotspot" type="actionhotspot"/>
+			<xsd:element name="objectref" type="objectref"/>
+			<xsd:element name="region" type="region"/>
+		</xsd:choice>
+		<xsd:attribute name="html" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="highlight" type="highlights" use="optional" default="none"/>
+		<xsd:attributeGroup ref="reading.order.attrs"/>
+		<xsd:attributeGroup ref="space.attrs"/>
+	</xsd:complexType>
+	<xsd:simpleType name="highlights">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="none"/>
+			<xsd:enumeration value="yellow"/>
+			<xsd:enumeration value="pink"/>
+			<xsd:enumeration value="blue"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="font">
+		<xsd:attribute name="name" type="xsd:string" use="optional"/>
+		<xsd:attribute name="color" type="xsd:string" use="optional"/>
+		<xsd:attribute name="size" type="xsd:string" use="optional"/>
+		<xsd:attribute name="style" type="xsd:NMTOKENS" use="optional"/>
+		<xsd:attribute name="pitch" type="font.pitches" use="optional"/>
+		<xsd:attribute name="truetype" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="familyid" type="noteshex" use="optional"/>
+	</xsd:complexType>
+	<xsd:simpleType name="font.pitches">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="fixed"/>
+			<xsd:enumeration value="variable"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="par" mixed="true">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="border" type="border"/>
+			<xsd:element name="run" type="run"/>
+			<xsd:element name="break" type="break"/>
+			<xsd:element name="field" type="field"/>
+			<xsd:element name="sharedfieldref" type="sharedfieldref"/>
+			<xsd:element name="picture" type="picture"/>
+			<xsd:element name="horizrule" type="horizrule"/>
+			<xsd:element name="anchor" type="anchor"/>
+			<xsd:element name="embeddeddatepicker" type="embeddeddatepicker"/>
+			<xsd:element name="embeddedfileuploadcontrol" type="embeddedfileuploadcontrol"/>
+			<xsd:element name="embeddedfolderpane" type="embeddedfolderpane"/>
+			<xsd:element name="embeddednavigator" type="embeddednavigator"/>
+			<xsd:element name="embeddedoutline" type="embeddedoutline"/>
+			<xsd:element name="embeddedview" type="embeddedview"/>
+			<xsd:element name="imagemap" type="imagemap"/>
+			<xsd:element name="span" type="span"/>
+			<xsd:element name="namedelementref" type="namedelementref"/>
+			<xsd:element name="nonxmlchar" type="nonxmlchar"/>
+			<xsd:element name="embeddedcontrol" type="embeddedcontrol"/>
+			<xsd:element name="richtextdata" type="richtextdata"/>
+			<xsd:element name="doclink" type="doclink"/>
+			<xsd:element name="viewlink" type="viewlink"/>
+			<xsd:element name="databaselink" type="databaselink"/>
+			<xsd:element name="urllink" type="urllink"/>
+			<xsd:element name="namedelementlink" type="namedelementlink"/>
+			<xsd:element name="attachmentref" type="attachmentref"/>
+			<xsd:element name="button" type="button"/>
+			<xsd:element name="computedtext" type="computedtext"/>
+			<xsd:element name="popup" type="popup"/>
+			<xsd:element name="javaapplet" type="javaapplet"/>
+			<xsd:element name="actionhotspot" type="actionhotspot"/>
+			<xsd:element name="objectref" type="objectref"/>
+			<xsd:element name="region" type="region"/>
+		</xsd:choice>
+		<xsd:attribute name="def" type="xsd:NMTOKEN" use="optional"/>
+		<xsd:attributeGroup ref="space.attrs"/>
+	</xsd:complexType>
+
+	<xsd:complexType name="pardef">
+		<xsd:sequence>
+			<xsd:element name="code" type="code" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="parstyle" type="parstyle" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="id" type="xsd:NMTOKEN" use="required"/>
+		<xsd:attribute name="align" type="pardef.aligns" use="optional" default="left"/>
+		<xsd:attribute name="linespacing" type="pardef.linespacings" use="optional" default="1"/>
+		<xsd:attribute name="spacebefore" type="pardef.linespacings" use="optional" default="1"/>
+		<xsd:attribute name="spaceafter" type="pardef.linespacings" use="optional" default="1"/>
+		<xsd:attribute name="leftmargin" type="xsd:string" use="optional"/>
+		<xsd:attribute name="rightmargin" type="xsd:string" use="optional"/>
+		<xsd:attribute name="firstlineleftmargin" type="xsd:string" use="optional"/>
+		<xsd:attribute name="tabs" type="xsd:token" use="optional"/>
+		<xsd:attribute name="hide" type="pardef.hide.token" use="optional" default=""/>
+		<xsd:attribute name="newpage" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="keepwithnext" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="keeptogether" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="list" type="pardef.list.styles" use="optional" default="none"/>
+		<xsd:attributeGroup ref="reading.order.attrs"/>
+	</xsd:complexType>
+
+	<xsd:simpleType name="pardef.hide.tokens">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="read"/>
+			<xsd:enumeration value="edit"/>
+			<xsd:enumeration value="print"/>
+			<xsd:enumeration value="copy"/>
+			<xsd:enumeration value="preview"/>
+			<xsd:enumeration value="previewedit"/>
+			<xsd:enumeration value="notes"/>
+			<xsd:enumeration value="web"/>
+			<xsd:enumeration value="mobile"/>
+			<xsd:enumeration value="embedded"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="pardef.hide.token">
+		<xsd:list itemType="pardef.hide.tokens"/>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="pardef.aligns">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="left"/>
+			<xsd:enumeration value="right"/>
+			<xsd:enumeration value="center"/>
+			<xsd:enumeration value="full"/>
+			<xsd:enumeration value="none"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="pardef.linespacings">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="1"/>
+			<xsd:enumeration value="1.5"/>
+			<xsd:enumeration value="2"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="pardef.list.styles">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="none"/>
+			<xsd:enumeration value="bullet"/>
+			<xsd:enumeration value="number"/>
+			<xsd:enumeration value="check"/>
+			<xsd:enumeration value="uncheck"/>
+			<xsd:enumeration value="circle"/>
+			<xsd:enumeration value="square"/>
+			<xsd:enumeration value="alphaupper"/>
+			<xsd:enumeration value="alphalower"/>
+			<xsd:enumeration value="romanupper"/>
+			<xsd:enumeration value="romanlower"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="parstyle">
+		<xsd:sequence>
+			<xsd:element name="font" type="font" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+		<xsd:attribute name="incyclekey" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="alldocuments" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="username" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="table">
+		<xsd:sequence>
+			<xsd:element name="tablerowstyle" type="tablerowstyle" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="border" type="border" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="tablecolumn" type="tablecolumn" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="tablerow" type="tablerow" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="widthtype" type="table.widthtypes" use="optional"/>
+		<xsd:attribute name="minrowheight" type="xsd:string" use="optional" default="0"/>
+		<xsd:attribute name="rowspacing" type="xsd:string" use="optional" default="0"/>
+		<xsd:attribute name="columnspacing" type="xsd:string" use="optional" default="0"/>
+		<xsd:attribute name="cellborderstyle" type="table.cell.border.styles" use="optional" default="solid"/>
+		<xsd:attribute name="cellbordercolor" type="xsd:string" use="optional" default="none"/>
+		<xsd:attribute name="colorstyle" type="table.color.styles" use="optional" default="none"/>
+		<xsd:attribute name="bgcolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="altbgcolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="leftmargin" type="xsd:string" use="optional" default="1in"/>
+		<xsd:attribute name="rightmargin" type="xsd:string" use="optional" default="100%"/>
+		<xsd:attribute name="r4spacing" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="rowdisplay" type="table.row.displays" use="optional" default="all"/>
+		<xsd:attribute name="rowtimer" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="sizetabsequally" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="firsttabindent" type="xsd:string" use="optional"/>
+		<xsd:attribute name="tablocation" type="table.tablocations" use="optional"/>
+		<xsd:attribute name="outsidewrap" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="insidewrap" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="insidewrapheight" type="xsd:string" use="optional"/>
+		<xsd:attributeGroup ref="html.core.attrs"/>
+		<xsd:attributeGroup ref="direction.attrs"/>
+	</xsd:complexType>
+	<xsd:simpleType name="table.widthtypes">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="fixedleft"/>
+			<xsd:enumeration value="fixedcenter"/>
+			<xsd:enumeration value="fixedright"/>
+			<xsd:enumeration value="fitmargins"/>
+			<xsd:enumeration value="fitwindow"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="table.cell.border.styles">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="solid"/>
+			<xsd:enumeration value="ridge"/>
+			<xsd:enumeration value="groove"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="table.color.styles">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="none"/>
+			<xsd:enumeration value="solid"/>
+			<xsd:enumeration value="altrows"/>
+			<xsd:enumeration value="altcolumns"/>
+			<xsd:enumeration value="lefttop"/>
+			<xsd:enumeration value="left"/>
+			<xsd:enumeration value="righttop"/>
+			<xsd:enumeration value="right"/>
+			<xsd:enumeration value="top"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="table.row.displays">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="all"/>
+			<xsd:enumeration value="tabs"/>
+			<xsd:enumeration value="timer"/>
+			<xsd:enumeration value="onclick"/>
+			<xsd:enumeration value="compute"/>
+			<xsd:enumeration value="tabscompute"/>
+			<xsd:enumeration value="onclicktimer"/>
+			<xsd:enumeration value="onopentimer"/>
+			<xsd:enumeration value="captions"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="table.tablocations">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="top"/>
+			<xsd:enumeration value="left"/>
+			<xsd:enumeration value="bottom"/>
+			<xsd:enumeration value="right"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:attributeGroup name="html.core.attrs">
+		<xsd:attribute name="htmlid" type="xsd:string" use="optional"/>
+		<xsd:attribute name="htmlclass" type="xsd:string" use="optional"/>
+		<xsd:attribute name="htmlstyle" type="xsd:string" use="optional"/>
+		<xsd:attribute name="htmltitle" type="xsd:string" use="optional"/>
+		<xsd:attribute name="extrahtmlattrs" type="xsd:string" use="optional"/>
+	</xsd:attributeGroup>
+	<xsd:attributeGroup name="direction.attrs">
+		<xsd:attribute name="direction" use="optional" default="lefttoright">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="righttoleft"/>
+					<xsd:enumeration value="lefttoright"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:attributeGroup>
+	<xsd:complexType name="tablerowstyle">
+		<xsd:sequence>
+			<xsd:element name="font" type="font"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="tablecolumn">
+		<xsd:attribute name="width" type="xsd:string" use="optional"/>
+		<xsd:attribute name="sizetofit" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="refwidth" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="tablerow">
+		<xsd:sequence>
+			<xsd:element name="tablecell" type="tablecell" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:string" use="optional"/>
+		<xsd:attribute name="tablabel" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="tablecell">
+		<xsd:sequence>
+			<xsd:element name="cellbackground" type="cellbackground" minOccurs="0" maxOccurs="1"/>
+			<xsd:choice minOccurs="0" maxOccurs="unbounded">
+				<xsd:group ref="richtext.block"/>
+			</xsd:choice>
+		</xsd:sequence>
+		<xsd:attribute name="bgcolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="rowspan" type="xsd:integer" use="optional" default="1"/>
+		<xsd:attribute name="columnspan" type="xsd:integer" use="optional" default="1"/>
+		<xsd:attribute name="colorstyle" type="tablecell.color.styles" use="optional"/>
+		<xsd:attribute name="altbgcolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="valign" type="vertical.aligns" use="optional"/>
+		<xsd:attribute name="borderwidth" type="xsd:string" use="optional" default="1px"/>
+		<xsd:attribute name="transition" type="tablecell.transitions" use="optional" default="none"/>
+		<xsd:attributeGroup ref="html.core.attrs"/>
+	</xsd:complexType>
+	<xsd:simpleType name="tablecell.color.styles">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="solid"/>
+			<xsd:enumeration value="vgradient"/>
+			<xsd:enumeration value="hgradient"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="vertical.aligns">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="top"/>
+			<xsd:enumeration value="center"/>
+			<xsd:enumeration value="bottom"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tablecell.transitions">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="none"/>
+			<xsd:enumeration value="rolling"/>
+			<xsd:enumeration value="lefttoright"/>
+			<xsd:enumeration value="toptobottom"/>
+			<xsd:enumeration value="wipe"/>
+			<xsd:enumeration value="boxes"/>
+			<xsd:enumeration value="explode"/>
+			<xsd:enumeration value="dissolve"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="cellbackground">
+		<xsd:choice minOccurs="0" maxOccurs="1">
+			<xsd:element name="gif" type="gif"/>
+			<xsd:element name="jpeg" type="jpeg"/>
+			<xsd:element name="notesbitmap" type="xsd:base64Binary"/>
+			<xsd:element name="cgm" type="cgm"/>
+			<xsd:element name="imageref" type="imageref"/>
+		</xsd:choice>
+		<xsd:attribute name="repeat" type="cellbackground.repeats" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="section">
+		<xsd:sequence>
+			<xsd:element name="sectiontitle" type="sectiontitle"/>
+			<xsd:element name="code" type="code" minOccurs="0" maxOccurs="1"/>
+			<xsd:choice minOccurs="0" maxOccurs="unbounded">
+				<xsd:group ref="richtext.block"/>
+			</xsd:choice>
+		</xsd:sequence>
+		<xsd:attribute name="onread" type="xsd:token" use="optional" default=""/>
+		<xsd:attribute name="onedit" type="xsd:token" use="optional" default=""/>
+		<xsd:attribute name="onpreview" type="xsd:token" use="optional" default=""/>
+		<xsd:attribute name="onprint" type="xsd:token" use="optional" default=""/>
+		<xsd:attribute name="expanded" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="showastext" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="accessfieldkind" type="field.kinds" use="optional"/>
+		<xsd:attribute name="accessfieldname" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<xsd:simpleType name="field.kinds">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="editable"/>
+			<xsd:enumeration value="computed"/>
+			<xsd:enumeration value="computedfordisplay"/>
+			<xsd:enumeration value="computedwhencomposed"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="sectiontitle">
+		<xsd:sequence>
+			<xsd:element name="font" type="font" minOccurs="0" maxOccurs="1"/>
+			<xsd:choice>
+				<xsd:element name="text" type="text"/>
+				<xsd:element name="code" type="code"/>
+			</xsd:choice>
+		</xsd:sequence>
+		<xsd:attribute name="pardef" type="xsd:NMTOKEN" use="optional"/>
+		<xsd:attribute name="color" type="xsd:string" use="optional"/>
+		<xsd:attribute name="borderstyle" type="section.border.styles" use="optional" default="none"/>
+		<xsd:attribute name="hidewhenexpanded" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="textpropid" type="xsd:integer" use="optional"/>
+	</xsd:complexType>
+	<xsd:simpleType name="section.border.styles">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="none"/>
+			<xsd:enumeration value="single"/>
+			<xsd:enumeration value="double"/>
+			<xsd:enumeration value="triple"/>
+			<xsd:enumeration value="shadow"/>
+			<xsd:enumeration value="twoline"/>
+			<xsd:enumeration value="windowcaption"/>
+			<xsd:enumeration value="gradient"/>
+			<xsd:enumeration value="tab"/>
+			<xsd:enumeration value="tabdiag"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="break"/>
+	<xsd:complexType name="computedtext">
+		<xsd:sequence>
+			<xsd:element name="code" type="code" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="html.core.attrs"/>
+	</xsd:complexType>
+	<xsd:complexType name="horizrule">
+		<xsd:attribute name="height" type="xsd:string" use="optional"/>
+		<xsd:attribute name="width" type="xsd:string" use="optional"/>
+		<xsd:attribute name="color" type="xsd:string" use="optional"/>
+		<xsd:attribute name="colorstyle" type="horizrule.color.styles" use="optional" default="solid"/>
+		<xsd:attribute name="gradientcolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="use3dshading" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attributeGroup ref="html.core.attrs"/>
+	</xsd:complexType>
+	<xsd:simpleType name="horizrule.color.styles">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="solid"/>
+			<xsd:enumeration value="vgradient"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="span" mixed="true">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="run" type="run"/>
+			<xsd:element name="break" type="break"/>
+			<xsd:element name="field" type="field"/>
+			<xsd:element name="sharedfieldref" type="sharedfieldref"/>
+			<xsd:element name="picture" type="picture"/>
+			<xsd:element name="horizrule" type="horizrule"/>
+			<xsd:element name="anchor" type="anchor"/>
+			<xsd:element name="embeddeddatepicker" type="embeddeddatepicker"/>
+			<xsd:element name="embeddedfileuploadcontrol" type="embeddedfileuploadcontrol"/>
+			<xsd:element name="embeddedfolderpane" type="embeddedfolderpane"/>
+			<xsd:element name="embeddednavigator" type="embeddednavigator"/>
+			<xsd:element name="embeddedoutline" type="embeddedoutline"/>
+			<xsd:element name="embeddedview" type="embeddedview"/>
+			<xsd:element name="imagemap" type="imagemap"/>
+			<xsd:element name="span" type="span"/>
+			<xsd:element name="namedelementref" type="namedelementref"/>
+			<xsd:element name="nonxmlchar" type="nonxmlchar"/>
+			<xsd:element name="embeddedcontrol" type="embeddedcontrol"/>
+			<xsd:element name="richtextdata" type="richtextdata"/>
+			<xsd:element name="doclink" type="doclink"/>
+			<xsd:element name="viewlink" type="viewlink"/>
+			<xsd:element name="databaselink" type="databaselink"/>
+			<xsd:element name="urllink" type="urllink"/>
+			<xsd:element name="namedelementlink" type="namedelementlink"/>
+			<xsd:element name="attachmentref" type="attachmentref"/>
+			<xsd:element name="button" type="button"/>
+			<xsd:element name="computedtext" type="computedtext"/>
+			<xsd:element name="popup" type="popup"/>
+			<xsd:element name="javaapplet" type="javaapplet"/>
+			<xsd:element name="actionhotspot" type="actionhotspot"/>
+			<xsd:element name="objectref" type="objectref"/>
+			<xsd:element name="region" type="region"/>
+		</xsd:choice>
+		<xsd:attribute name="propid" type="xsd:integer" use="required"/>
+		<xsd:attribute name="regionid" type="xsd:integer" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="picture">
+		<xsd:sequence>
+			<xsd:element name="border" type="border" minOccurs="0" maxOccurs="1"/>
+			<xsd:choice>
+				<xsd:element name="gif" type="gif"/>
+				<xsd:element name="jpeg" type="jpeg"/>
+				<xsd:element name="notesbitmap" type="xsd:base64Binary"/>
+				<xsd:element name="cgm" type="cgm"/>
+				<xsd:element name="imageref" type="imageref"/>
+				<xsd:element name="nativeimage" type="nativeimage"/>
+			</xsd:choice>
+			<xsd:element name="caption" type="caption" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="code" type="code" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="height" type="xsd:string" use="optional"/>
+		<xsd:attribute name="width" type="xsd:string" use="optional"/>
+		<xsd:attribute name="scaledheight" type="xsd:string" use="optional"/>
+		<xsd:attribute name="scaledwidth" type="xsd:string" use="optional"/>
+		<xsd:attribute name="alttext" type="xsd:string" use="optional"/>
+		<xsd:attribute name="align" type="picture.aligns" use="optional" default="baseline"/>
+	</xsd:complexType>
+	<xsd:simpleType name="picture.aligns">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="around"/>
+			<xsd:enumeration value="left"/>
+			<xsd:enumeration value="right"/>
+			<xsd:enumeration value="bottom"/>
+			<xsd:enumeration value="middle"/>
+			<xsd:enumeration value="top"/>
+			<xsd:enumeration value="baseline"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="gif">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="originalformat" type="image.original.formats" use="optional"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="image.original.formats">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="notesbitmap"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="jpeg">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="originalformat" type="image.original.formats" use="optional"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="cgm">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="height" type="xsd:string" use="optional"/>
+				<xsd:attribute name="width" type="xsd:string" use="optional"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="imageref">
+		<xsd:sequence>
+			<xsd:element name="code" type="code" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:string" use="optional"/>
+		<xsd:attribute name="database" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="nativeimage">
+		<xsd:attribute name="imagetype" type="image.type" use="optional"/>
+		<xsd:attribute name="imagename" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<xsd:simpleType name="image.type">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="gif"/>
+			<xsd:enumeration value="jpeg"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="caption">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="position" type="caption.positions" use="optional" default="below"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="caption.positions">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="below"/>
+			<xsd:enumeration value="center"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="doclink" mixed="true">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="run" type="run"/>
+			<xsd:element name="break" type="break"/>
+			<xsd:element name="field" type="field"/>
+			<xsd:element name="sharedfieldref" type="sharedfieldref"/>
+			<xsd:element name="picture" type="picture"/>
+			<xsd:element name="horizrule" type="horizrule"/>
+			<xsd:element name="anchor" type="anchor"/>
+			<xsd:element name="embeddeddatepicker" type="embeddeddatepicker"/>
+			<xsd:element name="embeddedfileuploadcontrol" type="embeddedfileuploadcontrol"/>
+			<xsd:element name="embeddedfolderpane" type="embeddedfolderpane"/>
+			<xsd:element name="embeddednavigator" type="embeddednavigator"/>
+			<xsd:element name="embeddedoutline" type="embeddedoutline"/>
+			<xsd:element name="embeddedview" type="embeddedview"/>
+			<xsd:element name="imagemap" type="imagemap"/>
+			<xsd:element name="span" type="span"/>
+			<xsd:element name="namedelementref" type="namedelementref"/>
+			<xsd:element name="nonxmlchar" type="nonxmlchar"/>
+			<xsd:element name="embeddedcontrol" type="embeddedcontrol"/>
+			<xsd:element name="richtextdata" type="richtextdata"/>
+			<xsd:element name="doclink" type="doclink"/>
+			<xsd:element name="viewlink" type="viewlink"/>
+			<xsd:element name="databaselink" type="databaselink"/>
+			<xsd:element name="urllink" type="urllink"/>
+			<xsd:element name="namedelementlink" type="namedelementlink"/>
+			<xsd:element name="attachmentref" type="attachmentref"/>
+			<xsd:element name="button" type="button"/>
+			<xsd:element name="computedtext" type="computedtext"/>
+			<xsd:element name="popup" type="popup"/>
+			<xsd:element name="javaapplet" type="javaapplet"/>
+			<xsd:element name="actionhotspot" type="actionhotspot"/>
+			<xsd:element name="objectref" type="objectref"/>
+			<xsd:element name="region" type="region"/>
+		</xsd:choice>
+		<xsd:attribute name="document" type="xsd:string" use="required"/>
+		<xsd:attribute name="anchor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="view" type="xsd:string" use="optional"/>
+		<xsd:attribute name="database" type="noteshex" use="optional"/>
+		<xsd:attribute name="server" type="xsd:string" use="optional"/>
+		<xsd:attribute name="description" type="xsd:string" use="optional"/>
+		<xsd:attributeGroup ref="link.attrs"/>
+	</xsd:complexType>
+	<xsd:attributeGroup name="link.attrs">
+		<xsd:attribute name="showborder" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="targetframe" type="xsd:string" use="optional"/>
+		<xsd:attribute name="htmlid" type="xsd:string" use="optional"/>
+		<xsd:attribute name="htmlclass" type="xsd:string" use="optional"/>
+		<xsd:attribute name="htmlstyle" type="xsd:string" use="optional"/>
+		<xsd:attribute name="htmltitle" type="xsd:string" use="optional"/>
+		<xsd:attribute name="extrahtmlattrs" type="xsd:string" use="optional"/>
+		<xsd:attribute name="regionid" type="xsd:integer" use="optional"/>
+	</xsd:attributeGroup>
+	<xsd:complexType name="viewlink" mixed="true">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="run" type="run"/>
+			<xsd:element name="break" type="break"/>
+			<xsd:element name="field" type="field"/>
+			<xsd:element name="sharedfieldref" type="sharedfieldref"/>
+			<xsd:element name="picture" type="picture"/>
+			<xsd:element name="horizrule" type="horizrule"/>
+			<xsd:element name="anchor" type="anchor"/>
+			<xsd:element name="embeddeddatepicker" type="embeddeddatepicker"/>
+			<xsd:element name="embeddedfileuploadcontrol" type="embeddedfileuploadcontrol"/>
+			<xsd:element name="embeddedfolderpane" type="embeddedfolderpane"/>
+			<xsd:element name="embeddednavigator" type="embeddednavigator"/>
+			<xsd:element name="embeddedoutline" type="embeddedoutline"/>
+			<xsd:element name="embeddedview" type="embeddedview"/>
+			<xsd:element name="imagemap" type="imagemap"/>
+			<xsd:element name="span" type="span"/>
+			<xsd:element name="namedelementref" type="namedelementref"/>
+			<xsd:element name="nonxmlchar" type="nonxmlchar"/>
+			<xsd:element name="embeddedcontrol" type="embeddedcontrol"/>
+			<xsd:element name="richtextdata" type="richtextdata"/>
+			<xsd:element name="doclink" type="doclink"/>
+			<xsd:element name="viewlink" type="viewlink"/>
+			<xsd:element name="databaselink" type="databaselink"/>
+			<xsd:element name="urllink" type="urllink"/>
+			<xsd:element name="namedelementlink" type="namedelementlink"/>
+			<xsd:element name="attachmentref" type="attachmentref"/>
+			<xsd:element name="button" type="button"/>
+			<xsd:element name="computedtext" type="computedtext"/>
+			<xsd:element name="popup" type="popup"/>
+			<xsd:element name="javaapplet" type="javaapplet"/>
+			<xsd:element name="actionhotspot" type="actionhotspot"/>
+			<xsd:element name="objectref" type="objectref"/>
+			<xsd:element name="region" type="region"/>
+		</xsd:choice>
+		<xsd:attribute name="view" type="xsd:string" use="required"/>
+		<xsd:attribute name="database" type="noteshex" use="optional"/>
+		<xsd:attribute name="server" type="xsd:string" use="optional"/>
+		<xsd:attribute name="description" type="xsd:string" use="optional"/>
+		<xsd:attributeGroup ref="link.attrs"/>
+	</xsd:complexType>
+	<xsd:complexType name="databaselink" mixed="true">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="run" type="run"/>
+			<xsd:element name="break" type="break"/>
+			<xsd:element name="field" type="field"/>
+			<xsd:element name="sharedfieldref" type="sharedfieldref"/>
+			<xsd:element name="picture" type="picture"/>
+			<xsd:element name="horizrule" type="horizrule"/>
+			<xsd:element name="anchor" type="anchor"/>
+			<xsd:element name="embeddeddatepicker" type="embeddeddatepicker"/>
+			<xsd:element name="embeddedfileuploadcontrol" type="embeddedfileuploadcontrol"/>
+			<xsd:element name="embeddedfolderpane" type="embeddedfolderpane"/>
+			<xsd:element name="embeddednavigator" type="embeddednavigator"/>
+			<xsd:element name="embeddedoutline" type="embeddedoutline"/>
+			<xsd:element name="embeddedview" type="embeddedview"/>
+			<xsd:element name="imagemap" type="imagemap"/>
+			<xsd:element name="span" type="span"/>
+			<xsd:element name="namedelementref" type="namedelementref"/>
+			<xsd:element name="nonxmlchar" type="nonxmlchar"/>
+			<xsd:element name="embeddedcontrol" type="embeddedcontrol"/>
+			<xsd:element name="richtextdata" type="richtextdata"/>
+			<xsd:element name="doclink" type="doclink"/>
+			<xsd:element name="viewlink" type="viewlink"/>
+			<xsd:element name="databaselink" type="databaselink"/>
+			<xsd:element name="urllink" type="urllink"/>
+			<xsd:element name="namedelementlink" type="namedelementlink"/>
+			<xsd:element name="attachmentref" type="attachmentref"/>
+			<xsd:element name="button" type="button"/>
+			<xsd:element name="computedtext" type="computedtext"/>
+			<xsd:element name="popup" type="popup"/>
+			<xsd:element name="javaapplet" type="javaapplet"/>
+			<xsd:element name="actionhotspot" type="actionhotspot"/>
+			<xsd:element name="objectref" type="objectref"/>
+			<xsd:element name="region" type="region"/>
+		</xsd:choice>
+		<xsd:attribute name="database" type="noteshex" use="required"/>
+		<xsd:attribute name="server" type="xsd:string" use="optional"/>
+		<xsd:attribute name="description" type="xsd:string" use="optional"/>
+		<xsd:attributeGroup ref="link.attrs"/>
+	</xsd:complexType>
+	<xsd:complexType name="urllink" mixed="true">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="code" type="code"/>
+			<xsd:element name="run" type="run"/>
+			<xsd:element name="break" type="break"/>
+			<xsd:element name="field" type="field"/>
+			<xsd:element name="sharedfieldref" type="sharedfieldref"/>
+			<xsd:element name="picture" type="picture"/>
+			<xsd:element name="horizrule" type="horizrule"/>
+			<xsd:element name="anchor" type="anchor"/>
+			<xsd:element name="embeddeddatepicker" type="embeddeddatepicker"/>
+			<xsd:element name="embeddedfileuploadcontrol" type="embeddedfileuploadcontrol"/>
+			<xsd:element name="embeddedfolderpane" type="embeddedfolderpane"/>
+			<xsd:element name="embeddednavigator" type="embeddednavigator"/>
+			<xsd:element name="embeddedoutline" type="embeddedoutline"/>
+			<xsd:element name="embeddedview" type="embeddedview"/>
+			<xsd:element name="imagemap" type="imagemap"/>
+			<xsd:element name="span" type="span"/>
+			<xsd:element name="namedelementref" type="namedelementref"/>
+			<xsd:element name="nonxmlchar" type="nonxmlchar"/>
+			<xsd:element name="embeddedcontrol" type="embeddedcontrol"/>
+			<xsd:element name="richtextdata" type="richtextdata"/>
+			<xsd:element name="doclink" type="doclink"/>
+			<xsd:element name="viewlink" type="viewlink"/>
+			<xsd:element name="databaselink" type="databaselink"/>
+			<xsd:element name="urllink" type="urllink"/>
+			<xsd:element name="namedelementlink" type="namedelementlink"/>
+			<xsd:element name="attachmentref" type="attachmentref"/>
+			<xsd:element name="button" type="button"/>
+			<xsd:element name="computedtext" type="computedtext"/>
+			<xsd:element name="popup" type="popup"/>
+			<xsd:element name="javaapplet" type="javaapplet"/>
+			<xsd:element name="actionhotspot" type="actionhotspot"/>
+			<xsd:element name="objectref" type="objectref"/>
+			<xsd:element name="region" type="region"/>
+		</xsd:choice>
+		<xsd:attribute name="href" type="xsd:string" use="optional"/>
+		<xsd:attributeGroup ref="link.attrs"/>
+	</xsd:complexType>
+	<xsd:complexType name="namedelementlink" mixed="true">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="code" type="code"/>
+			<xsd:element name="run" type="run"/>
+			<xsd:element name="break" type="break"/>
+			<xsd:element name="field" type="field"/>
+			<xsd:element name="sharedfieldref" type="sharedfieldref"/>
+			<xsd:element name="picture" type="picture"/>
+			<xsd:element name="horizrule" type="horizrule"/>
+			<xsd:element name="anchor" type="anchor"/>
+			<xsd:element name="embeddeddatepicker" type="embeddeddatepicker"/>
+			<xsd:element name="embeddedfileuploadcontrol" type="embeddedfileuploadcontrol"/>
+			<xsd:element name="embeddedfolderpane" type="embeddedfolderpane"/>
+			<xsd:element name="embeddednavigator" type="embeddednavigator"/>
+			<xsd:element name="embeddedoutline" type="embeddedoutline"/>
+			<xsd:element name="embeddedview" type="embeddedview"/>
+			<xsd:element name="imagemap" type="imagemap"/>
+			<xsd:element name="span" type="span"/>
+			<xsd:element name="namedelementref" type="namedelementref"/>
+			<xsd:element name="nonxmlchar" type="nonxmlchar"/>
+			<xsd:element name="embeddedcontrol" type="embeddedcontrol"/>
+			<xsd:element name="richtextdata" type="richtextdata"/>
+			<xsd:element name="doclink" type="doclink"/>
+			<xsd:element name="viewlink" type="viewlink"/>
+			<xsd:element name="databaselink" type="databaselink"/>
+			<xsd:element name="urllink" type="urllink"/>
+			<xsd:element name="namedelementlink" type="namedelementlink"/>
+			<xsd:element name="attachmentref" type="attachmentref"/>
+			<xsd:element name="button" type="button"/>
+			<xsd:element name="computedtext" type="computedtext"/>
+			<xsd:element name="popup" type="popup"/>
+			<xsd:element name="javaapplet" type="javaapplet"/>
+			<xsd:element name="actionhotspot" type="actionhotspot"/>
+			<xsd:element name="objectref" type="objectref"/>
+			<xsd:element name="region" type="region"/>
+		</xsd:choice>
+		<xsd:attribute name="name" type="xsd:string" use="optional"/>
+		<xsd:attribute name="type" type="named.element.link.types" use="required"/>
+		<xsd:attribute name="database" type="xsd:string" use="optional"/>
+		<xsd:attributeGroup ref="link.attrs"/>
+	</xsd:complexType>
+	<xsd:simpleType name="named.element.link.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="page"/>
+			<xsd:enumeration value="form"/>
+			<xsd:enumeration value="frameset"/>
+			<xsd:enumeration value="view"/>
+			<xsd:enumeration value="folder"/>
+			<xsd:enumeration value="navigator"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="anchor">
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="popup" mixed="true">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="popuptext" type="xsd:string"/>
+			<xsd:element name="code" type="code"/>
+			<xsd:element name="run" type="run"/>
+			<xsd:element name="break" type="break"/>
+			<xsd:element name="field" type="field"/>
+			<xsd:element name="sharedfieldref" type="sharedfieldref"/>
+			<xsd:element name="picture" type="picture"/>
+			<xsd:element name="horizrule" type="horizrule"/>
+			<xsd:element name="anchor" type="anchor"/>
+			<xsd:element name="embeddeddatepicker" type="embeddeddatepicker"/>
+			<xsd:element name="embeddedfileuploadcontrol" type="embeddedfileuploadcontrol"/>
+			<xsd:element name="embeddedfolderpane" type="embeddedfolderpane"/>
+			<xsd:element name="embeddednavigator" type="embeddednavigator"/>
+			<xsd:element name="embeddedoutline" type="embeddedoutline"/>
+			<xsd:element name="embeddedview" type="embeddedview"/>
+			<xsd:element name="imagemap" type="imagemap"/>
+			<xsd:element name="span" type="span"/>
+			<xsd:element name="namedelementref" type="namedelementref"/>
+			<xsd:element name="nonxmlchar" type="nonxmlchar"/>
+			<xsd:element name="embeddedcontrol" type="embeddedcontrol"/>
+			<xsd:element name="richtextdata" type="richtextdata"/>
+			<xsd:element name="doclink" type="doclink"/>
+			<xsd:element name="viewlink" type="viewlink"/>
+			<xsd:element name="databaselink" type="databaselink"/>
+			<xsd:element name="urllink" type="urllink"/>
+			<xsd:element name="namedelementlink" type="namedelementlink"/>
+			<xsd:element name="attachmentref" type="attachmentref"/>
+			<xsd:element name="button" type="button"/>
+			<xsd:element name="computedtext" type="computedtext"/>
+			<xsd:element name="popup" type="popup"/>
+			<xsd:element name="javaapplet" type="javaapplet"/>
+			<xsd:element name="actionhotspot" type="actionhotspot"/>
+			<xsd:element name="objectref" type="objectref"/>
+			<xsd:element name="region" type="region"/>
+		</xsd:choice>
+		<xsd:attribute name="show" type="popup.show.types" use="optional" default="onmouseover"/>
+		<xsd:attribute name="hotspotstyle" type="popup.hotspot.styles" use="optional" default="border"/>
+		<xsd:attribute name="regionid" type="xsd:integer" use="optional"/>
+	</xsd:complexType>
+	<xsd:simpleType name="popup.show.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="onmouseover"/>
+			<xsd:enumeration value="onclick"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="popup.hotspot.styles">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="border"/>
+			<xsd:enumeration value="highlight"/>
+			<xsd:enumeration value="none"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="actionhotspot" mixed="true">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="code" type="code"/>
+			<xsd:element name="run" type="run"/>
+			<xsd:element name="break" type="break"/>
+			<xsd:element name="field" type="field"/>
+			<xsd:element name="sharedfieldref" type="sharedfieldref"/>
+			<xsd:element name="picture" type="picture"/>
+			<xsd:element name="horizrule" type="horizrule"/>
+			<xsd:element name="anchor" type="anchor"/>
+			<xsd:element name="embeddeddatepicker" type="embeddeddatepicker"/>
+			<xsd:element name="embeddedfileuploadcontrol" type="embeddedfileuploadcontrol"/>
+			<xsd:element name="embeddedfolderpane" type="embeddedfolderpane"/>
+			<xsd:element name="embeddednavigator" type="embeddednavigator"/>
+			<xsd:element name="embeddedoutline" type="embeddedoutline"/>
+			<xsd:element name="embeddedview" type="embeddedview"/>
+			<xsd:element name="imagemap" type="imagemap"/>
+			<xsd:element name="span" type="span"/>
+			<xsd:element name="namedelementref" type="namedelementref"/>
+			<xsd:element name="nonxmlchar" type="nonxmlchar"/>
+			<xsd:element name="embeddedcontrol" type="embeddedcontrol"/>
+			<xsd:element name="richtextdata" type="richtextdata"/>
+			<xsd:element name="doclink" type="doclink"/>
+			<xsd:element name="viewlink" type="viewlink"/>
+			<xsd:element name="databaselink" type="databaselink"/>
+			<xsd:element name="urllink" type="urllink"/>
+			<xsd:element name="namedelementlink" type="namedelementlink"/>
+			<xsd:element name="attachmentref" type="attachmentref"/>
+			<xsd:element name="button" type="button"/>
+			<xsd:element name="computedtext" type="computedtext"/>
+			<xsd:element name="popup" type="popup"/>
+			<xsd:element name="javaapplet" type="javaapplet"/>
+			<xsd:element name="actionhotspot" type="actionhotspot"/>
+			<xsd:element name="objectref" type="objectref"/>
+			<xsd:element name="region" type="region"/>
+		</xsd:choice>
+		<xsd:attribute name="hotspotstyle" type="action.hotspot.styles" use="optional" default="border"/>
+		<xsd:attribute name="targetframe" type="xsd:string" use="optional"/>
+		<xsd:attribute name="name" type="xsd:string" use="optional"/>
+		<xsd:attributeGroup ref="html.core.attrs"/>
+		<xsd:attribute name="regionid" type="xsd:integer" use="optional"/>
+	</xsd:complexType>
+	<xsd:simpleType name="action.hotspot.styles">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="border"/>
+			<xsd:enumeration value="none"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="region" mixed="true">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="run" type="run"/>
+			<xsd:element name="break" type="break"/>
+			<xsd:element name="field" type="field"/>
+			<xsd:element name="sharedfieldref" type="sharedfieldref"/>
+			<xsd:element name="picture" type="picture"/>
+			<xsd:element name="horizrule" type="horizrule"/>
+			<xsd:element name="anchor" type="anchor"/>
+			<xsd:element name="embeddeddatepicker" type="embeddeddatepicker"/>
+			<xsd:element name="embeddedfileuploadcontrol" type="embeddedfileuploadcontrol"/>
+			<xsd:element name="embeddedfolderpane" type="embeddedfolderpane"/>
+			<xsd:element name="embeddednavigator" type="embeddednavigator"/>
+			<xsd:element name="embeddedoutline" type="embeddedoutline"/>
+			<xsd:element name="embeddedview" type="embeddedview"/>
+			<xsd:element name="imagemap" type="imagemap"/>
+			<xsd:element name="span" type="span"/>
+			<xsd:element name="namedelementref" type="namedelementref"/>
+			<xsd:element name="nonxmlchar" type="nonxmlchar"/>
+			<xsd:element name="embeddedcontrol" type="embeddedcontrol"/>
+			<xsd:element name="richtextdata" type="richtextdata"/>
+			<xsd:element name="doclink" type="doclink"/>
+			<xsd:element name="viewlink" type="viewlink"/>
+			<xsd:element name="databaselink" type="databaselink"/>
+			<xsd:element name="urllink" type="urllink"/>
+			<xsd:element name="namedelementlink" type="namedelementlink"/>
+			<xsd:element name="attachmentref" type="attachmentref"/>
+			<xsd:element name="button" type="button"/>
+			<xsd:element name="computedtext" type="computedtext"/>
+			<xsd:element name="popup" type="popup"/>
+			<xsd:element name="javaapplet" type="javaapplet"/>
+			<xsd:element name="actionhotspot" type="actionhotspot"/>
+			<xsd:element name="objectref" type="objectref"/>
+			<xsd:element name="region" type="region"/>
+		</xsd:choice>
+		<xsd:attribute name="regionid" type="xsd:integer" use="required"/>
+		<xsd:attribute name="end" type="xsd:boolean" use="optional" default="false"/>
+	</xsd:complexType>
+	<xsd:complexType name="attachmentref" mixed="true">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="run" type="run"/>
+			<xsd:element name="break" type="break"/>
+			<xsd:element name="field" type="field"/>
+			<xsd:element name="sharedfieldref" type="sharedfieldref"/>
+			<xsd:element name="picture" type="picture"/>
+			<xsd:element name="horizrule" type="horizrule"/>
+			<xsd:element name="anchor" type="anchor"/>
+			<xsd:element name="embeddeddatepicker" type="embeddeddatepicker"/>
+			<xsd:element name="embeddedfileuploadcontrol" type="embeddedfileuploadcontrol"/>
+			<xsd:element name="embeddedfolderpane" type="embeddedfolderpane"/>
+			<xsd:element name="embeddednavigator" type="embeddednavigator"/>
+			<xsd:element name="embeddedoutline" type="embeddedoutline"/>
+			<xsd:element name="embeddedview" type="embeddedview"/>
+			<xsd:element name="imagemap" type="imagemap"/>
+			<xsd:element name="span" type="span"/>
+			<xsd:element name="namedelementref" type="namedelementref"/>
+			<xsd:element name="nonxmlchar" type="nonxmlchar"/>
+			<xsd:element name="embeddedcontrol" type="embeddedcontrol"/>
+			<xsd:element name="richtextdata" type="richtextdata"/>
+		</xsd:choice>
+		<xsd:attribute name="name" type="xsd:string" use="optional"/>
+		<xsd:attribute name="displayname" type="xsd:string" use="optional"/>
+		<xsd:attribute name="caption" type="xsd:string" use="optional"/>
+		<xsd:attribute name="path" type="xsd:string" use="optional"/>
+		<xsd:attribute name="regionid" type="xsd:integer" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="objectref">
+		<xsd:sequence>
+			<xsd:element name="associatedfiles" type="associatedfiles" minOccurs="0" maxOccurs="1"/>
+			<xsd:choice minOccurs="0" maxOccurs="unbounded">
+				<xsd:element name="run" type="run"/>
+				<xsd:element name="break" type="break"/>
+				<xsd:element name="field" type="field"/>
+				<xsd:element name="sharedfieldref" type="sharedfieldref"/>
+				<xsd:element name="picture" type="picture"/>
+				<xsd:element name="horizrule" type="horizrule"/>
+				<xsd:element name="anchor" type="anchor"/>
+				<xsd:element name="embeddeddatepicker" type="embeddeddatepicker"/>
+				<xsd:element name="embeddedfileuploadcontrol" type="embeddedfileuploadcontrol"/>
+				<xsd:element name="embeddedfolderpane" type="embeddedfolderpane"/>
+				<xsd:element name="embeddednavigator" type="embeddednavigator"/>
+				<xsd:element name="embeddedoutline" type="embeddedoutline"/>
+				<xsd:element name="embeddedview" type="embeddedview"/>
+				<xsd:element name="imagemap" type="imagemap"/>
+				<xsd:element name="span" type="span"/>
+				<xsd:element name="namedelementref" type="namedelementref"/>
+				<xsd:element name="nonxmlchar" type="nonxmlchar"/>
+				<xsd:element name="embeddedcontrol" type="embeddedcontrol"/>
+				<xsd:element name="richtextdata" type="richtextdata"/>
+			</xsd:choice>
+		</xsd:sequence>
+		<xsd:attribute name="version" type="xsd:integer" use="optional" default="2"/>
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+		<xsd:attribute name="class" type="xsd:string" use="optional"/>
+		<xsd:attribute name="type" type="objectref.types" use="optional" default="embeddedobject"/>
+		<xsd:attribute name="savewhenchanged" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="render" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attribute name="displayformat" type="objectref.display.formats" use="optional" default="metafile"/>
+		<xsd:attribute name="description" type="xsd:string" use="optional"/>
+		<xsd:attribute name="classid" type="xsd:string" use="required"/>
+		<xsd:attribute name="storageformat" type="objectref.storage.formats" use="optional" default="structstorage"/>
+		<xsd:attribute name="scripted" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="runreadonly" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="fittowindow" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="control" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="fitbelowfields" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="regionid" type="xsd:integer" use="optional"/>
+		<xsd:attributeGroup ref="html.core.attrs"/>
+	</xsd:complexType>
+	<xsd:simpleType name="objectref.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="autolink"/>
+			<xsd:enumeration value="manuallink"/>
+			<xsd:enumeration value="embeddedobject"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="objectref.display.formats">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="text"/>
+			<xsd:enumeration value="metafile"/>
+			<xsd:enumeration value="bitmap"/>
+			<xsd:enumeration value="richtext"/>
+			<xsd:enumeration value="icon"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="objectref.storage.formats">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="structstorage"/>
+			<xsd:enumeration value="istorageistream"/>
+			<xsd:enumeration value="structstream"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="associatedfiles">
+		<xsd:sequence>
+			<xsd:element name="fileitemref" type="fileitemref" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="fileitemref">
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="javaapplet">
+		<xsd:sequence>
+			<xsd:element name="appletparameters" type="appletparameters" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="code" type="code" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="width" type="xsd:string" use="optional"/>
+		<xsd:attribute name="height" type="xsd:string" use="optional"/>
+		<xsd:attribute name="inactivetext" type="xsd:string" use="optional"/>
+		<xsd:attribute name="usescorbaclasses" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="usescorbassl" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="name" type="xsd:string" use="optional"/>
+		<xsd:attributeGroup ref="html.core.attrs"/>
+	</xsd:complexType>
+	<xsd:complexType name="appletparameters">
+		<xsd:sequence>
+			<xsd:element name="code" type="code" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="layout">
+		<xsd:attribute name="heighttype" type="eoutline.height.types" use="optional" default="fitcontent"/>
+		<xsd:attribute name="height" type="xsd:string" use="optional"/>
+		<xsd:attribute name="entryhoffset" type="xsd:string" use="optional"/>
+		<xsd:attribute name="entryvoffset" type="xsd:string" use="optional"/>
+		<xsd:attribute name="imagehoffset" type="xsd:string" use="optional"/>
+		<xsd:attribute name="imagevoffset" type="xsd:string" use="optional"/>
+		<xsd:attribute name="imagealign" type="complex.aligns" use="optional" default="topleft"/>
+		<xsd:attribute name="labelhoffset" type="xsd:string" use="optional"/>
+		<xsd:attribute name="labelvoffset" type="xsd:string" use="optional"/>
+		<xsd:attribute name="labelalign" type="complex.aligns" use="optional" default="topleft"/>
+	</xsd:complexType>
+	<xsd:simpleType name="eoutline.height.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="fitcontent"/>
+			<xsd:enumeration value="fixed"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="complex.aligns">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="topleft"/>
+			<xsd:enumeration value="topcenter"/>
+			<xsd:enumeration value="topright"/>
+			<xsd:enumeration value="middleleft"/>
+			<xsd:enumeration value="middlecenter"/>
+			<xsd:enumeration value="middleright"/>
+			<xsd:enumeration value="bottomleft"/>
+			<xsd:enumeration value="bottomcenter"/>
+			<xsd:enumeration value="bottomright"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="eoutlinebackground">
+		<xsd:sequence>
+			<xsd:element name="imageref" type="imageref" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="normalcolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="selectedcolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="mouseovercolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="repeat" type="eoutline.repeats" use="optional" default="once"/>
+	</xsd:complexType>
+	<xsd:simpleType name="eoutline.repeats">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="once"/>
+			<xsd:enumeration value="hrepeat"/>
+			<xsd:enumeration value="vrepeat"/>
+			<xsd:enumeration value="tile"/>
+			<xsd:enumeration value="resize"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="control">
+		<xsd:sequence>
+			<xsd:element name="eoutlinebackground" type="eoutlinebackground" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="title">
+		<xsd:sequence>
+			<xsd:element name="font" type="font" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="eoutlinebackground" type="eoutlinebackground" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="layout" type="layout" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="style" type="outline.titlestyles" use="optional" default="hide"/>
+		<xsd:attribute name="normalcolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="mouseovercolor" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<xsd:simpleType name="outline.titlestyles">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="simple"/>
+			<xsd:enumeration value="hide"/>
+			<xsd:enumeration value="hierarchical"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="toplevel">
+		<xsd:sequence>
+			<xsd:element name="font" type="font" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="eoutlinebackground" type="eoutlinebackground" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="layout" type="layout" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="normalcolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="selectedcolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="mouseovercolor" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="sublevel">
+		<xsd:sequence>
+			<xsd:element name="font" type="font" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="eoutlinebackground" type="eoutlinebackground" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="layout" type="layout" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="normalcolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="selectedcolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="mouseovercolor" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="twistieimage">
+		<xsd:sequence>
+			<xsd:element name="imageref" type="imageref"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="embeddedoutline">
+		<xsd:sequence>
+			<xsd:element name="control" type="control" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="title" type="title" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="toplevel" type="toplevel" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="sublevel" type="sublevel" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="twistieimage" type="twistieimage" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="border" type="border" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="display" type="outline.displaydirections" use="optional" default="vertical"/>
+		<xsd:attribute name="expand" type="outline.expandtypes" use="optional" default="saved"/>
+		<xsd:attribute name="imagelabel" type="xsd:string" use="optional"/>
+		<xsd:attribute name="name" type="xsd:string" use="optional"/>
+		<xsd:attributeGroup ref="direction.attrs"/>
+		<xsd:attribute name="rootname" type="xsd:string" use="optional"/>
+		<xsd:attribute name="samebackground" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="samefont" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="showtwistie" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="targetframe" type="xsd:string" use="optional"/>
+		<xsd:attribute name="tileimage" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="type" type="outline.types" use="optional" default="tree"/>
+		<xsd:attribute name="useappletinbrowser" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="width" type="xsd:string" use="optional" default="100%"/>
+		<xsd:attribute name="widthtype" type="eoutline.sizetypes" use="optional" default="fitwindow"/>
+		<xsd:attribute name="height" type="xsd:string" use="optional" default="1in"/>
+		<xsd:attribute name="heighttype" type="eoutline.sizetypes" use="optional" default="fixed"/>
+		<xsd:attribute name="scrollbars" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attribute name="showviewcontents" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="outline" type="xsd:string" use="optional"/>
+		<xsd:attribute name="database" type="xsd:string" use="optional"/>
+		<xsd:attribute name="showfolderunread" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="characters" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="columnwidth" type="xsd:string" use="optional" default="0in"/>
+	</xsd:complexType>
+	<xsd:simpleType name="outline.displaydirections">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="vertical"/>
+			<xsd:enumeration value="horizontal"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="outline.expandtypes">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="all"/>
+			<xsd:enumeration value="first"/>
+			<xsd:enumeration value="saved"/>
+			<xsd:enumeration value="none"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="outline.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="flat"/>
+			<xsd:enumeration value="tree"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="eoutline.sizetypes">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="fixed"/>
+			<xsd:enumeration value="fitwindow"/>
+			<xsd:enumeration value="fitcontent"/>
+			<xsd:enumeration value="fixedcharacter"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="embeddedfolderpane">
+		<xsd:sequence>
+			<xsd:element name="font" type="font" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="sparefont">
+		<xsd:sequence>
+			<xsd:element name="font" type="font"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="embeddedview">
+		<xsd:sequence>
+			<xsd:element name="code" type="code" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="sparefont" type="sparefont" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="border" type="border" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:string" use="optional"/>
+		<xsd:attribute name="sclickframe" type="xsd:string" use="optional"/>
+		<xsd:attribute name="dclickframe" type="xsd:string" use="optional"/>
+		<xsd:attribute name="usedefaultlines" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attribute name="displayusing" type="embeddedview.display.types" use="optional" default="javaapplet"/>
+		<xsd:attribute name="linestodisplay" type="xsd:integer" use="optional" default="0"/>
+		<xsd:attribute name="width" type="xsd:string" use="optional"/>
+		<xsd:attribute name="widthtype" type="embedded.fit.types" use="optional" default="fixed"/>
+		<xsd:attribute name="height" type="xsd:string" use="optional"/>
+		<xsd:attribute name="heighttype" type="embedded.fit.types" use="optional" default="fixed"/>
+		<xsd:attribute name="scrollbars" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="showheader" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attribute name="selectionfollowsmouse" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="transparentbackground" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="showentriesaslinks" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="showactionbar" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="showselectionmargin" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="database" type="xsd:string" use="optional"/>
+		<xsd:attribute name="showcurrentthreadonly" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="useviewsselectionmarginprop" type="xsd:boolean" use="optional" default="true"/>
+	</xsd:complexType>
+	<xsd:simpleType name="embeddedview.display.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="html"/>
+			<xsd:enumeration value="javaapplet"/>
+			<xsd:enumeration value="designsettings"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="embedded.fit.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="fitwindow"/>
+			<xsd:enumeration value="fixed"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="embeddeddatepicker">
+		<xsd:sequence>
+			<xsd:element name="font" type="font" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="border" type="border" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="headerbgcolor" type="xsd:string" use="optional" default="none"/>
+		<xsd:attribute name="controlbgcolor" type="xsd:string" use="optional" default="none"/>
+		<xsd:attribute name="textcolor" type="xsd:string" use="optional" default="black"/>
+		<xsd:attribute name="targetframe" type="xsd:string" use="optional"/>
+		<xsd:attribute name="proportional" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="height" type="xsd:string" use="optional"/>
+		<xsd:attribute name="heighttype" type="embedded.fit.types" use="optional" default="fixed"/>
+		<xsd:attribute name="width" type="xsd:string" use="optional"/>
+		<xsd:attribute name="widthtype" type="embedded.fit.types" use="optional" default="fixed"/>
+	</xsd:complexType>
+	<xsd:complexType name="embeddednavigator">
+		<xsd:sequence>
+			<xsd:element name="code" type="code" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:string" use="optional"/>
+		<xsd:attribute name="istemplate" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="database" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="embeddedfileuploadcontrol">
+		<xsd:attributeGroup ref="html.core.attrs"/>
+	</xsd:complexType>
+	<xsd:complexType name="point">
+		<xsd:attribute name="x" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="y" type="xsd:integer" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="area">
+		<xsd:sequence>
+			<xsd:choice minOccurs="0" maxOccurs="1">
+				<xsd:sequence>
+					<xsd:element name="point" type="point" minOccurs="2" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:choice>
+			<xsd:choice minOccurs="0" maxOccurs="1">
+				<xsd:element name="doclink" type="doclink"/>
+				<xsd:element name="viewlink" type="viewlink"/>
+				<xsd:element name="databaselink" type="databaselink"/>
+				<xsd:element name="urllink" type="urllink"/>
+				<xsd:element name="namedelementlink" type="namedelementlink"/>
+			</xsd:choice>
+			<xsd:element name="code" type="code" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="type" type="area.type" use="optional"/>
+		<xsd:attribute name="tabindex" type="xsd:integer" use="optional" default="0"/>
+		<xsd:attributeGroup ref="html.core.attrs"/>
+		<xsd:attribute name="alttext" type="xsd:string" use="optional"/>
+		<xsd:attribute name="targetframe" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<xsd:simpleType name="area.type">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="circle"/>
+			<xsd:enumeration value="default"/>
+			<xsd:enumeration value="rectangle"/>
+			<xsd:enumeration value="polygon"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="imagemap">
+		<xsd:sequence>
+			<xsd:element name="picture" type="picture"/>
+			<xsd:element name="area" type="area" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:string" use="optional"/>
+		<xsd:attribute name="lastdefaultid" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="lastrectangleid" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="lastcircleid" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="lastpolygonid" type="xsd:integer" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="keyword">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="on" type="xsd:boolean" use="optional" default="false"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="embeddedkeywords">
+		<xsd:sequence>
+			<xsd:element name="keyword" type="keyword" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="embeddedcontrol">
+		<xsd:sequence>
+			<xsd:element name="text" type="text" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="font" type="font" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="embeddedkeywords" type="embeddedkeywords" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="type" type="embeddedcontrol.type" use="optional"/>
+		<xsd:attribute name="borderstyle" type="keywords.borders" use="optional"/>
+		<xsd:attribute name="columns" type="xsd:integer" use="optional" default="1"/>
+		<xsd:attribute name="alignwithbaseline" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="allowmultilines" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attributeGroup ref="reading.order.attrs"/>
+		<xsd:attribute name="width" type="xsd:string" use="optional"/>
+		<xsd:attribute name="widthtype" type="embedded.fit.types" use="optional" default="fixed"/>
+		<xsd:attribute name="height" type="xsd:string" use="optional"/>
+		<xsd:attribute name="bgcolor" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<xsd:simpleType name="embeddedcontrol.type">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="checkbox"/>
+			<xsd:enumeration value="combobox"/>
+			<xsd:enumeration value="edit"/>
+			<xsd:enumeration value="listbox"/>
+			<xsd:enumeration value="radiobutton"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="keywords.borders">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="none"/>
+			<xsd:enumeration value="single"/>
+			<xsd:enumeration value="inset"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="namedelementref">
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+		<xsd:attribute name="type" type="namedelementref.type" use="required"/>
+		<xsd:attribute name="database" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<xsd:simpleType name="namedelementref.type">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="htmlfile"/>
+			<xsd:enumeration value="scriptlibrary"/>
+			<xsd:enumeration value="stylesheet"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="richtextdata">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="type" type="noteshex" use="required"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="datetimeformat">
+		<xsd:attribute name="show" type="datetimeformat.show" use="optional"/>
+		<xsd:attribute name="date" type="datetimeformat.date" use="optional"/>
+		<xsd:attribute name="showtodaywhenappropriate" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="fourdigityear" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="fourdigityearfor21stcentury" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="omitthisyear" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="time" type="datetimeformat.time" use="optional"/>
+		<xsd:attribute name="zone" type="datetimeformat.zone" use="optional"/>
+		<xsd:attribute name="calendar" type="datetimeformat.calendar" use="optional"/>
+	</xsd:complexType>
+	<xsd:simpleType name="datetimeformat.show">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="date"/>
+			<xsd:enumeration value="time"/>
+			<xsd:enumeration value="datetime"/>
+			<xsd:enumeration value="datetimetoday"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="datetimeformat.date">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="yearmonthday"/>
+			<xsd:enumeration value="year4monthday"/>
+			<xsd:enumeration value="monthday"/>
+			<xsd:enumeration value="yearmonth"/>
+			<xsd:enumeration value="year4month"/>
+			<xsd:enumeration value="weekdaymonthdayyear"/>
+			<xsd:enumeration value="weekdaymonthday"/>
+			<xsd:enumeration value="weekday"/>
+			<xsd:enumeration value="month"/>
+			<xsd:enumeration value="day"/>
+			<xsd:enumeration value="year"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="datetimeformat.time">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="hourminutesecondhundredths"/>
+			<xsd:enumeration value="hourminutesecond"/>
+			<xsd:enumeration value="hourminute"/>
+			<xsd:enumeration value="hour"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="datetimeformat.zone">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="never"/>
+			<xsd:enumeration value="sometimes"/>
+			<xsd:enumeration value="always"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="datetimeformat.calendar">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="gregorian"/>
+			<xsd:enumeration value="hijri"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="numberformat">
+		<xsd:attribute name="digits" type="xsd:string" use="optional" default="varying"/>
+		<xsd:attribute name="format" type="numberformat.formats" use="optional"/>
+		<xsd:attribute name="punctuated" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="parens" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="percent" type="xsd:boolean" use="optional"/>
+	</xsd:complexType>
+	<xsd:simpleType name="numberformat.formats">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="general"/>
+			<xsd:enumeration value="fixed"/>
+			<xsd:enumeration value="scientific"/>
+			<xsd:enumeration value="currency"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="updatedby">
+		<xsd:sequence minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="name" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="revisions">
+		<xsd:sequence minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="datetime" type="datetime"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="subform">
+		<xsd:sequence>
+			<xsd:group ref="named.design.note.prolog"/>
+			<xsd:element name="globals" type="globals" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="code" type="code" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="actionbar" type="actionbar" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="body" type="body"/>
+			<xsd:group ref="note.epilog"/>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="named.design.note.attrs"/>
+	</xsd:complexType>
+
+	<xsd:complexType name="page">
+		<xsd:sequence>
+			<xsd:group ref="named.design.note.prolog"/>
+			<xsd:element name="globals" type="globals" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="code" type="code" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="actionbar" type="actionbar" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="background" type="background" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="body" type="body"/>
+			<xsd:group ref="note.epilog"/>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="named.design.note.attrs"/>
+		<xsd:attributeGroup ref="link.color.attrs"/>
+		<xsd:attributeGroup ref="reading.order.attrs"/>
+		<xsd:attribute name="bgcolor" type="xsd:string" use="optional"/>
+		<xsd:attributeGroup ref="form.focus.attrs"/>
+	</xsd:complexType>
+
+	<xsd:complexType name="form">
+		<xsd:complexContent>
+			<xsd:extension base="page">
+				<xsd:attribute name="inherit" type="xsd:boolean" use="optional" default="false"/>
+				<xsd:attribute name="mailable" type="xsd:boolean" use="optional" default="false"/>
+				<xsd:attribute name="type" type="form.types" use="optional" default="document"/>
+				<xsd:attribute name="recalc" type="xsd:boolean" use="optional" default="false"/>
+				<xsd:attribute name="storeform" type="xsd:boolean" use="optional" default="false"/>
+				<xsd:attribute name="editonopen" type="xsd:boolean" use="optional" default="false"/>
+				<xsd:attribute name="anonymous" type="xsd:boolean" use="optional" default="false"/>
+				<xsd:attribute name="nofieldexchange" type="xsd:boolean" use="optional" default="false"/>
+				<xsd:attribute name="versions" type="form.versions" use="optional" default="none"/>
+				<xsd:attribute name="manualversion" type="xsd:boolean" use="optional" default="false"/>
+				<xsd:attribute name="inheritdoc" type="form.inheritdocs" use="optional" default="none"/>
+				<xsd:attribute name="inheritdocfield" type="xsd:string" use="optional"/>
+				<xsd:attribute name="contextpane" type="form.contextpanes" use="optional" default="hide"/>
+				<xsd:attribute name="mergeconflicts" type="xsd:boolean" use="optional"/>
+				<xsd:attribute name="conflictaction" type="form.conflictactions" use="optional" default="createconflicts"/>
+				<xsd:attribute name="dataconnection.metadataname" type="xsd:string" use="optional"/>
+				<xsd:attribute name="dataconnection.resourcename" type="xsd:string" use="optional"/>
+				<xsd:attribute name="signdocuments" type="xsd:boolean" use="optional" default="false"/>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:attributeGroup name="named.design.note.attrs">
+		<xsd:attributeGroup ref="design.note.attrs"/>
+		<xsd:attribute name="name" type="xsd:string" use="optional"/>
+		<xsd:attribute name="alias" type="xsd:string" use="optional"/>
+		<xsd:attribute name="comment" type="xsd:string" use="optional"/>
+	</xsd:attributeGroup>
+
+	<xsd:attributeGroup name="link.color.attrs">
+		<xsd:attribute name="activelinkcolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="visitedlinkcolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="unvisitedlinkcolor" type="xsd:string" use="optional"/>
+	</xsd:attributeGroup>
+
+	<xsd:simpleType name="form.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="document"/>
+			<xsd:enumeration value="response"/>
+			<xsd:enumeration value="responsetoresponse"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="form.versions">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="none"/>
+			<xsd:enumeration value="newresponse"/>
+			<xsd:enumeration value="oldresponse"/>
+			<xsd:enumeration value="newsibling"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="form.inheritdocs">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="none"/>
+			<xsd:enumeration value="link"/>
+			<xsd:enumeration value="richtext"/>
+			<xsd:enumeration value="collapsed"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="form.contextpanes">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="hide"/>
+			<xsd:enumeration value="link"/>
+			<xsd:enumeration value="parent"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="form.conflictactions">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="createconflicts"/>
+			<xsd:enumeration value="donotcreateconflicts"/>
+			<xsd:enumeration value="mergeconflicts"/>
+			<xsd:enumeration value="mergenoconflicts"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:attributeGroup name="form.focus.attrs">
+		<xsd:attribute name="noinitialfocus" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="nofocusonf6" type="xsd:boolean" use="optional" default="false"/>
+	</xsd:attributeGroup>
+
+	<xsd:complexType name="helpaboutdocument">
+		<xsd:sequence>
+			<xsd:group ref="design.note.prolog"/>
+			<xsd:element name="background" type="background" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="body" type="body"/>
+			<xsd:group ref="note.epilog"/>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="design.note.attrs"/>
+		<xsd:attribute name="bgcolor" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+
+	<!-- **********************************************************************
+     * SimpleType:   design.note.hide.tokens
+     * Description:  Enumerates all possible values for hide attribute from 
+     *								the design.note.attrs attribute group
+     *********************************************************************** -->
+	<xsd:simpleType name="design.note.hide.tokens">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="v3"/>
+			<xsd:enumeration value="v4"/>
+			<xsd:enumeration value="v5"/>
+			<xsd:enumeration value="notes"/>
+			<xsd:enumeration value="web"/>
+			<xsd:enumeration value="mobile"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<!-- **********************************************************************
+     * SimpleType:   design.note.hide
+     * Description:  Provides a list of design.note.hide.tokens
+     *********************************************************************** -->
+	<xsd:simpleType name="design.note.hide">
+		<xsd:list itemType="design.note.hide.tokens"/>
+	</xsd:simpleType>
+
+	<!-- **********************************************************************
+     * AttributeGroup: design.note.attrs
+     * Description:    Attributes that occur on most design elements
+     *********************************************************************** -->
+	<xsd:attributeGroup name="design.note.attrs">
+		<xsd:attributeGroup ref="note.attrs"/>
+		<xsd:attribute name="hide" type="design.note.hide" use="optional"/>
+		<xsd:attribute name="nocompose" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="noquery" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="norenderv3" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="insertdialog" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="newinsertdialog" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="otherdialog" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="noreplace" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="readonly" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="propagatenoreplace" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="useapplet" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="treatashtml" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="htmlallfields" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="publicaccess" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="language" type="xsd:string" use="optional"/>
+		<xsd:attribute name="default" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="private" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="designerversion" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="fromtemplate" type="xsd:string" use="optional"/>
+	</xsd:attributeGroup>
+	<xsd:complexType name="helpusingdocument">
+		<xsd:sequence>
+			<xsd:group ref="design.note.prolog"/>
+			<xsd:element name="background" type="background" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="body" type="body"/>
+			<xsd:group ref="note.epilog"/>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="design.note.attrs"/>
+		<xsd:attribute name="bgcolor" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="sharedfield">
+		<xsd:sequence>
+			<xsd:group ref="named.design.note.prolog"/>
+			<xsd:element name="field" type="field"/>
+			<xsd:group ref="note.epilog"/>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="named.design.note.attrs"/>
+	</xsd:complexType>
+	<xsd:complexType name="body">
+		<xsd:sequence>
+			<xsd:element name="richtext" type="richtext"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="dataconnection">
+		<xsd:sequence>
+			<xsd:group ref="named.design.note.prolog"/>
+			<xsd:group ref="note.epilog"/>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="named.design.note.attrs"/>
+		<xsd:attribute name="class" type="dataconnection.class" use="required"/>
+		<xsd:attribute name="type" type="dataconnection.types" use="required"/>
+		<xsd:attribute name="username" type="xsd:string" use="optional"/>
+		<xsd:attribute name="password" type="xsd:string" use="optional"/>
+		<xsd:attribute name="database" type="xsd:string" use="optional"/>
+		<xsd:attribute name="hoststring" type="xsd:string" use="optional"/>
+		<xsd:attribute name="sqlserver" type="xsd:string" use="optional"/>
+		<xsd:attribute name="datasource" type="xsd:string" use="optional"/>
+		<xsd:attribute name="objecttype" type="dataconnection.object.types" use="optional"/>
+		<xsd:attribute name="objectowner" type="xsd:string" use="optional"/>
+		<xsd:attribute name="objectname" type="xsd:string" use="optional"/>
+		<xsd:attribute name="objectopen" type="xsd:string" use="optional"/>
+		<xsd:attribute name="objectupdate" type="xsd:string" use="optional"/>
+		<xsd:attribute name="objectcreate" type="xsd:string" use="optional"/>
+		<xsd:attribute name="objectdelete" type="xsd:string" use="optional"/>
+		<xsd:attribute name="connections" type="xsd:integer" use="optional" default="1"/>
+		<xsd:attribute name="blockkeyfieldupdates" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="updatechangedfieldsonly" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="disablehttpcaching" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="fieldsgetdecserrors" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="spacetrim" type="dataconnect.spacetrim.values" use="optional" default="none"/>
+		<xsd:attribute name="conflictdetection" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="ondatamismatch" type="dataconnection.ondatamismatch.values" use="optional" default="precisionloss"/>
+		<xsd:attribute name="onmissingrecord" type="dataconnection.onmissingrecord.values" use="optional" default="error"/>
+		<xsd:attributeGroup ref="dataconnection.customizedproperties.values"/>
+	</xsd:complexType>
+	<xsd:simpleType name="dataconnection.class">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="rdbms"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="dataconnection.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="db2"/>
+			<xsd:enumeration value="oracle"/>
+			<xsd:enumeration value="sybase"/>
+			<xsd:enumeration value="odbc2"/>
+			<xsd:enumeration value="oracle8"/>
+			<xsd:enumeration value="oledb"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="dataconnection.object.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="table"/>
+			<xsd:enumeration value="view"/>
+			<xsd:enumeration value="procedure"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="dataconnect.spacetrim.values">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="none"/>
+			<xsd:enumeration value="nonkeyfields"/>
+			<xsd:enumeration value="allfields"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="dataconnection.ondatamismatch.values">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="error"/>
+			<xsd:enumeration value="precisionloss"/>
+			<xsd:enumeration value="datatruncation"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="dataconnection.onmissingrecord.values">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="error"/>
+			<xsd:enumeration value="ignore"/>
+			<xsd:enumeration value="externalrecord"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:attributeGroup name="dataconnection.customizedproperties.values">
+		<xsd:attribute name="datajournaling" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="oledbprovider" type="xsd:string" use="optional"/>
+		<xsd:attribute name="oledbdatasource" type="xsd:string" use="optional"/>
+		<xsd:attribute name="oledbdatabase" type="xsd:string" use="optional"/>
+		<xsd:attribute name="oledbproviderstring" type="xsd:string" use="optional"/>
+		<xsd:attribute name="oledbauthentication" type="xsd:string" use="optional"/>
+		<xsd:attribute name="singlethreading" type="xsd:boolean" use="optional"/>
+	</xsd:attributeGroup>
+	<xsd:complexType name="code">
+		<xsd:choice>
+			<xsd:element name="formula" type="formula"/>
+			<xsd:element name="javascript" type="javascript"/>
+			<xsd:element name="lotusscript" type="lotusscript"/>
+			<xsd:element name="javaproject" type="javaproject"/>
+			<xsd:element name="simpleaction" type="simpleaction" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:choice>
+		<xsd:attribute name="event" type="xsd:string" use="required"/>
+		<xsd:attribute name="for" type="xsd:token" use="optional"/>
+		<xsd:attribute name="enabled" type="xsd:boolean" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="javascript" mixed="true">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="nonxmlchar" type="nonxmlchar"/>
+		</xsd:choice>
+	</xsd:complexType>
+	<xsd:complexType name="lotusscript" mixed="true">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="nonxmlchar" type="nonxmlchar"/>
+		</xsd:choice>
+	</xsd:complexType>
+	<xsd:complexType name="java" mixed="true">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="nonxmlchar" type="nonxmlchar"/>
+		</xsd:choice>
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="javaproject">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="java" type="java"/>
+			<xsd:element name="javaresource" type="javaresource"/>
+			<xsd:element name="javaarchive" type="javaarchive"/>
+			<xsd:element name="sharedlibraryref" type="sharedlibraryref"/>
+			<xsd:element name="appletresourcefileref" type="appletresourcefileref"/>
+		</xsd:choice>
+		<xsd:attribute name="class" type="xsd:string" use="optional"/>
+		<xsd:attribute name="codepath" type="xsd:string" use="optional"/>
+		<xsd:attribute name="imported" type="xsd:boolean" use="optional" default="false"/>
+	</xsd:complexType>
+	<xsd:complexType name="javaresource">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="name" type="xsd:string" use="required"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="javaarchive">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="name" type="xsd:string" use="required"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="appletresourcefileref">
+		<xsd:attribute name="database" type="noteshex" use="optional"/>
+		<xsd:attribute name="appletresource" type="xsd:string" use="required"/>
+		<xsd:attribute name="file" type="xsd:string" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="sharedlibraryref">
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="simpleaction">
+		<xsd:choice minOccurs="0" maxOccurs="1">
+			<xsd:element name="modifybyformaction" type="modifybyformaction"/>
+			<xsd:element name="sendreplyaction" type="sendreplyaction"/>
+			<xsd:element name="sendmailaction" type="sendmailaction"/>
+			<xsd:element name="sendnewsletteraction" type="sendnewsletteraction"/>
+			<xsd:element name="formula" type="formula"/>
+		</xsd:choice>
+		<xsd:attribute name="action" type="simpleaction.types" use="required"/>
+		<xsd:attribute name="folder" type="xsd:string" use="optional"/>
+		<xsd:attribute name="agent" type="xsd:string" use="optional"/>
+		<xsd:attribute name="server" type="xsd:string" use="optional"/>
+		<xsd:attribute name="file" type="xsd:string" use="optional"/>
+		<xsd:attribute name="field" type="xsd:string" use="optional"/>
+		<xsd:attribute name="value" type="xsd:string" use="optional"/>
+		<xsd:attribute name="appendvalue" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="formulatype" type="formula.types" use="optional"/>
+	</xsd:complexType>
+	<xsd:simpleType name="simpleaction.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="copytodatabase"/>
+			<xsd:enumeration value="copytofolder"/>
+			<xsd:enumeration value="delete"/>
+			<xsd:enumeration value="markread"/>
+			<xsd:enumeration value="markunread"/>
+			<xsd:enumeration value="modifyfield"/>
+			<xsd:enumeration value="modifybyform"/>
+			<xsd:enumeration value="movetofolder"/>
+			<xsd:enumeration value="removefromfolder"/>
+			<xsd:enumeration value="sendreply"/>
+			<xsd:enumeration value="runagent"/>
+			<xsd:enumeration value="send"/>
+			<xsd:enumeration value="sendmail"/>
+			<xsd:enumeration value="sendnewsletter"/>
+			<xsd:enumeration value="runformula"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="formula.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="modifydocs"/>
+			<xsd:enumeration value="createdocs"/>
+			<xsd:enumeration value="selectdocs"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="modifybyformaction">
+		<xsd:sequence>
+			<xsd:element name="fieldchoice" type="fieldchoice" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="form" type="xsd:string" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="fieldchoice">
+		<xsd:choice>
+			<xsd:group ref="simple.types"/>
+			<xsd:group ref="item.complex.types"/>
+		</xsd:choice>
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="sendreplyaction">
+		<xsd:sequence>
+			<xsd:element name="text" type="text" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="replytoall" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="includedocument" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="replyonce" type="xsd:boolean" use="optional" default="false"/>
+	</xsd:complexType>
+	<xsd:complexType name="sendmailaction">
+		<xsd:sequence>
+			<xsd:element name="sendto" type="sendto"/>
+			<xsd:element name="sendcc" type="sendcc" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="sendbcc" type="sendbcc" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="sendsubject" type="sendsubject" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="text" type="text" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="includedocument" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="includelink" type="xsd:boolean" use="optional" default="false"/>
+	</xsd:complexType>
+	<xsd:complexType name="sendto">
+		<xsd:choice>
+			<xsd:element name="text" type="text"/>
+			<xsd:element name="textlist" type="textlist"/>
+			<xsd:element name="formula" type="formula"/>
+		</xsd:choice>
+	</xsd:complexType>
+	<xsd:complexType name="sendcc">
+		<xsd:choice>
+			<xsd:element name="text" type="text"/>
+			<xsd:element name="textlist" type="textlist"/>
+			<xsd:element name="formula" type="formula"/>
+		</xsd:choice>
+	</xsd:complexType>
+	<xsd:complexType name="sendbcc">
+		<xsd:choice>
+			<xsd:element name="text" type="text"/>
+			<xsd:element name="textlist" type="textlist"/>
+			<xsd:element name="formula" type="formula"/>
+		</xsd:choice>
+	</xsd:complexType>
+	<xsd:complexType name="sendsubject">
+		<xsd:choice>
+			<xsd:element name="text" type="text"/>
+			<xsd:element name="textlist" type="textlist"/>
+			<xsd:element name="formula" type="formula"/>
+		</xsd:choice>
+	</xsd:complexType>
+	<xsd:complexType name="sendnewsletteraction">
+		<xsd:sequence>
+			<xsd:element name="sendto" type="sendto"/>
+			<xsd:element name="sendcc" type="sendcc" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="sendbcc" type="sendbcc" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="sendsubject" type="sendsubject" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="text" type="text" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="view" type="xsd:string" use="optional"/>
+		<xsd:attribute name="gather" type="xsd:integer" use="optional" default="1"/>
+		<xsd:attribute name="summary" type="xsd:boolean" use="optional" default="true"/>
+	</xsd:complexType>
+	<xsd:complexType name="globals">
+		<xsd:sequence>
+			<xsd:element name="code" type="code" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="databasescript">
+		<xsd:sequence>
+			<xsd:group ref="named.design.note.prolog"/>
+			<xsd:element name="code" type="code" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:group ref="note.epilog"/>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="design.note.attrs"/>
+	</xsd:complexType>
+	<xsd:complexType name="field">
+		<xsd:sequence>
+			<xsd:element name="keywords" type="keywords" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="datetimeformat" type="datetimeformat" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="numberformat" type="numberformat" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="code" type="code" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+		<xsd:attribute name="type" type="field.types" use="required"/>
+		<xsd:attribute name="kind" type="field.kinds" use="optional" default="editable"/>
+		<xsd:attribute name="allowmultivalues" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="description" type="xsd:string" use="optional"/>
+		<xsd:attribute name="taborder" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="choicesdialog" type="field.choicesdialogs" use="optional"/>
+		<xsd:attribute name="view" type="xsd:string" use="optional"/>
+		<xsd:attribute name="viewdatabase" type="xsd:string" use="optional"/>
+		<xsd:attribute name="viewcolumn" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="lookupeachchar" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="protected" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="sign" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="seal" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="listinputseparators" type="xsd:NMTOKENS" use="optional"/>
+		<xsd:attribute name="listdisplayseparator" type="list.separators" use="optional"/>
+		<xsd:attribute name="computeaftervalidation" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="defaultfocus" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="showdelimiters" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attribute name="allowtabout" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="useappletinbrowser" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="runexitingonchange" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="literalize" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="externaldatasource" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="usenotesstyle" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="width" type="xsd:string" use="optional"/>
+		<xsd:attribute name="height" type="xsd:string" use="optional"/>
+		<xsd:attribute name="heighttype" type="field.heights" use="optional"/>
+		<xsd:attribute name="alignwithparagraph" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="multiline" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="fieldhint" type="xsd:string" use="optional"/>
+		<xsd:attribute name="useoscontrolinbrowser" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="onlyallow" type="xsd:token" use="optional"/>
+		<xsd:attribute name="firstdisplay" type="field.limitinput.kinds" use="optional"/>
+		<xsd:attribute name="fieldhelp" type="xsd:string" use="optional"/>
+		<xsd:attributeGroup ref="html.core.attrs"/>
+		<xsd:attributeGroup ref="datasource.attrs"/>
+		<xsd:attribute name="storageformat" type="field.storageformat.type" use="optional"/>
+		<xsd:attribute name="bgcolor" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<xsd:simpleType name="field.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="text"/>
+			<xsd:enumeration value="number"/>
+			<xsd:enumeration value="datetime"/>
+			<xsd:enumeration value="richtext"/>
+			<xsd:enumeration value="keyword"/>
+			<xsd:enumeration value="names"/>
+			<xsd:enumeration value="authors"/>
+			<xsd:enumeration value="readers"/>
+			<xsd:enumeration value="password"/>
+			<xsd:enumeration value="formula"/>
+			<xsd:enumeration value="timezone"/>
+			<xsd:enumeration value="richtextlite"/>
+			<xsd:enumeration value="color"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="field.choicesdialogs">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="none"/>
+			<xsd:enumeration value="addressbook"/>
+			<xsd:enumeration value="acl"/>
+			<xsd:enumeration value="view"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="list.separators">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="space"/>
+			<xsd:enumeration value="comma"/>
+			<xsd:enumeration value="semicolon"/>
+			<xsd:enumeration value="newline"/>
+			<xsd:enumeration value="blankline"/>
+			<xsd:enumeration value="none"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="field.heights">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="fixed"/>
+			<xsd:enumeration value="dynamic"/>
+			<xsd:enumeration value="proportional"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="field.limitinput.kinds">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="picture"/>
+			<xsd:enumeration value="sharedimage"/>
+			<xsd:enumeration value="attachment"/>
+			<xsd:enumeration value="view"/>
+			<xsd:enumeration value="datepicker"/>
+			<xsd:enumeration value="sharedapplet"/>
+			<xsd:enumeration value="text"/>
+			<xsd:enumeration value="object"/>
+			<xsd:enumeration value="calendar"/>
+			<xsd:enumeration value="inbox"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:attributeGroup name="datasource.attrs">
+		<xsd:attribute name="externalname" type="xsd:string" use="optional"/>
+		<xsd:attribute name="metadataname" type="xsd:string" use="optional"/>
+		<xsd:attribute name="dataconnectionresource" type="xsd:string" use="optional"/>
+		<xsd:attribute name="storelocally" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="dataconnectionfield" use="optional" default="data">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="key"/>
+					<xsd:enumeration value="data"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:attributeGroup>
+	<xsd:simpleType name="field.storageformat.type">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="htmlmime"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="sharedfieldref">
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="keywords">
+		<xsd:choice minOccurs="0" maxOccurs="1">
+			<xsd:element name="textlist" type="textlist"/>
+			<xsd:element name="formula" type="formula"/>
+		</xsd:choice>
+		<xsd:attribute name="ui" type="keywords.ui" use="optional" default="dialoglist"/>
+		<xsd:attribute name="borderstyle" type="keywords.borders" use="optional" default="single"/>
+		<xsd:attribute name="allownew" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="recalconchange" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="recalcchoices" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="columns" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="helperbutton" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attributeGroup ref="reading.order.attrs"/>
+	</xsd:complexType>
+	<xsd:simpleType name="keywords.ui">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="dialoglist"/>
+			<xsd:enumeration value="checkbox"/>
+			<xsd:enumeration value="radiobutton"/>
+			<xsd:enumeration value="combobox"/>
+			<xsd:enumeration value="listbox"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="subformref">
+		<xsd:sequence>
+			<xsd:element name="code" type="code" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="button" mixed="true">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="font" type="font"/>
+			<xsd:element name="code" type="code"/>
+		</xsd:choice>
+		<xsd:attribute name="name" type="xsd:string" use="optional"/>
+		<xsd:attribute name="width" type="xsd:string" use="optional" default="2in"/>
+		<xsd:attribute name="widthtype" type="button.width.types" use="optional" default="maximum"/>
+		<xsd:attribute name="wraptext" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attribute name="bgcolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="type" type="button.types" use="optional" default="normal"/>
+		<xsd:attribute name="default" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="edge" type="button.edge.types" use="optional" default="system"/>
+		<xsd:attribute name="characters" type="xsd:integer" use="optional"/>
+		<xsd:attributeGroup ref="html.core.attrs"/>
+		<xsd:attributeGroup ref="reading.order.attrs"/>
+	</xsd:complexType>
+	<xsd:simpleType name="button.width.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="minimum"/>
+			<xsd:enumeration value="maximum"/>
+			<xsd:enumeration value="fixed"/>
+			<xsd:enumeration value="fitcontent"/>
+			<xsd:enumeration value="fixedcharacter"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="button.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="normal"/>
+			<xsd:enumeration value="ok"/>
+			<xsd:enumeration value="cancel"/>
+			<xsd:enumeration value="help"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="button.edge.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="system"/>
+			<xsd:enumeration value="square"/>
+			<xsd:enumeration value="rounded"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="actionbar">
+		<xsd:sequence>
+			<xsd:element name="actionbarstyle" type="actionbarstyle" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="actionbuttonstyle" type="actionbuttonstyle" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="font" type="font" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="border" type="border" minOccurs="0" maxOccurs="1"/>
+			<xsd:choice minOccurs="0" maxOccurs="unbounded">
+				<xsd:element name="action" type="action"/>
+				<xsd:element name="sharedactionref" type="sharedactionref"/>
+			</xsd:choice>
+		</xsd:sequence>
+		<xsd:attribute name="bgcolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="bordercolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="align" type="lr.aligns" use="optional" default="left"/>
+		<xsd:attributeGroup ref="language.attrs"/>
+		<xsd:attribute name="useappletinbrowser" type="xsd:boolean" use="optional" default="false"/>
+	</xsd:complexType>
+	<xsd:simpleType name="lr.aligns">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="left"/>
+			<xsd:enumeration value="right"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="actionbarstyle">
+		<xsd:sequence>
+			<xsd:element name="font" type="font" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="imageref" type="imageref" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="height" type="xsd:string" use="optional"/>
+		<xsd:attribute name="repeat" type="actionbar.background.repeats" use="optional"/>
+	</xsd:complexType>
+	<xsd:simpleType name="actionbar.background.repeats">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="once"/>
+			<xsd:enumeration value="vrepeat"/>
+			<xsd:enumeration value="hrepeat"/>
+			<xsd:enumeration value="tile"/>
+			<xsd:enumeration value="centertile"/>
+			<xsd:enumeration value="resize"/>
+			<xsd:enumeration value="center"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="actionbuttonstyle">
+		<xsd:sequence>
+			<xsd:element name="imageref" type="imageref" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="bgcolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="heighttype" type="actionbutton.height.types" use="optional" default="default"/>
+		<xsd:attribute name="height" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="widthtype" type="actionbutton.width.types" use="optional" default="default"/>
+		<xsd:attribute name="width" type="xsd:string" use="optional"/>
+		<xsd:attribute name="margintype" type="actionbutton.margin.types" use="optional" default="default"/>
+		<xsd:attribute name="margin" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="displayborder" type="actionbutton.displayborder.types" use="optional" default="onmouseover"/>
+		<xsd:attribute name="textalign" type="simple.aligns" use="optional" default="left"/>
+		<xsd:attribute name="internalmargin" type="xsd:string" use="optional" default="0"/>
+		<xsd:attribute name="showdropdown" type="xsd:boolean" use="optional" default="false"/>
+	</xsd:complexType>
+	<xsd:simpleType name="actionbutton.height.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="default"/>
+			<xsd:enumeration value="minimum"/>
+			<xsd:enumeration value="fixed"/>
+			<xsd:enumeration value="background"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="actionbutton.width.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="default"/>
+			<xsd:enumeration value="background"/>
+			<xsd:enumeration value="fixed"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="actionbutton.margin.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="default"/>
+			<xsd:enumeration value="fixed"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="actionbutton.displayborder.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="onmouseover"/>
+			<xsd:enumeration value="always"/>
+			<xsd:enumeration value="never"/>
+			<xsd:enumeration value="notesstyle"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="simple.aligns">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="left"/>
+			<xsd:enumeration value="center"/>
+			<xsd:enumeration value="right"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="action">
+		<xsd:sequence>
+			<xsd:element name="imageref" type="imageref" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="code" type="code" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="title" type="xsd:string" use="optional"/>
+		<xsd:attribute name="id" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="displaytype" type="action.types" use="optional" default="button"/>
+		<xsd:attribute name="targetframe" type="xsd:string" use="optional"/>
+		<xsd:attribute name="hide" type="xsd:token" use="optional" default=""/>
+		<xsd:attribute name="showinmenu" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attribute name="showinbar" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attribute name="systemcommand" type="action.systemcommands" use="optional"/>
+		<xsd:attribute name="icon" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="graphicalign" type="lr.aligns" use="optional" default="left"/>
+		<xsd:attribute name="align" type="lr.aligns" use="optional" default="left"/>
+		<xsd:attribute name="onlyiconinbar" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attributeGroup ref="reading.order.attrs"/>
+		<xsd:attributeGroup ref="notesflow.publishing.attrs"/>
+	</xsd:complexType>
+	<xsd:simpleType name="action.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="button"/>
+			<xsd:enumeration value="checkbox"/>
+			<xsd:enumeration value="menuseparator"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="action.systemcommands">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="categorize"/>
+			<xsd:enumeration value="edit"/>
+			<xsd:enumeration value="send"/>
+			<xsd:enumeration value="forward"/>
+			<xsd:enumeration value="movetofolder"/>
+			<xsd:enumeration value="removefromfolder"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:attributeGroup name="notesflow.publishing.attrs">
+		<xsd:attribute name="publishonolelaunch" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="closewhenchosen" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="docfocuswhenchosen" type="xsd:boolean" use="optional"/>
+	</xsd:attributeGroup>
+	<xsd:complexType name="sharedactionref">
+		<xsd:attribute name="id" type="xsd:integer" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="sharedactions">
+		<xsd:sequence>
+			<xsd:group ref="design.note.prolog"/>
+			<xsd:element name="action" type="action" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:group ref="note.epilog"/>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="design.note.attrs"/>
+		<xsd:attribute name="maxid" type="xsd:integer" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="view">
+		<xsd:sequence>
+			<xsd:group ref="named.design.note.prolog"/>
+			<xsd:element name="globals" type="globals" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="code" type="code" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="actionbar" type="actionbar" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="column" type="column" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="viewbackground" type="viewbackground" minOccurs="0" maxOccurs="1"/>
+			<xsd:group ref="note.epilog"/>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="named.design.note.attrs"/>
+		<xsd:attributeGroup ref="link.color.attrs"/>
+		<xsd:attributeGroup ref="view.and.folder.attrs"/>
+		<xsd:attribute name="noviewformat" type="xsd:boolean" use="optional" default="false"/>
+	</xsd:complexType>
+	<xsd:attributeGroup name="view.and.folder.attrs">
+		<xsd:attribute name="opencollapsed" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="showresponsehierarchy" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="unreadmarks" use="optional">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="none"/>
+					<xsd:enumeration value="unreadonly"/>
+					<xsd:enumeration value="standard"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="onopengoto" use="optional">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="top"/>
+					<xsd:enumeration value="bottom"/>
+					<xsd:enumeration value="lastopened"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="onrefresh" use="optional">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="refreshtop"/>
+					<xsd:enumeration value="refreshbottom"/>
+					<xsd:enumeration value="refresh"/>
+					<xsd:enumeration value="displayindicator"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="headers" use="optional">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="none"/>
+					<xsd:enumeration value="simple"/>
+					<xsd:enumeration value="beveled"/>
+					<xsd:enumeration value="flat"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="showmargin" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="extendlastcolumn" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="bgcolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="altrowcolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="unreadcolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="totalscolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="shrinkrows" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="rowlinecount" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="rowspacing" use="optional">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="1"/>
+					<xsd:enumeration value="1.25"/>
+					<xsd:enumeration value="1.5"/>
+					<xsd:enumeration value="1.75"/>
+					<xsd:enumeration value="2"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="headerlinecount" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="uniquekeys" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="defaultdesign" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="showinmenu" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="allowdocselection" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="headerbgcolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="hidemarginborder" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="marginwidth" type="xsd:string" use="optional"/>
+		<xsd:attribute name="marginbgcolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="gridstyle" use="optional">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="none"/>
+					<xsd:enumeration value="solid"/>
+					<xsd:enumeration value="dash"/>
+					<xsd:enumeration value="dot"/>
+					<xsd:enumeration value="dashdot"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="gridcolor" type="xsd:string" use="optional"/>
+		<xsd:attribute name="logviewupdates" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="initialbuildrestricted" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="noemptycategories" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="evaluateactions" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="allownewdocuments" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="allowcustomizations" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="boldunreadrows" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="transparentunreadrows" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="colorizeicons" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="direction" use="optional" default="lefttoright">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="righttoleft"/>
+					<xsd:enumeration value="lefttoright"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:attributeGroup>
+	<xsd:complexType name="folder">
+		<xsd:sequence>
+			<xsd:group ref="named.design.note.prolog"/>
+			<xsd:element name="globals" type="globals" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="code" type="code" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="actionbar" type="actionbar" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="column" type="column" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="folderbackground" type="folderbackground" minOccurs="0" maxOccurs="1"/>
+			<xsd:group ref="note.epilog"/>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="named.design.note.attrs"/>
+		<xsd:attributeGroup ref="link.color.attrs"/>
+		<xsd:attributeGroup ref="view.and.folder.attrs"/>
+	</xsd:complexType>
+	<xsd:complexType name="column">
+		<xsd:sequence>
+			<xsd:element name="font" type="font" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="columnheader" type="columnheader" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="datetimeformat" type="datetimeformat" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="numberformat" type="numberformat" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="code" type="code" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="align" type="simple.aligns" use="optional" default="left"/>
+		<xsd:attribute name="showasicons" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="resizable" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attribute name="responsesonly" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="hidden" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="twisties" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="sort" type="sort.orders" use="optional"/>
+		<xsd:attribute name="sortnocase" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="sortnoaccent" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="separatemultiplevalues" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="categorized" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="resort" type="resort.options" use="optional"/>
+		<xsd:attribute name="resorttoview" type="xsd:string" use="optional"/>
+		<xsd:attribute name="resort2" type="sort.orders" use="optional"/>
+		<xsd:attribute name="resort2column" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="totals" type="totals.options" use="optional"/>
+		<xsd:attribute name="hidedetailrows" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="showaslinks" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="itemname" type="xsd:string" use="optional"/>
+		<xsd:attribute name="width" type="xsd:float" use="optional"/>
+		<xsd:attribute name="listseparator" type="list.separators" use="optional"/>
+		<xsd:attribute name="flatinr5" type="xsd:boolean" use="optional"/>
+		<xsd:attributeGroup ref="reading.order.attrs"/>
+	</xsd:complexType>
+	<xsd:simpleType name="sort.orders">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="ascending"/>
+			<xsd:enumeration value="descending"/>
+			<xsd:enumeration value="none"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="resort.options">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="ascending"/>
+			<xsd:enumeration value="descending"/>
+			<xsd:enumeration value="none"/>
+			<xsd:enumeration value="both"/>
+			<xsd:enumeration value="toview"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="totals.options">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="none"/>
+			<xsd:enumeration value="total"/>
+			<xsd:enumeration value="averageperchild"/>
+			<xsd:enumeration value="percentoverall"/>
+			<xsd:enumeration value="percentparent"/>
+			<xsd:enumeration value="averageperentry"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="columnheader">
+		<xsd:sequence>
+			<xsd:element name="font" type="font" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="title" type="xsd:string" use="optional"/>
+		<xsd:attribute name="align" type="simple.aligns" use="optional" default="left"/>
+		<xsd:attributeGroup ref="reading.order.attrs"/>
+	</xsd:complexType>
+	<xsd:complexType name="viewbackground">
+		<xsd:sequence>
+			<xsd:element name="imageref" type="imageref"/>
+		</xsd:sequence>
+		<xsd:attribute name="repeat" type="cellbackground.repeats" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="folderbackground">
+		<xsd:sequence>
+			<xsd:element name="imageref" type="imageref"/>
+		</xsd:sequence>
+		<xsd:attribute name="repeat" type="cellbackground.repeats" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="agent">
+		<xsd:sequence>
+			<xsd:group ref="named.design.note.prolog"/>
+			<xsd:element name="designchange" type="designchange" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="trigger" type="trigger"/>
+			<xsd:element name="documentset" type="documentset" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="code" type="code" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="rundata" type="rundata" minOccurs="0" maxOccurs="1"/>
+			<xsd:group ref="note.epilog"/>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="named.design.note.attrs"/>
+		<xsd:attribute name="enabled" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attribute name="showinsearch" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="runaswebuser" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="runonbehalfof" type="xsd:string" use="optional"/>
+		<xsd:attribute name="activatable" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="unrestrictedoperations" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="clientbackgroundthread" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="allowremotedebugging" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="storehighlights" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="formulatype" type="formula.types" use="optional" default="modifydocs"/>
+		<xsd:attribute name="restrictions" type="agent.restrictions" use="optional" default="restricted"/>
+	</xsd:complexType>
+	<xsd:simpleType name="agent.restrictions">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="restricted"/>
+			<xsd:enumeration value="unrestricted"/>
+			<xsd:enumeration value="fulladminunrestricted"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="designchange">
+		<xsd:sequence>
+			<xsd:element name="datetime" type="datetime"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="trigger">
+		<xsd:sequence>
+			<xsd:element name="schedule" type="schedule" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="type" type="agent.trigger.types" use="required"/>
+	</xsd:complexType>
+	<xsd:simpleType name="agent.trigger.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="actionsmenu"/>
+			<xsd:enumeration value="agentlist"/>
+			<xsd:enumeration value="beforenewmail"/>
+			<xsd:enumeration value="afternewmail"/>
+			<xsd:enumeration value="docupdate"/>
+			<xsd:enumeration value="docpaste"/>
+			<xsd:enumeration value="scheduled"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="schedule">
+		<xsd:sequence>
+			<xsd:element name="starttime" type="starttime" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="endtime" type="endtime" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="startdate" type="startdate" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="enddate" type="enddate" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="type" type="schedule.types" use="required"/>
+		<xsd:attribute name="hours" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="minutes" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="onweekends" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attribute name="runlocation" type="schedule.runlocations" use="optional"/>
+		<xsd:attribute name="runserver" type="xsd:string" use="optional"/>
+		<xsd:attribute name="dayofweek" type="day.names" use="optional"/>
+		<xsd:attribute name="dateinmonth" type="xsd:integer" use="optional"/>
+	</xsd:complexType>
+	<xsd:simpleType name="schedule.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="automatic"/>
+			<xsd:enumeration value="byminutes"/>
+			<xsd:enumeration value="daily"/>
+			<xsd:enumeration value="weekly"/>
+			<xsd:enumeration value="monthly"/>
+			<xsd:enumeration value="never"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="schedule.runlocations">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="local"/>
+			<xsd:enumeration value="any"/>
+			<xsd:enumeration value="choose"/>
+			<xsd:enumeration value="server"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="day.names">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="sunday"/>
+			<xsd:enumeration value="monday"/>
+			<xsd:enumeration value="tuesday"/>
+			<xsd:enumeration value="wednesday"/>
+			<xsd:enumeration value="thursday"/>
+			<xsd:enumeration value="friday"/>
+			<xsd:enumeration value="saturday"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="starttime">
+		<xsd:sequence>
+			<xsd:element name="datetime" type="datetime"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="endtime">
+		<xsd:sequence>
+			<xsd:element name="datetime" type="datetime"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="startdate">
+		<xsd:sequence>
+			<xsd:element name="datetime" type="datetime"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="enddate">
+		<xsd:sequence>
+			<xsd:element name="datetime" type="datetime"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="documentset">
+		<xsd:sequence>
+			<xsd:element name="search" type="search" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="type" type="documentset.types" use="required"/>
+	</xsd:complexType>
+	<xsd:simpleType name="documentset.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="modified"/>
+			<xsd:enumeration value="unreadinview"/>
+			<xsd:enumeration value="allinview"/>
+			<xsd:enumeration value="selected"/>
+			<xsd:enumeration value="runonce"/>
+			<xsd:enumeration value="all"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="search">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="datechoice" type="datechoice"/>
+			<xsd:element name="formchoice" type="formchoice"/>
+			<xsd:element name="formfieldschoice" type="formfieldschoice"/>
+			<xsd:element name="name" type="xsd:string"/>
+			<xsd:element name="word" type="xsd:string"/>
+		</xsd:choice>
+		<xsd:attribute name="type" type="search.types" use="required"/>
+		<xsd:attribute name="folder" type="xsd:string" use="optional"/>
+		<xsd:attribute name="field" type="xsd:string" use="optional"/>
+		<xsd:attribute name="contains" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="value" type="xsd:string" use="optional"/>
+		<xsd:attribute name="all" type="xsd:boolean" use="optional"/>
+	</xsd:complexType>
+	<xsd:simpleType name="search.types">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="byauthor"/>
+			<xsd:enumeration value="bydate"/>
+			<xsd:enumeration value="byfield"/>
+			<xsd:enumeration value="byformnames"/>
+			<xsd:enumeration value="byform"/>
+			<xsd:enumeration value="infolder"/>
+			<xsd:enumeration value="multiplewords"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="datechoice">
+		<xsd:sequence>
+			<xsd:element name="datetime" type="datetime" minOccurs="0" maxOccurs="2"/>
+		</xsd:sequence>
+		<xsd:attribute name="modified" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="condition" type="datechoice.conditions" use="required"/>
+		<xsd:attribute name="days" type="xsd:integer" use="optional"/>
+	</xsd:complexType>
+	<xsd:simpleType name="datechoice.conditions">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="on"/>
+			<xsd:enumeration value="after"/>
+			<xsd:enumeration value="before"/>
+			<xsd:enumeration value="noton"/>
+			<xsd:enumeration value="inlast"/>
+			<xsd:enumeration value="innext"/>
+			<xsd:enumeration value="olderthan"/>
+			<xsd:enumeration value="afternext"/>
+			<xsd:enumeration value="between"/>
+			<xsd:enumeration value="notbetween"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="formchoice">
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="formfieldschoice">
+		<xsd:sequence>
+			<xsd:element name="fieldchoice" type="fieldchoice" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="form" type="xsd:string" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="rundata">
+		<xsd:sequence>
+			<xsd:element name="agentmodified" type="agentmodified" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="agentrun" type="agentrun" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="runlog" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="processeddocs" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="dbid" type="noteshex" use="optional"/>
+		<xsd:attribute name="exitcode" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="agentdata" type="unidhex" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="agentmodified">
+		<xsd:sequence>
+			<xsd:element name="datetime" type="datetime"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="agentrun">
+		<xsd:sequence>
+			<xsd:element name="datetime" type="datetime"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="agentdata">
+		<xsd:sequence>
+			<xsd:group ref="design.note.prolog"/>
+			<xsd:group ref="note.epilog"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="scriptlibrary">
+		<xsd:sequence>
+			<xsd:group ref="named.design.note.prolog"/>
+			<xsd:element name="code" type="code" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:group ref="note.epilog"/>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="named.design.note.attrs"/>
+	</xsd:complexType>
+	<xsd:complexType name="imageresource">
+		<xsd:sequence>
+			<xsd:group ref="named.design.note.prolog"/>
+			<xsd:choice>
+				<xsd:element name="gif" type="gif"/>
+				<xsd:element name="jpeg" type="jpeg"/>
+				<xsd:element name="notesbitmap" type="xsd:base64Binary"/>
+				<xsd:element name="cgm" type="cgm"/>
+			</xsd:choice>
+			<xsd:group ref="note.epilog"/>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="named.design.note.attrs"/>
+		<xsd:attribute name="across" type="xsd:integer" use="optional" default="1"/>
+		<xsd:attribute name="down" type="xsd:integer" use="optional" default="1"/>
+		<xsd:attribute name="colorizegrays" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="browsercompatible" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="imagename" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="appletresource">
+		<xsd:sequence>
+			<xsd:group ref="named.design.note.prolog"/>
+			<xsd:element name="code" type="code"/>
+			<xsd:group ref="note.epilog"/>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="named.design.note.attrs"/>
+	</xsd:complexType>
+	<xsd:complexType name="frameset">
+		<xsd:sequence>
+			<xsd:group ref="named.design.note.prolog"/>
+			<xsd:element name="code" type="code" minOccurs="0" maxOccurs="1"/>
+			<xsd:choice minOccurs="1" maxOccurs="unbounded">
+				<xsd:element name="frameset" type="frameset"/>
+				<xsd:element name="frame" type="frame"/>
+			</xsd:choice>
+			<xsd:group ref="note.epilog"/>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="named.design.note.attrs"/>
+		<xsd:attribute name="rows" type="xsd:string" use="optional"/>
+		<xsd:attribute name="columns" type="xsd:string" use="optional"/>
+		<xsd:attribute name="spacing" type="xsd:string" use="optional" default="1px"/>
+		<xsd:attributeGroup ref="html.core.attrs"/>
+		<xsd:attribute name="borderwidth" type="xsd:string" use="optional"/>
+		<xsd:attribute name="bordercolor" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="frame">
+		<xsd:sequence>
+			<xsd:element name="bordercaption" type="bordercaption" minOccurs="0" maxOccurs="1"/>
+			<xsd:choice minOccurs="0" maxOccurs="1">
+				<xsd:element name="doclink" type="doclink"/>
+				<xsd:element name="viewlink" type="viewlink"/>
+				<xsd:element name="namedelementlink" type="namedelementlink"/>
+				<xsd:element name="urllink" type="urllink"/>
+			</xsd:choice>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:string" use="optional"/>
+		<xsd:attribute name="targetframe" type="xsd:string" use="optional"/>
+		<xsd:attribute name="showactionbar" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="showheader" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="selectionfollowsmouse" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="basicappearance" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="scrolling" type="frame.scrolling.values" use="optional" default="default"/>
+		<xsd:attribute name="noresize" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="border3d" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attribute name="marginwidth" type="xsd:string" use="optional" default="1px"/>
+		<xsd:attribute name="marginheight" type="xsd:string" use="optional" default="1px"/>
+		<xsd:attributeGroup ref="html.core.attrs"/>
+	</xsd:complexType>
+	<xsd:simpleType name="frame.scrolling.values">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="always"/>
+			<xsd:enumeration value="never"/>
+			<xsd:enumeration value="auto"/>
+			<xsd:enumeration value="default"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="bordercaption">
+		<xsd:sequence>
+			<xsd:element name="code" type="code" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="font" type="font" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="show" type="xsd:token" use="optional" default=""/>
+		<xsd:attribute name="align" type="edge.aligns" use="optional"/>
+		<xsd:attribute name="justify" type="simple.justifys" use="optional"/>
+		<xsd:attribute name="open" type="xsd:string" use="optional"/>
+		<xsd:attribute name="bgcolor" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<xsd:simpleType name="edge.aligns">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="left"/>
+			<xsd:enumeration value="right"/>
+			<xsd:enumeration value="top"/>
+			<xsd:enumeration value="bottom"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="simple.justifys">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="left"/>
+			<xsd:enumeration value="right"/>
+			<xsd:enumeration value="center"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="viewentries">
+		<xsd:sequence>
+			<xsd:element name="viewentry" type="viewentry" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="root.attrs"/>
+		<xsd:attribute name="toplevelentries" type="xsd:integer" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="viewentry">
+		<xsd:sequence>
+			<xsd:element name="entrydata" type="entrydata" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="position" type="xsd:string" use="optional"/>
+		<xsd:attribute name="unid" type="unidhex" use="optional"/>
+		<xsd:attribute name="noteid" type="noteshex" use="optional"/>
+		<xsd:attribute name="children" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="siblings" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="descendants" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="collapsed" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="response" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="conflict" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="categorytotal" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="markedfordel" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="unread" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="unreadchildren" type="xsd:boolean" use="optional"/>
+		<xsd:attribute name="relevance" type="xsd:integer" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="entrydata">
+		<xsd:choice>
+			<xsd:group ref="simple.types"/>
+		</xsd:choice>
+		<xsd:attribute name="columnnumber" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="indent" type="xsd:integer" use="optional"/>
+		<xsd:attribute name="name" type="xsd:string" use="optional"/>
+		<xsd:attribute name="category" type="xsd:boolean" use="optional"/>
+	</xsd:complexType>
+	<xsd:simpleType name="noteshex">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9A-Fa-f]*"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="unidhex">
+		<xsd:restriction base="noteshex">
+			<xsd:length value="32"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

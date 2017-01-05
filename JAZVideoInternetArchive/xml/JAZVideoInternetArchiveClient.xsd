@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://fgl.homepage.t-online.de/JAZVideoInternetArchiveClient" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://fgl.homepage.t-online.de/JAZVideoInternetArchiveClient">
+
+    <annotation>
+    	<documentation>Projekt: VideoInternetArchive
+
+Diese XSD Datei spiegelt die Felder und die Struktur wieder, wie sie sich darstellt in:
+use.via.server.module.create.MapperStoreServerVIA.loadFieldDataStoreFieldStructureAll()
+
+</documentation></annotation>
+    <element name="JAZVideoInternetArchiveClient" type="tns:ArchiveEntryList"></element>
+
+
+    <complexType name="ArchiveEntryList">
+    	<sequence>
+    		<element name="ArchiveEntry" type="tns:ArchiveEntry" minOccurs="0" maxOccurs="unbounded"></element>
+    		<element name="Status" type="tns:StatusCode" minOccurs="0" maxOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="ArchiveEntry">
+    	<sequence>
+    		<element name="Carrier" type="tns:Carrier" minOccurs="1" maxOccurs="1"></element>
+    		<element name="File" type="tns:File" minOccurs="1" maxOccurs="1"></element>
+    		<element name="Movie" type="tns:Movie" minOccurs="1" maxOccurs="1"></element>
+    		<element name="Serie" type="tns:Serie" minOccurs="0" maxOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+
+
+
+
+
+    <complexType name="StatusCode">
+    	<sequence>
+    		<element name="Type" type="string"></element>
+    		<element name="Code" type="int"></element>
+    		<element name="Message" type="string"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="Carrier">
+    	<sequence>
+    		<element name="Title" type="string" minOccurs="1" maxOccurs="1"></element>
+    		<element name="Type" type="string" minOccurs="1" maxOccurs="1"></element>
+    		<element name="Created" type="date" minOccurs="1" maxOccurs="1"></element>
+    		<element name="Sequence" minOccurs="0" maxOccurs="1" type="int">
+    		</element>
+    		
+    		<element name="Remark" type="string" minOccurs="0" maxOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="File">
+    	<sequence>
+    		<element name="Number" type="string" minOccurs="0" maxOccurs="1"></element>
+    		<element name="Name" type="string" minOccurs="1" maxOccurs="1"></element>
+    		<element name="Size" type="double" minOccurs="1" maxOccurs="1"></element>
+    		<element name="Date" type="date" minOccurs="1" maxOccurs="1"></element>
+    		<element name="CompressionType" type="string" minOccurs="1" maxOccurs="1"></element>
+    		<element name="Remark" type="string" minOccurs="0" maxOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="Movie">
+    	<sequence>
+    		<element name="Title" type="string" minOccurs="1" maxOccurs="1"></element>
+    		<element name="Remark" type="string" minOccurs="0" maxOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="Serie">
+    	<sequence>
+    		<element name="Title" type="string" minOccurs="1" maxOccurs="1"></element>
+    		<element name="Remark" type="string" minOccurs="0" maxOccurs="1"></element>
+    	</sequence>
+    </complexType>
+</schema>

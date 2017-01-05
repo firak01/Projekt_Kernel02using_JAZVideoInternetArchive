@@ -1,0 +1,57 @@
+//grant read permissio to all files
+grant {
+	permission java.io.FilePermission "<<ALL FILES>>", "read";
+	permission java.io.FilePermission "c:\\fglKernel\\KernelLog\\*", "write, delete";
+	permission java.io.FilePermission "c:\\fglKernel\\KernelConfig\\*", "write, delete";
+	
+	permission java.io.FilePermission "c:\\java\\VIAClient\\*", "write, delete";
+};
+
+grant {
+	permission java.security.ProtectionDomain.AllPermission;
+	
+	permission java.util.PropertyPermission "java.vm.specification.version","read";
+	
+	//log4J??? braucht diese
+	permission java.util.PropertyPermission "org.apache.commons.logging.diagnostics.dest", "read";
+	permission java.util.PropertyPermission "org.apache.commons.logging.LogFactory.HashtableImpl", "read";
+};
+
+
+
+//damit eine Verbindung zu einer NEtzwerkadresse aufgebaut werden kann.
+grant {
+	permission java.net.SocketPermission "*", "connect, resolve";
+};
+
+//Damit ein URLStreamHandler geholt werden kann.
+grant {
+   permission java.lang.RuntimePermission "accessDeclaredMembers";
+   permission java.lang.reflect.ReflectPermission "suppressAccessChecks";
+ };
+
+
+//für accessClipboard, listenToAllAWTEEvents
+grant {
+	permission java.awt.AWTPermission "accessClipboard"; 
+    permission java.awt.AWTPermission "accessEventQueue"; 
+    permission java.awt.AWTPermission "showWindowWithoutWarningBanner"; 
+   permission  java.util.PropertyPermission "awt.tookit","read";
+
+};
+
+
+
+//grant permission to kernel *.jar files
+grant codeBase "file:/JAZKernelNotesLogReport_fat.jar" { 
+    permission java.security.AllPermission;
+};
+grant codeBase "file:/JAZKernelUIExpression_fat.jar" { 
+    permission java.security.AllPermission;
+};
+grant codeBase "file:/JAZLanguageMarkup_fat.jar" { 
+    permission java.security.AllPermission;
+};
+grant codeBase "file:/JAZVideoInternetArchiveClientType.jarr" { 
+    permission java.security.AllPermission;
+};
