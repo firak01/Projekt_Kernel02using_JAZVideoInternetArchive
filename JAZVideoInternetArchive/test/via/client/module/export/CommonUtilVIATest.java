@@ -44,8 +44,8 @@ public class CommonUtilVIATest extends TestCase{
 			File objFileCatalog = objKernel.getParameterFileByProgramAlias(sModule, sProgram, "CatalogSerieTitleFilename");	
 			assertTrue("File-Katalog Datei existiert nicht '" + objFileCatalog.getPath() + "'", objFileCatalog.exists());
 			
-			//File objFileDummy = new File("e:\\Historische Ereignisse - die Landung auf dem Mond_die Nacht in der niemand schlafen wollte");
-			File objFileDummy = new File("testdata\\Historische Ereignisse - die Landung auf dem Mond_die Nacht in der niemand schlafen wollte --- Dummy.avi");
+			//++++++++++++++++++++++++++++++++++
+			File objFileDummy = new File("testdata\\Serie nicht im Katalog-also aen Foelmchen ueber Suez---    Beispiel fuer eine Serie nicht im Katalog.avi");
 			assertTrue("Dummy Datei existiert nicht '" + objFileDummy.getPath() + "'", objFileDummy.exists());
 			
 			
@@ -53,10 +53,48 @@ public class CommonUtilVIATest extends TestCase{
 			assertEquals(vec.size(), 3);
 			
 			String s1 = (String) vec.get(0);
+			assertEquals("", s1);
+			
+			String s2 = (String) vec.get(1);//Merke: aen ist zu kurz, um in än umgewandelt zu werden. Das ist auch gut so wg. Suez.
+			assertEquals("Serie nicht im Katalog - Also aen Fölmchen über Suez", s2);
+			
+			String s3 = (String) vec.get(2);
+			assertEquals("Beispiel für eine Serie nicht im Katalog", s3);
+			
+			//++++++++++++++++++++++++++++++++++
+			objFileDummy = new File("testdata\\Serie nicht im Katalog-die Reise nach Kassel als eine moegliche Odyssee ---    Beispiel fuer eine Serie nicht im Katalog.avi");
+			assertTrue("Dummy Datei existiert nicht '" + objFileDummy.getPath() + "'", objFileDummy.exists());
+			
+			
+			vec = CommonUtilVIA.computeMovieDetailByFile(objFileDummy, objFileCatalog);
+			assertEquals(vec.size(), 3);
+			
+			s1 = (String) vec.get(0);
+			assertEquals("", s1);
+			
+			s2 = (String) vec.get(1);
+			assertEquals("Serie nicht im Katalog - Die Reise nach Kassel als eine mögliche Odyssee", s2);
+			
+			s3 = (String) vec.get(2);
+			assertEquals("Beispiel für eine Serie nicht im Katalog", s3);
+			
+			//++++++++++++++++++++++++++++++++++
+			//File objFileDummy = new File("e:\\Historische Ereignisse - die Landung auf dem Mond_die Nacht in der niemand schlafen wollte");
+			objFileDummy = new File("testdata\\Historische Ereignisse - die Landung auf dem Mond_die Nacht in der niemand schlafen wollte --- Dummy.avi");
+			assertTrue("Dummy Datei existiert nicht '" + objFileDummy.getPath() + "'", objFileDummy.exists());
+			
+			
+			vec = CommonUtilVIA.computeMovieDetailByFile(objFileDummy, objFileCatalog);
+			assertEquals(vec.size(), 3);
+			
+			s1 = (String) vec.get(0);
 			assertEquals("Historische Ereignisse", s1);
 			
-			String s2 = (String) vec.get(1);
+			s2 = (String) vec.get(1);
 			assertEquals("Die Landung auf dem Mond, die Nacht in der niemand schlafen wollte", s2);
+			
+			s3 = (String) vec.get(2);
+			assertEquals("Dummy", s3);
 			
 			//##########################################################			.
 			objFileDummy = new File("testdata\\Die_großen_Rätsel_-_Der_Sohn_Gottes_-1---Dummy.avi");
@@ -69,7 +107,10 @@ public class CommonUtilVIATest extends TestCase{
 			assertEquals("Die großen Rätsel", s1);
 			
 			s2 = (String) vec.get(1);
-			assertEquals("Der Sohn Gottes -1", s2);
+			assertEquals("Der Sohn Gottes - 1", s2);
+			
+			s3 = (String) vec.get(2);
+			assertEquals("Dummy", s3);
 			
 			//###########################################################
 			//Hier wurde am Anfang einer neuen Sektion ein Leerzeichen verwendet. Daher würde der Unterstrich in ein Komma umgewandelt. 
@@ -85,6 +126,9 @@ public class CommonUtilVIATest extends TestCase{
 			
 			s2 = (String) vec.get(1);
 			assertEquals("Der Schninderhannes", s2);
+			
+			s3 = (String) vec.get(2);
+			assertEquals("Dummy", s3);
 			
 		} catch (ExceptionZZZ ez) {
 			fail("Method throws an exception." + ez.getMessageLast());

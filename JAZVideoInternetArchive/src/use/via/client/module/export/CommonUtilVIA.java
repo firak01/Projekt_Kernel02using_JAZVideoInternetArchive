@@ -56,11 +56,11 @@ public class CommonUtilVIA  implements IConstantZZZ {
 		
 	/** Falls im Dateinamen Unterstriche vorhanden sind, werden diese ersetzt durch Leerzeichen oder Kommata.
 	 *   Zudem wird ein ggf. vorhandener Serienname gesucht. Dieser sollte dann vor dem ersten Bindestrich stehen.
-	 *   Der dort gefundene Wert wird aber auch noch mit dem "Katalog der Serien" gepr�ft. Ist er dort vorhanden, 
+	 *   Der dort gefundene Wert wird aber auch noch mit dem "Katalog der Serien" geprüft. Ist er dort vorhanden, 
 	 *   so wird er als Serienname akzeptiert.
 	 *   
 	 *   Merke: an Position 0 des Vektors steht der Serienname
-	 *   an Position 1 des Vektors steht der ggf. �briggebliebenen Movietitle
+	 *   an Position 1 des Vektors steht der ggf. übriggebliebenen Movietitle
 	 *   
 	 *    Diese Methode wird z.B. in den ListenerComponenten "Serie Combo Box" und "JTextField MovieTitle" eingesetzt.
 	* @param file
@@ -77,182 +77,153 @@ public class CommonUtilVIA  implements IConstantZZZ {
 //			Der Default-Titel ist der Dateiname OHNE Endung. Er soll aber noch hinsichtlich der Unterstriche verarbeitet werden.
 			String sAllRaw = FileEasyZZZ.getNameOnly(fileToCheck.getName());
 			if(StringZZZ.isEmpty(sAllRaw)) break main;
-			
-			//###########################################
-			//0. Vorbereitung : Es kann in seltenen Fällen vorkommen, dass kein Bindestrich - sondern - verwendet worden ist (ANSI Problem).
-			sAllRaw = StringZZZ.replace(sAllRaw, "�", "-");
-			
-			//20170105: Fehler: Vor der "Bereichsaufteilung" erst noch den Bemerkungsteil von den anderen Teilen abtrennen.
-			//TODO GOON
-			
-			
-			//1. Ersetzen von Unterstrichen. Wichtig: Das muss für jden Bereich separat geschehen, z.B. weil an den Origin�ren Dateinamen Kommentare angeh�ngt worden sind
-			StringTokenizer tokenizer = new StringTokenizer(sAllRaw, "-", false);
-			String sAll = "";
-			while(tokenizer.hasMoreTokens()){
-				String stemp = (String) tokenizer.nextToken();
-				stemp = stemp.trim();
-				
-				//1. Schritt Ersetzen von Unterstrichen durch ", "
-				String stemp4proof = "";
-				if(stemp.length()>=2){
-					stemp4proof = stemp.substring(2); //Erst nach dem 2. Zeichen anfangen hinsichtlich der f�r ", " verwendeten Pr�fung
-				}else{
-					stemp4proof = stemp;
-				}
-				if(StringZZZ.contains(stemp4proof, "_")){					
-					if(StringZZZ.contains(stemp, " ")){  //Merke: Ein Komma im Dateinamen ist nicht m�glich. Darum wurde dies ggf. durch Unterstrich ersetzt.
-						stemp = StringZZZ.replace(stemp, "_", ", ");
-					}					
-				}	
-				
-//				2. Schritt nun noch vorhandene Unterstriche durch Leerzeichen ersetzen
-				stemp = StringZZZ.replace(stemp, "_", " "); //Merke: Das "Aufnahmetool" setzt(e) ggf. f�r Leerzeichen automatisch den Unterstrich. Dies soll hier wieder korregiert werden.
-				
-				if(sAll.equals("")){
-					sAll = stemp;
-				}else{
-					sAll = sAll + "-" + stemp;
-				}
-			}//End while
-			
-
-			
-			//####### Herausziehen der Details
+						
 			//NEU 2008-08-16
 			//deutsche Umlaute sollen ersetzt werden, aber nur, wenn es noch nicht einen Umlaut im Filenamen gibt, Groß- und Kleinbuchstaben der Umlaute (sofern Großbuchstebe vorhanden).
 			org.apache.regexp.RE objReUmlaut = new org.apache.regexp.RE("[öÖüÜäÄß]");
 			boolean bHasUmlaut = objReUmlaut.match(sAllRaw);
-			
-			
-			//2. Herauziehen einen möglichen Seriennamens (und vergleichen mit einem ggf. vorhandenen Katalogeintrag)			
-			String sSerie="";
-			if(fileCatalogSerie!=null){
-				//Falls der Katalog übergeben wurde wird geprüft auf Seriennamen			
-				int iPos = sAll.indexOf("-");
-							
-				if(iPos >= 1){ //Position 0 w�rde bedeuten da ist kein Serienname voranstehend
-//					2b. Prüfen auf Existenz in der Katalogdatei
-					if(fileCatalogSerie.exists()==false){
-						ReportLogZZZ.warn("provided catalog file '" + fileCatalogSerie.getPath() + "' for CatalogSerie, does not exist. No 'serie check' possible.");
+
+			//###########################################
+			//0. Vorbereitung : Es kann in seltenen Fällen vorkommen, dass kein Bindestrich - sondern - verwendet worden ist (ANSI Problem).
+			sAllRaw = StringZZZ.replace(sAllRaw, "�", "-");
+						
+			//20170105: Fehler: Vor der "Bereichsaufteilung" erst noch den Bemerkungsteil von den anderen Teilen abtrennen.
+			//NEIN, bei Verwendung des Tokenizers wird immer nur ein Delimiter mit der Länge 1 genommen. Zwar ist ein Deliminter String möglich. Das sind aber nur verschiedene erlaubte Trennzeichen.
+			//StringTokenizer tokenizerAll = new StringTokenizer(sAllRaw, "---", false);
+			String[] saAll = StringZZZ.explode(sAllRaw, "---");
+					
+			String sSerie = "";
+			String sMovie = "";
+			String sRemark = "";
+			for(int iPosition=0; iPosition <= saAll.length-1;iPosition++){				
+				String sSectionCurrent = saAll[iPosition];
+				StringTokenizer tokenizerSection = new StringTokenizer(sSectionCurrent, "-", false);
+				
+				//1. Ersetzen von Unterstrichen. Wichtig: Das muss für jeden Bereich separat geschehen, z.B. weil an den Originären Dateinamen Kommentare angehängt worden sind
+				int iSectionPosition=-1;
+				while(tokenizerSection.hasMoreTokens()){
+					iSectionPosition++;
+					String sSectionSub = (String) tokenizerSection.nextToken();
+					sSectionSub = sSectionSub.trim();
+					
+					//1. Schritt Ersetzen von Unterstrichen durch ", "
+					String stemp4proof = "";
+					if(sSectionSub.length()>=2){
+						stemp4proof = sSectionSub.substring(2); //Erst nach dem 3. Zeichen anfangen hinsichtlich der für ", " verwendeten Prüfung
 					}else{
-						String stemp = sAll.substring(0,iPos); //Also nur den Teil vor dem ersten Bindestrich auf "Serie" untersuchen.
-						sSerie = stemp.trim();
+						stemp4proof = sSectionSub;
+					}
+					if(StringZZZ.contains(stemp4proof, "_")){					
+						if(StringZZZ.contains(sSectionSub, " ")){  //Merke: Ein Komma im Dateinamen ist nicht möglich. Darum wurde dies ggf. durch Unterstrich ersetzt.
+							sSectionSub = StringZZZ.replace(sSectionSub, "_", ", ");
+						}					
+					}	
+					
+//					2. Schritt nun noch vorhandene Unterstriche durch Leerzeichen ersetzen
+					sSectionSub = StringZZZ.replace(sSectionSub, "_", " "); //Merke: Das "Aufnahmetool" setzt(e) ggf. f�r Leerzeichen automatisch den Unterstrich. Dies soll hier wieder korregiert werden.
+					
+					//####### Herausziehen der Details
+					//BEREICHE UNTERSCHEIDEN NACH Serie und Titelteil
+					if(iPosition==0 && iSectionPosition==0){
+						//Hauptteil
+						//2. Herausziehen einen möglichen Seriennamens (und vergleichen mit einem ggf. vorhandenen Katalogeintrag)			
+						if(fileCatalogSerie!=null){																
+//							2b. Prüfen auf Existenz in der Katalogdatei
+							if(fileCatalogSerie.exists()==false){
+								ReportLogZZZ.warn("provided catalog file '" + fileCatalogSerie.getPath() + "' for CatalogSerie, does not exist. No 'serie check' possible.");
+							}else{
+								//Falls der Katalog übergeben wurde wird geprüft auf Seriennamen			
+								int iPos = sSectionCurrent.indexOf("-"); //Merke: Die gesammte Section zur Prüfung hier verwenden, also das was ggfs. links von --- steht.
+								if(iPos >= 1){ //Position 0 würde bedeuten: Da ist kein Serienname voranstehend																		
+									String sSerieTemp = sSectionSub; 
+										
+									//+++ JETZT muss schon die Ersetzung der dt. Umlaute erfolgen
+									if(bHasUmlaut==false){  //Also nur ersetzen, wenn es nicht schon einen Umlaut gibt.
+										sSerieTemp = StringZZZ.replaceCharacterGermanFromSentence(sSerieTemp);
+									}//end bHasUmlaut
+									
+									//+++ Die Anfänge der Werte sollen mit einem Großbuchstaben belegt werden. Also: Ersten Buchstaben "Kapitalizen"
+									sSerieTemp = sSerieTemp.trim();
+									sSerieTemp = StringZZZ.capitalize(sSerieTemp);
+									
+									
+									//Nun die Katalogdatei auf Vorhandensein der Zeile prüfen. Dabei wird NICHT AUF CASESENSITIVIT�T WERT GELEGT
+									//FileTextParserZZZ parser = new FileTextParserZZZ(fileCatalogSerie);
+									TxtReaderZZZ parser = new TxtReaderZZZ(fileCatalogSerie, "IgnoreCase");
+									long lByte = parser.readPositionLineFirst(sSerieTemp, 0);
+									if(lByte>=0){
+										//Katalogeintrag gefunden.
+	//									Ich gehe davon aus, dass die Katalogdatei besser gepflegt ist als die Daten aus dem zu verarbeitenden Dateinamen. Darum wird der Katalogeintrag verwendet.
+										sSerie = parser.readLineByByte(lByte);
+									}else{
+										sSerie = "";
+									}
+								}//end if iPos >= 1																	
+							}
+						}//end if fileCatalogSerie == null
+									
+						//3. Herausziehen des möglichen Movietitels (merke, die ggf. vorhandener Bemerkung kommt in einer anderen Section)
+						if(sSerie.equals("") && iSectionPosition==0){
+							String sMovieTemp = sSectionSub;
+							
+							//+++ JETZT muss schon die Ersetzung der dt. Umlaute erfolgen
+							if(bHasUmlaut==false){  //Also nur ersetzen, wenn es nicht schon einen Umlaut gibt.
+								sMovieTemp = StringZZZ.replaceCharacterGermanFromSentence(sMovieTemp);
+							}//end bHasUmlaut
+							
+							//+++ Die Anfänge der Werte sollen mit einem Großbuchstaben belegt werden. Also: Ersten Buchstaben "Kapitalizen"
+							sMovieTemp = sMovieTemp.trim();
+							sMovieTemp = StringZZZ.capitalize(sMovieTemp);							
+							if(sMovie.equals("")){
+								sMovie = sMovieTemp;
+							}else{
+								sMovie = sMovie + " - " + sMovieTemp;
+							}
+						}
+					}else if(iPosition==0 && iSectionPosition>=1){
+						String sMovieTemp = sSectionSub;
 						
 						//+++ JETZT muss schon die Ersetzung der dt. Umlaute erfolgen
 						if(bHasUmlaut==false){  //Also nur ersetzen, wenn es nicht schon einen Umlaut gibt.
-							StringTokenizer tokenSerie = new StringTokenizer(sSerie, " ", false);
-							sSerie = "";
-							while(tokenSerie.hasMoreTokens()){
-								//++++ Serie in Einzelworte zerlegen...
-								String sReplaceOrig = (String) tokenSerie.nextToken();
-								stemp = StringZZZ.replaceCharacterGerman(sReplaceOrig);
-								
-								//++++ ... und wieder zusammenbauen
-								if(sSerie.equals("")){
-									sSerie = stemp;
-								}else{
-									sSerie = sSerie + " " + stemp;
-								}
-							}//End while
+							sMovieTemp = StringZZZ.replaceCharacterGermanFromSentence(sMovieTemp);
 						}//end bHasUmlaut
 						
-						//Nun die Katalogdatei auf Vorhandensein der Zeile pr�fen. Dabei wird NICHT AUF CASESENSITIVIT�T WERT GELEGT
-						//FileTextParserZZZ parser = new FileTextParserZZZ(fileCatalogSerie);
-						TxtReaderZZZ parser = new TxtReaderZZZ(fileCatalogSerie, "IgnoreCase");
-						long lByte = parser.readPositionLineFirst(sSerie, 0);
-						if(lByte>=0){
-							//Katalogeintrag gefunden.
-//							Ich gehe davon aus, dass die Katalogdatei besser gepflegt ist als die Daten aus dem zu verarbeitenden Dateinamen. Darum wird der Katalogeintrag verwendet.
-							sSerie = parser.readLineByByte(lByte);
+						//+++ Die Anfänge der Werte sollen mit einem Großbuchstaben belegt werden. Also: Ersten Buchstaben "Kapitalizen"
+						sMovieTemp = sMovieTemp.trim();
+						sMovieTemp = StringZZZ.capitalize(sMovieTemp);						
+						if(sMovie.equals("")){
+							sMovie = sMovieTemp;
 						}else{
-							sSerie = "";
+							sMovie = sMovie + " - " + sMovieTemp;
 						}
-					}
-														
-				}
-			}
+					}else if(iPosition>=1){
+						String sRemarkTemp = sSectionSub;
 						
-			//3. Herausziehen des möglichen Movietitels (incl. ggf. vorhandener Bemerkung)
-			String sMovie="";
-			if(!sSerie.equals("")){
-				//Dann muss es einen Bindestrich gegeben haben.
-				int itemp = sAll.indexOf("-");
-				String stemp = sAll.substring(itemp + 1);
-				sMovie = stemp.trim();
-			}else{
-				sMovie = sAll;
-			}
-			
-			//4. Herausziehen einer mäglichen Bemerkung, ABER NUR, wenn es im MovieTitle noch 2 Bindestriche gibt
-			//NEU 2007-06-14 
-			//den letzten Bindestrich ermitteln, den Remark herausfinden und den Movietitle entsprechend anpassen.
-			String sRemark = "";
-			if(!sMovie.equals("")){
-				if (StringZZZ.count(sMovie, "-")>=2){
-					//int itemp = sMovie.lastIndexOf("-");
-					int itemp = sMovie.indexOf("-");
-					itemp = sMovie.indexOf("-", itemp+1);		
-					if(itemp>=1){
-						sRemark = StringZZZ.rightback(sMovie, itemp+1).trim();
-						sMovie = sMovie.substring(0,itemp).trim();
-					}		
-				}
-			}
+						//Bemerkungsteile
+						//### Ersetzung der dt. Umlaute in den Bemerkungen
+						if(bHasUmlaut==false){  //Also nur ersetzen, wenn es nicht schon einen Umlaut gibt.							
+							sRemarkTemp = StringZZZ.replaceCharacterGermanFromSentence(sRemarkTemp);							
+						}//end bHasUmlaut
 						
-			//### Ersetzung der dt. Umlaute im Movie
-			if(bHasUmlaut==false){
-				if(!StringZZZ.isEmpty(sMovie)){
-					//1a. Movie in Einzelworte zerlegen
-					StringTokenizer tokenMovie = new StringTokenizer(sMovie, " ", false);
-					sMovie = "";
-					while(tokenMovie.hasMoreTokens()){
-						String sReplaceOrig = (String) tokenMovie.nextToken();
-						String stemp = StringZZZ.replaceCharacterGerman(sReplaceOrig);
-						
-		//				1b) Wieder zusammenbauen
-							if(sMovie.equals("")){
-								sMovie = stemp;
-							}else{
-								sMovie = sMovie + " " + stemp;
-							}
-					}//End while
-				}
-			}//end bHasUmlaut
-			
-
-			//### Ersetzung der dt. Umlaute in den Bemerkungen
-			if(bHasUmlaut==false){
-				if(!StringZZZ.isEmpty(sRemark)){
-					//3. Remark in Einzelworte zerlegen
-					StringTokenizer tokenRemark = new StringTokenizer(sRemark, " ", false);
-					sRemark = "";
-					while(tokenRemark.hasMoreTokens()){
-						String sReplaceOrig = (String) tokenRemark.nextToken();
-						String stemp = StringZZZ.replaceCharacterGerman(sReplaceOrig);
-											   
-	//					3b) Wieder zusammenbauen
+						//+++ Die Anfänge der Werte sollen mit einem Großbuchstaben belegt werden. Also: Ersten Buchstaben "Kapitalizen"
+						sRemarkTemp = sRemarkTemp.trim();
+						sRemarkTemp = StringZZZ.capitalize(sRemarkTemp);																	
 						if(sRemark.equals("")){
-							sRemark = stemp;
+							sRemark = sRemarkTemp;
 						}else{
-							sRemark = sRemark + " " + stemp;
+							sRemark = sRemark + "---" + sRemarkTemp;
 						}
-					}//End while
-				}
-			}//End bHasUmlaut
+					} //End if iPosition										
+				}//End while tokenizerSection				
+			}//End for saAll.length
+			
 	
 			//20090322 um die Bindestriche der Serie / des Filmtitels / in der Bemerkung soll jeweils ein Leerszeichen stehen.
 			//!!! Vermeiden, dass auf diese Art doppelte Leerzeichen enstehen
 			sMovie = StringZZZ.replaceFarFrom(sMovie, "-", " - ");
 			sSerie = StringZZZ.replaceFarFrom(sSerie, "-", " - ");
 			sRemark = StringZZZ.replaceFarFrom(sRemark, "-", " - ");
-			
-			//NEU 2007-06-13
-			//Die Anf�nge der Werte sollen mit einem Gro�buchstaben belegt werden. Also: Ersten Buchstaben "Kapitalizen"
-			sMovie = StringZZZ.capitalize(sMovie);
-			sSerie = StringZZZ.capitalize(sSerie);
-			sRemark = StringZZZ.capitalize(sRemark);
-
+			sRemark = StringZZZ.replaceFarFrom(sRemark, "---", " --- ");
 			
 			//#################################################
 			//4. Vektor füllen
