@@ -106,7 +106,7 @@ public static String generateContent4ErrorHtml(ExceptionZZZ ez) throws Exception
    public String generateContent4Success(Document docCarrier, Document docFile, Document docSerie, Document docMovie, String sContentTypeIn) throws ExceptionZZZ{
 	   String sReturn = null;
 	   main:{
-		   //0. Bestimmte Dokumente sind für den Erfolg unerläßlich
+		   //0. Bestimmte Dokumente sind fÃ¼r den Erfolg unerlÃ¤ÃŸlich
 		   if(docCarrier==null){
 				ExceptionZZZ ez  = new ExceptionZZZ("Carrier document", iERROR_PARAMETER_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;	
@@ -144,12 +144,12 @@ public static String generateContent4ErrorHtml(ExceptionZZZ ez) throws Exception
 			ContentFileZZZ objContentStore = null;
 			
 			//############
-			//2. Objekt, das dann später an einen ContentWriter übergeben werden kann
+			//2. Objekt, das dann spï¿½ter an einen ContentWriter ï¿½bergeben werden kann
 			if(sContentType.equals("text/xml")){
 				//+++++++++ZIEL: Ausgabe als XML		
 				objContentXmlStore = new ContentXmlZZZ(objKernel, "ZMessage");
 			}else{
-				//+++++++++ ZIEL: Ausgabe als Html UND dafür Holen der Muster-Datei
+				//+++++++++ ZIEL: Ausgabe als Html UND dafÃ¼r Holen der Muster-Datei
 				File filePattern =objKernel.getParameterFileByProgramAlias(sModule, sProgram, "FilePageSuccessPatternPath");
 				if(filePattern.exists()==false){
 					ExceptionZZZ ez  = new ExceptionZZZ("Pattern-Datei NICHT gefunden: '" + filePattern.getPath() + "'", iERROR_CONFIGURATION_VALUE, this, ReflectCodeZZZ.getMethodCurrentName());
@@ -163,13 +163,13 @@ public static String generateContent4ErrorHtml(ExceptionZZZ ez) throws Exception
 			
 			
 			//############
-			//3. Nun Elemente auf oberster Ebene füllen	(egal welcher Weg, dies ist eigenlich immer gleich, nur der ContntStore ist unterschiedlich)	
-			//Besser ist es, das CarrierDokument würde am Ziel (dem JavaClient)  wieder in eine Art dummyNotesDocumentXml basiert entpackt und man 
-			//könnte dort sagen: docNotesXml.GetItemValueString("IDCarrier") , dadurch wären auch beliebige andere Items in dem Java-Client greifbar.
+			//3. Nun Elemente auf oberster Ebene fÃ¼llen	(egal welcher Weg, dies ist eigenlich immer gleich, nur der ContntStore ist unterschiedlich)	
+			//Besser ist es, das CarrierDokument wï¿½rde am Ziel (dem JavaClient)  wieder in eine Art dummyNotesDocumentXml basiert entpackt und man 
+			//kÃ¶nnte dort sagen: docNotesXml.GetItemValueString("IDCarrier") , dadurch wÃ¤ren auch beliebige andere Items in dem Java-Client greifbar.
 				
 				if(sContentType.equals("text/xml")){
 	//					+++++++++ZIEL: Ausgabe als XML und die Tags der obersten Ebene bereitstellen
-					objContentXmlStore.setVar("statusmessage", "Datensätze erfolgreich verarbeitet");
+					objContentXmlStore.setVar("statusmessage", "DatensÃ¤tze erfolgreich verarbeitet");
 					try {
 						String stemp = docCarrier.getItemValueString("IDCarrier");
 						objContentXmlStore.setVar("idcarrier", stemp);
@@ -182,10 +182,10 @@ public static String generateContent4ErrorHtml(ExceptionZZZ ez) throws Exception
 					} catch (NotesException e) {
 						objContentXmlStore.setVar("sequenzenrcarrier", e.getMessage());
 					}
-					NotesReportLogZZZ.write(NotesReportLogZZZ.DEBUG, "String Variablen an den Store ContentXmlZZZ übergeben.");
+					NotesReportLogZZZ.write(NotesReportLogZZZ.DEBUG, "String Variablen an den Store ContentXmlZZZ Ã¼bergeben.");
 				}else{
-//					+++++++++ ZIEL: Ausgabe als Html und die Platzhalter für die Muster-Datei füllen.					
-					objContentStore.setVar("statusmessage", "Datensätze erfolgreich verarbeitet");
+//					+++++++++ ZIEL: Ausgabe als Html und die Platzhalter fï¿½r die Muster-Datei fï¿½llen.					
+					objContentStore.setVar("statusmessage", "DatensÃ¤tze erfolgreich verarbeitet");
 					try {
 						String stemp = docCarrier.getItemValueString("IDCarrier");
 						objContentStore.setVar("idcarrier", stemp);
@@ -202,7 +202,7 @@ public static String generateContent4ErrorHtml(ExceptionZZZ ez) throws Exception
 				
 				
 				//############
-				//4. Rückgabestring ausrechnen
+				//4. RÃ¼ckgabestring ausrechnen
 				if(sContentType.equals("text/xml")){
 //					+++++++++ZIEL: Ausgabe als XML
 					sReturn = generateContent4SuccessXml(docCarrier, docFile, docSerie, docMovie, sReturn, objKernel, objContentXmlStore);
@@ -218,11 +218,11 @@ public static String generateContent4ErrorHtml(ExceptionZZZ ez) throws Exception
 
 private String generateContent4SuccessHtml(KernelZZZ objKernel, ContentFileZZZ objContentStore) throws ExceptionZZZ {
 	String sReturn;
-	//TODO Das Compute muss eigentlich erst dann durchgeführt werden, wenn eine andere Klasse den Content Store nutzt !!!
+	//TODO Das Compute muss eigentlich erst dann durchgefï¿½hrt werden, wenn eine andere Klasse den Content Store nutzt !!!
 	objContentStore.setFlag("RemoveZHTML", true); //FGL 20080212 Ziel ist es das ZHTML-Tag nicht merh im Ergebnis zu haben
 	objContentStore.compute();
 			
-	/*++++ nur für eine Zwischenausgabe. NICHT LÖSCHEN
+	/*++++ nur fï¿½r eine Zwischenausgabe. NICHT Lï¿½SCHEN
 	KernelReaderHtmlZZZ objReader = objContentStore.getReaderCurrent();			
 	org.jdom.Document doc = objReader.getDocument();
 	KernelReaderHtmlZZZ.listChildrenValue(doc.getRootElement(), 0);  //Zu debugzwecken die Werte VOR Anwendung des XMLOutpuuters ausgeben.
@@ -232,7 +232,7 @@ private String generateContent4SuccessHtml(KernelZZZ objKernel, ContentFileZZZ o
 	System.out.println("Verwendetes Encoding Format: " + format.getEncoding());
 	format.setEncoding("ISO-8859-1");
 	System.out.println("Verwendetes Encoding Format: " + format.getEncoding());
-	xmlout.setFormat(format);  //Das muss man wieder zurückgeben, sonst funktioniert es nicht
+	xmlout.setFormat(format);  //Das muss man wieder zurï¿½ckgeben, sonst funktioniert es nicht
 	try {
 		xmlout.output(doc, System.out);
 	} catch (IOException e) {
@@ -243,17 +243,17 @@ private String generateContent4SuccessHtml(KernelZZZ objKernel, ContentFileZZZ o
 	//4. Content Writer
 	KernelWriterHtmlByFileZZZ objWriterHTML = new KernelWriterHtmlByFileZZZ(objKernel, (String[]) null);
 	objWriterHTML.addContent(objContentStore);
-	NotesReportLogZZZ.write(NotesReportLogZZZ.DEBUG, "Objekt KernelWriterHtmlByFileZZZ erfolgreich erstellt und mit dem ContentStore-Objekt gefüllt.");
+	NotesReportLogZZZ.write(NotesReportLogZZZ.DEBUG, "Objekt KernelWriterHtmlByFileZZZ erfolgreich erstellt und mit dem ContentStore-Objekt gefï¿½llt.");
 	
-	//5. als String zurückgeben
-	//objWriterHTML.toFile("c:\\fglkernel\\kerneltest\\test.html");  //Create File (NUR FÜR TESTZEWECKE)
-	sReturn = objWriterHTML.toStringContent();  //Merke: .toString() ist für gaaaanz andere Dinge reserviert !!!
+	//5. als String zurï¿½ckgeben
+	//objWriterHTML.toFile("c:\\fglkernel\\kerneltest\\test.html");  //Create File (NUR Fï¿½R TESTZEWECKE)
+	sReturn = objWriterHTML.toStringContent();  //Merke: .toString() ist fï¿½r gaaaanz andere Dinge reserviert !!!
 	return sReturn;
 }
 
 private String generateContent4SuccessXml(Document docCarrier, Document docFile, Document docSerie, Document docMovie, String sReturn, KernelZZZ objKernel, ContentXmlZZZ objContentXmlStore) throws ExceptionZZZ {
 	
-					//Notesdocumente in XML - überführen und danach nach jdom überführen
+					//Notesdocumente in XML - Ã¼berfÃ¼hren und danach nach jdom Ã¼berfÃ¼hren
 					//Merke: Mit PipeWriter/Reader funktioniert es nicht als Servlet, obwohl als einfache Java-Applikation es funktioniert !!!
 					//s.o. PipedWriter pipeOut = null;
 	//				s.o. PipedReader pipeIn =null;
@@ -266,7 +266,7 @@ private String generateContent4SuccessXml(Document docCarrier, Document docFile,
 						
 					
 					/*  Merke: Die Methode notesdocument.generateXML() bringt im Servlet immer den Server zum Absturz
-						//TODO: Dafür eine eigene Klasse in einem eigenen Projekt entwickeln, das Notes und JDOM .jar Files beinhaltet. Und auf das JDOM-Dokument wie auf Notesdocumente zugreift.
+						//TODO: Dafï¿½r eine eigene Klasse in einem eigenen Projekt entwickeln, das Notes und JDOM .jar Files beinhaltet. Und auf das JDOM-Dokument wie auf Notesdocumente zugreift.
 						//a) CarrierDokument					
 	//					s.o. pipeOut = new PipedWriter();
 	//					s.o. bOut = new BufferedWriter(pipeOut);
@@ -278,7 +278,7 @@ private String generateContent4SuccessXml(Document docCarrier, Document docFile,
 						
 						//fileOut = new FileWriter(objFile);
 						//final BufferedWriter bOut = new BufferedWriter(fileOut);
-						NotesReportLogZZZ.write(NotesReportLogZZZ.DEBUG, "FileWriter erzeugt. erzeuge nun XML (Carrier-Dokument) für den PipeWriter-Stream.");
+						NotesReportLogZZZ.write(NotesReportLogZZZ.DEBUG, "FileWriter erzeugt. erzeuge nun XML (Carrier-Dokument) fï¿½r den PipeWriter-Stream.");
 						final Document docCarrier4Thread = docCarrier;
 						Thread thread = new Thread(){
 							public void run(){
@@ -322,7 +322,7 @@ private String generateContent4SuccessXml(Document docCarrier, Document docFile,
 						*/
 					
 					
-						//Versuch dies über die DxlExporter - Klasse zu lösen
+						//Versuch dies Ã¼ber die DxlExporter - Klasse zu lÃ¶sen
 						Session session = this.getKernelNotesObject().getSession();					
 						DxlExporter objExporter = session.createDxlExporter();
 						if(objExporter==null){
@@ -337,7 +337,7 @@ private String generateContent4SuccessXml(Document docCarrier, Document docFile,
 						saxbuilder = new SAXBuilder();
 						docjdom = saxbuilder.build(objReaderStringStream);					
 						objContentXmlStore.setVar("documentcarrier", docjdom);
-						NotesReportLogZZZ.write(NotesReportLogZZZ.DEBUG, "JDom als Variable 'documentcarrier' an den Store ContentXmlZZZ übergeben.");
+						NotesReportLogZZZ.write(NotesReportLogZZZ.DEBUG, "JDom als Variable 'documentcarrier' an den Store ContentXmlZZZ Ã¼bergeben.");
 						
 					
 			
@@ -355,7 +355,7 @@ private String generateContent4SuccessXml(Document docCarrier, Document docFile,
 						saxbuilder = new SAXBuilder();
 						docjdom = saxbuilder.build(objReaderStringStream);
 						objContentXmlStore.setVar("documentmovie", docjdom);
-						NotesReportLogZZZ.write(NotesReportLogZZZ.DEBUG, "JDom als Variable 'documentmovie' an den Store ContentXmlZZZ übergeben.");
+						NotesReportLogZZZ.write(NotesReportLogZZZ.DEBUG, "JDom als Variable 'documentmovie' an den Store ContentXmlZZZ ï¿½bergeben.");
 						
 						
 						//c) FileDokument
@@ -372,7 +372,7 @@ private String generateContent4SuccessXml(Document docCarrier, Document docFile,
 						saxbuilder = new SAXBuilder();
 						docjdom = saxbuilder.build(objReaderStringStream);
 						objContentXmlStore.setVar("documentfile", docjdom);
-						NotesReportLogZZZ.write(NotesReportLogZZZ.DEBUG, "JDom als Variable 'documentfile' an den Store ContentXmlZZZ übergeben.");
+						NotesReportLogZZZ.write(NotesReportLogZZZ.DEBUG, "JDom als Variable 'documentfile' an den Store ContentXmlZZZ ï¿½bergeben.");
 							
 						
 						//d) SerieDokument
@@ -390,27 +390,27 @@ private String generateContent4SuccessXml(Document docCarrier, Document docFile,
 							saxbuilder = new SAXBuilder();
 							docjdom = saxbuilder.build(objReaderStringStream);
 							objContentXmlStore.setVar("documentserie", docjdom);
-							NotesReportLogZZZ.write(NotesReportLogZZZ.DEBUG, "JDom als Variable 'documenserie' an den Store ContentXmlZZZ übergeben.");
+							NotesReportLogZZZ.write(NotesReportLogZZZ.DEBUG, "JDom als Variable 'documenserie' an den Store ContentXmlZZZ ï¿½bergeben.");
 						}
 					
 						
 					
-					//5. ggf. Berechnungen durchführen, nachdem nun alle Variablen gesetzt wurden.
+					//5. ggf. Berechnungen durchfÃ¼hren, nachdem nun alle Variablen gesetzt wurden.
 					objContentXmlStore.compute(); //Merke: Momentan passiert damit nix
-					NotesReportLogZZZ.write(NotesReportLogZZZ.DEBUG, "Methode ContentXmlZZZ.compute() erfolgreich durchgeführt.");
+					NotesReportLogZZZ.write(NotesReportLogZZZ.DEBUG, "Methode ContentXmlZZZ.compute() erfolgreich durchgefÃ¼hrt.");
 					
 					
 					//+++++++++++++++++++++++++++++
 	//				6. Content Writer
 					KernelWriterXmlByContentZZZ objWriterXml = new KernelWriterXmlByContentZZZ(objKernel);
 					objWriterXml.addContent(objContentXmlStore);
-					NotesReportLogZZZ.write(NotesReportLogZZZ.DEBUG, "ContentXmlZZZ an den KernelWriterXmlByContentZZZ übergeben.");
+					NotesReportLogZZZ.write(NotesReportLogZZZ.DEBUG, "ContentXmlZZZ an den KernelWriterXmlByContentZZZ Ã¼bergeben.");
 					
 					
-					//5. als String zurückgeben
+					//5. als String zurÃ¼ckgeben
 					objWriterXml.setEncoding("ISO-8859-1");  //Das ist zwar schon default, aber sicher ist sicher
-					//objWriterHTML.toFile("c:\\fglkernel\\kerneltest\\test.html");  //Create File (NUR FÜR TESTZEWECKE)
-					sReturn = objWriterXml.toStringContent();  //Merke: .toString() ist für gaaaanz andere Dinge reserviert !!!
+					//objWriterHTML.toFile("c:\\fglkernel\\kerneltest\\test.html");  //Create File (NUR FÃœR TESTZEWECKE)
+					sReturn = objWriterXml.toStringContent();  //Merke: .toString() ist fÃ¼r gaaaanz andere Dinge reserviert !!!
 					
 					} catch (IOException ioe) {
 						ExceptionZZZ ez = new ExceptionZZZ("IOException: " + ioe.getMessage(), iERROR_RUNTIME, this, ReflectCodeZZZ.getMethodCurrentName());
