@@ -1,10 +1,10 @@
 #Fat Jar Configuration File
-#Sun Nov 30 10:08:05 CET 2014
+#Sat Jan 07 09:14:42 CET 2017
 onejar.license.required=true
 manifest.classpath=
 manifest.removesigners=true
 onejar.checkbox=false
-jarname=C\:\\1fgl\\workspace\\Eclipse3FGL_V02\\ZKernelFileZJar\\VIAClientServer_fat.jar
+jarname=C\:\\1fgl\\workspace\\Eclipse4_V02\\ZKernelFileZJar\\VIAClientServer_fat.jar
 manifest.mergeall=false
 manifest.mainclass=use.via.client.FrmMainVIA
 manifest.file=<createnew>
