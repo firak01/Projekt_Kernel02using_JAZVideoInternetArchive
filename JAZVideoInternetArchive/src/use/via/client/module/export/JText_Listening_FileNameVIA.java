@@ -1,6 +1,7 @@
 package use.via.client.module.export;
 
 import java.io.File;
+import java.util.HashMap;
 
 import basic.zKernel.KernelZZZ;
 import basic.zBasic.ExceptionZZZ;
@@ -30,13 +31,13 @@ public class JText_Listening_FileNameVIA  extends KernelJTextFieldListening4Comp
 				}
 				
 				//zum Setzen des Root-Strings (Merke: Es wird als Workaround die Dateiliste des Roots des Laufwerks schon angezeigt, bevor der Verzeichnisbaum erstellt ist)
-				//Wenn ohne Verzeichnisbaum schon eine Datei gewählt wurde, sorgt die Belegung dieser Variable dafür, dass kein "ungwolltes" Leersetzen passiert.
+				//Wenn ohne Verzeichnisbaum schon eine Datei gewÃ¤hlt wurde, sorgt die Belegung dieser Variable dafï¿½r, dass kein "ungwolltes" Leersetzen passiert.
 				this.sRootPrevious = FileEasyZZZ.getRoot(file) + File.separator;
 							
 				//Dateiname
 				String sName = file.getName();
 				this.setText(sName);
-				this.setCaretPosition(0); //Falls ein String länger ist, dann wird wieder nach vorne gescrollt
+				this.setCaretPosition(0); //Falls ein String lï¿½nger ist, dann wird wieder nach vorne gescrollt
 			}catch(ExceptionZZZ ez){
 				ReportLogZZZ.write(ReportLogZZZ.ERROR, ez.getDetailAllLast());
 			}
@@ -53,7 +54,7 @@ public class JText_Listening_FileNameVIA  extends KernelJTextFieldListening4Comp
 			ReportLogZZZ.write(ReportLogZZZ.INFO, "Root previous = " + this.sRootPrevious);
 			
 						
-			//Wenn das nicht überschreiben wird, so bekommt man vom JCombo das Laufwerk geliefert
+			//Wenn das nicht ï¿½berschreiben wird, so bekommt man vom JCombo das Laufwerk geliefert
 			this.setText(JText_Listening_FileNameVIA.sTEXT_INITIAL);
 		}//end main
 	}

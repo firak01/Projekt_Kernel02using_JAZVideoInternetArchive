@@ -2,6 +2,7 @@ package use.via.client.module.export;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import javax.swing.DefaultListModel;
@@ -21,7 +22,7 @@ import basic.zKernelUI.component.KernelJPanelCascadedZZZ;
 import basic.zKernel.KernelZZZ;
 import custom.zKernel.LogZZZ;
 
-/**Diese Klasse wird genutzt beim Aktualisieren deer JList, die die Dateien enthält.
+/**Diese Klasse wird genutzt beim Aktualisieren deer JList, die die Dateien enthï¿½lt.
  *  Sowohl beim Start des Frames als auch nach der Auswahl eines neuen Laufwerks in der Combo-Box.
  * @author lindhaueradmin
  *
@@ -31,8 +32,8 @@ public class SwingWorker4ProgramListContentVIA extends SwingWorker implements IC
 	private LogZZZ objLog;
 	private KernelJPanelCascadedZZZ panelCascaded;
 	
-	private String sDirectoryPathSelected;    //Der Wert, der in der ComboBox als neues Laufwerk ausgewählt worden ist.
-	private String sText2Update; //Der Wert, der mit "update label" in ein Feld geschrieben werden kann, dass über den Status "der work" berichten soll.
+	private String sDirectoryPathSelected;    //Der Wert, der in der ComboBox als neues Laufwerk ausgewï¿½hlt worden ist.
+	private String sText2Update; //Der Wert, der mit "update label" in ein Feld geschrieben werden kann, dass ï¿½ber den Status "der work" berichten soll.
 	
 	//Flags
 	private boolean bFlagInit = false;
@@ -46,7 +47,7 @@ public class SwingWorker4ProgramListContentVIA extends SwingWorker implements IC
 			this.objKernel = objKernel;
 			this.objLog = objKernel.getLogObject();
 			
-			 //setzen der übergebenen Flags	
+			 //setzen der ï¿½bergebenen Flags	
 			  if(saFlagControlIn != null){
 				  for(int iCount = 0;iCount<=saFlagControlIn.length-1;iCount++){
 					  String stemp = saFlagControlIn[iCount];
@@ -70,7 +71,7 @@ public class SwingWorker4ProgramListContentVIA extends SwingWorker implements IC
 		DefaultListModel modelList;
 		main:{
 		try{
-			ReportLogZZZ.write(ReportLogZZZ.DEBUG, "Worker Thread für den Content der JList Komponente gestartet.");
+			ReportLogZZZ.write(ReportLogZZZ.DEBUG, "Worker Thread fï¿½r den Content der JList Komponente gestartet.");
 			
 			JList list = (JList) this.panelCascaded.getComponent("list"); 
 			if(list == null){
@@ -83,7 +84,7 @@ public class SwingWorker4ProgramListContentVIA extends SwingWorker implements IC
 			modelList.addElement("Loading files for " + sDirectoryPathSelected + " ... ");
 			list.setModel(modelList);			
 			list.repaint();
-			ReportLogZZZ.write(ReportLogZZZ.DEBUG, "Default list Model geleert und neuen 'Loading' Eintrag in der Statuszeile hinzugefügt für: '" + sDirectoryPathSelected + "'");
+			ReportLogZZZ.write(ReportLogZZZ.DEBUG, "Default list Model geleert und neuen 'Loading' Eintrag in der Statuszeile hinzugefï¿½gt fï¿½r: '" + sDirectoryPathSelected + "'");
 				
 			File fileDir = new File(sDirectoryPathSelected);
 			if(fileDir.exists()==false){
@@ -98,7 +99,7 @@ public class SwingWorker4ProgramListContentVIA extends SwingWorker implements IC
 			
 			
 			//+++ Nun die Dateien des Verzeichnisses auflisten und in ein neue Model packen.
-			//IDEE: Erst in einem Array die Dateien (und nur die Dateien) sammeln und diese ArrayElemente dann in einer Schleife dem DefaultListModel hinzufügen.
+			//IDEE: Erst in einem Array die Dateien (und nur die Dateien) sammeln und diese ArrayElemente dann in einer Schleife dem DefaultListModel hinzufï¿½gen.
 			ArrayList listaFile = new ArrayList();
 			File[] fileaAll = fileDir.listFiles();
 			
@@ -134,7 +135,7 @@ public class SwingWorker4ProgramListContentVIA extends SwingWorker implements IC
 				if(fileaAll[icount].isFile()==true) listaFile.add(fileaAll[icount]);							
 			}
 			
-			//Vorher konnten noch directory - Einträge in der FileListe vorhanden sein
+			//Vorher konnten noch directory - Eintrï¿½ge in der FileListe vorhanden sein
 			if(listaFile.size() <= 0){
 				synchronized (list){
 				modelList.clear();
@@ -160,11 +161,11 @@ public class SwingWorker4ProgramListContentVIA extends SwingWorker implements IC
 			//Falls der Worker von extern per .interrupt() abgebrochen wird, wird ein entsprechendes flag im .interrupt() gesetzt.
 			if(this.getFlag("Terminate")==true){
 				//this.updateLabel("Interrupted loading: " + sDirectoryPathSelected); //Dies scheint wichtig zu sein, wird dadurch scheinbar erst der tree.repaint() wahrgenommen.
-				ReportLogZZZ.write(ReportLogZZZ.DEBUG, "TERMINATE FLAG WAR GESETZT.  Schreibe keine Einträge.");
+				ReportLogZZZ.write(ReportLogZZZ.DEBUG, "TERMINATE FLAG WAR GESETZT.  Schreibe keine Eintrï¿½ge.");
 				break main;
 			}else{				
 				synchronized (list){
-				//hier die ermittelten files dem Model hinzufügen
+				//hier die ermittelten files dem Model hinzufï¿½gen
 				modelList.clear();														
 					Iterator it = listaFile.iterator();
 					while(it.hasNext()){
@@ -185,7 +186,7 @@ public class SwingWorker4ProgramListContentVIA extends SwingWorker implements IC
 		return "all done";
 	}
 	
-	/** Dieser Methode sorgt dafür, dass die angegebene Komponente (hier ein JLabel unterhalb des JTrees) aktualisiert wird.
+	/** Dieser Methode sorgt dafï¿½r, dass die angegebene Komponente (hier ein JLabel unterhalb des JTrees) aktualisiert wird.
 	 * 
 	 *  Aus dem Worker-Thread heraus wird ein Thread gestartet (der sich in die EventQueue von Swing einreiht.)
 	 *  Entspricht auch ProgramIPContext.updateTextField(..)
@@ -197,7 +198,7 @@ public class SwingWorker4ProgramListContentVIA extends SwingWorker implements IC
 	public void updateLabel(String stext){
 		this.sText2Update = stext;
 		
-//		Das Schreiben des Ergebnisses wieder an den EventDispatcher thread übergeben
+//		Das Schreiben des Ergebnisses wieder an den EventDispatcher thread ï¿½bergeben
 		Runnable runnerUpdateLabel= new Runnable(){
 
 			public void run(){
@@ -206,7 +207,7 @@ public class SwingWorker4ProgramListContentVIA extends SwingWorker implements IC
 				JLabel label = (JLabel) panelCascaded.getComponent("label1");					
 				label.setText(sText2Update);
 				
-				//Für ein TextField interressant
+				//Fï¿½r ein TextField interressant
 				//label.setCaretPosition(0);   //Das soll bewirken, dass der Anfang jedes neu eingegebenen Textes sichtbar ist.  
 			}
 		};
@@ -256,8 +257,8 @@ public class SwingWorker4ProgramListContentVIA extends SwingWorker implements IC
 	
 	public void interrupt(){		
 		ReportLogZZZ.write(ReportLogZZZ.DEBUG, "This worker thread is interrupted.");
-		//this.get().wait(5000); //hält das ganze System (nur GUI)  an, vermutlich wird der Thread, auf dem der Event Queue läuft angehalten.
-		this.setFlag("Terminate", true);   //Damit kann der aufrufende Thread prüfen, ob dieser Thread abgebrochen wurde.
+		//this.get().wait(5000); //hï¿½lt das ganze System (nur GUI)  an, vermutlich wird der Thread, auf dem der Event Queue lï¿½uft angehalten.
+		this.setFlag("Terminate", true);   //Damit kann der aufrufende Thread prï¿½fen, ob dieser Thread abgebrochen wurde.
 		super.interrupt();		
 	}
 
@@ -304,7 +305,7 @@ public class SwingWorker4ProgramListContentVIA extends SwingWorker implements IC
 			String stemp = sFlagName.toLowerCase();
 			if(stemp.equals("debug")){
 				this.bFlagDebug = bFlagValue;
-				bFunction = true;                            //durch diesen return wert kann man "reflexiv" ermitteln, ob es in dem ganzen hierarchie-strang das flag überhaupt gibt !!!
+				bFunction = true;                            //durch diesen return wert kann man "reflexiv" ermitteln, ob es in dem ganzen hierarchie-strang das flag ï¿½berhaupt gibt !!!
 				break main;
 			}else if(stemp.equals("init")){
 				this.bFlagInit = bFlagValue;
@@ -322,4 +323,30 @@ public class SwingWorker4ProgramListContentVIA extends SwingWorker implements IC
 		
 		return bFunction;	
 	}
+	
+	//20170308: Enum FLAGZ nutzen
+		@Override
+		public HashMap<String, Boolean> getHashMapFlagZ() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public boolean proofFlagZExists(String sFlagName) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean setFlagZ(String sFlagName, boolean bFlagValue)
+				throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean getFlagZ(String sFlagName) {
+			// TODO Auto-generated method stub
+			return false;
+		}
 }

@@ -16,6 +16,7 @@ import javax.swing.SwingUtilities;
 import use.via.client.module.ip.ProgramIPContentVIA;
 
 
+
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -45,12 +46,12 @@ public class PanelDlgIPExternalContentVIA  extends KernelJPanelCascadedZZZ{
 		super(objKernel, dialogExtended);
 		
 		//Diese einfache Maske besteht aus 3 Zeilen und 4 Spalten. 
-		//Es gibt außen einen Rand von jeweils einer Spalte/Zeile
-		//Merke: gibt man pref an, so bewirkt dies, das die Spalte beim verändern der Fenstergröße nicht angepasst wird, auch wenn grow dahinter steht.
+		//Es gibt auï¿½en einen Rand von jeweils einer Spalte/Zeile
+		//Merke: gibt man pref an, so bewirkt dies, das die Spalte beim verï¿½ndern der Fenstergrï¿½ï¿½e nicht angepasst wird, auch wenn grow dahinter steht.
 		
 		FormLayout layout = new FormLayout(
-				"5dlu, right:pref:grow(0.5), 5dlu:grow(0.5), left:50dlu:grow(0.5), 5dlu, center:pref:grow(0.5),5dlu",         //erster Parameter sind die Spalten/Columns (hier: vier), als Komma getrennte Eintäge.
-				"5dlu, center:10dlu, 5dlu"); 				 //zweiter Parameter sind die Zeilen/Rows (hier:  drei), Merke: Wenn eine feste Länge kürzer ist als der Inhalt, dann wird der Inaht als "..." dargestellt
+				"5dlu, right:pref:grow(0.5), 5dlu:grow(0.5), left:50dlu:grow(0.5), 5dlu, center:pref:grow(0.5),5dlu",         //erster Parameter sind die Spalten/Columns (hier: vier), als Komma getrennte Eintï¿½ge.
+				"5dlu, center:10dlu, 5dlu"); 				 //zweiter Parameter sind die Zeilen/Rows (hier:  drei), Merke: Wenn eine feste Lï¿½nge kï¿½rzer ist als der Inhalt, dann wird der Inaht als "..." dargestellt
 		this.setLayout(layout);              //!!! wichtig: Das layout muss dem Panel zugwiesen werden BEVOR mit constraints die Componenten positioniert werden.
 		CellConstraints cc = new CellConstraints();
 		
@@ -64,7 +65,7 @@ public class PanelDlgIPExternalContentVIA  extends KernelJPanelCascadedZZZ{
 		//textfield.setPreferredSize(dim);
 		this.add(textfieldIPExternal, cc.xy(4,2));
 		
-		// Dieses Feld soll einer Aktion in der Buttonleiste zur Verfügung stehen.
+		// Dieses Feld soll einer Aktion in der Buttonleiste zur Verfï¿½gung stehen.
 		//Als CascadedPanelZZZ, wird diese Componente mit einem Alias versehen und in eine HashMap gepackt.
 		//Der Inhalt des Textfelds soll dann beim O.K. Button in die ini-Datei gepackt werden.
 		this.setComponent("text1", textfieldIPExternal);      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -77,11 +78,11 @@ public class PanelDlgIPExternalContentVIA  extends KernelJPanelCascadedZZZ{
 		this.add(buttonReadIPExternal, cc.xy(6,2));
 		
 		
-		/* Das funktioniert nicht. Funktionalität des JGoodies-Framework. Warum ???
+		/* Das funktioniert nicht. Funktionalitï¿½t des JGoodies-Framework. Warum ???
 		PanelBuilder builder = new PanelBuilder(layout);
 		builder.setDefaultDialogBorder();
 		builder.addLabel("Externe IP Adresse des Servers");
-		JTextField textfield = new JTextField("noch automatisch zu füllen");
+		JTextField textfield = new JTextField("noch automatisch zu fï¿½llen");
 		builder.add(textfield, cc.xy(3,2));
 		*/	
 	}//END Konstruktor
@@ -164,7 +165,7 @@ public class PanelDlgIPExternalContentVIA  extends KernelJPanelCascadedZZZ{
 				public void updateTextField(String stext){
 					this.sText2Update = stext;
 					
-//					Das Schreiben des Ergebnisses wieder an den EventDispatcher thread übergeben
+//					Das Schreiben des Ergebnisses wieder an den EventDispatcher thread ï¿½bergeben
 					Runnable runnerUpdateLabel= new Runnable(){
 
 						public void run(){
@@ -221,6 +222,32 @@ public class PanelDlgIPExternalContentVIA  extends KernelJPanelCascadedZZZ{
 
 				public void setLogObject(LogZZZ objLog) {
 					this.objLog = objLog;
+				}
+
+				@Override
+				public HashMap<String, Boolean> getHashMapFlagZ() {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				//201702: Enum FLAGZ nutzen 
+				@Override
+				public boolean proofFlagZExists(String sFlagName) {
+					// TODO Auto-generated method stub
+					return false;
+				}
+
+				@Override
+				public boolean setFlagZ(String sFlagName, boolean bFlagValue)
+						throws ExceptionZZZ {
+					// TODO Auto-generated method stub
+					return false;
+				}
+
+				@Override
+				public boolean getFlagZ(String sFlagName) {
+					// TODO Auto-generated method stub
+					return false;
 				}					
 			} //End Class MySwingWorker
 

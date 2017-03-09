@@ -4,6 +4,7 @@
 package use.via.client.module.export;
 
 import java.io.File;
+import java.util.HashMap;
 
 import javax.swing.JLabel;
 import javax.swing.JTree;
@@ -26,7 +27,7 @@ import basic.zKernelUI.component.KernelJPanelCascadedZZZ;
 import basic.zKernelUI.component.model.JTree.ModelJTreeNodeDirectoyZZZ;
 import basic.zKernelUI.component.model.JTree.ModelJTreeNodeRootDummyZZZ;
 
-/**Diese Klasse wird genutzt beim Aktualisieren des Baums,der die Verzeichnisse enthält.
+/**Diese Klasse wird genutzt beim Aktualisieren des Baums,der die Verzeichnisse enthï¿½lt.
  *  Sowohl beim Start des Frames als auch nach der Auswahl eines neuen Laufwerks in der Combo-Box.
  * @author 0823
  *
@@ -36,8 +37,8 @@ public class SwingWorker4ProgramTreeContentVIA extends SwingWorker implements IC
 	private LogZZZ objLog;
 	private KernelJPanelCascadedZZZ panelCascaded;
 	
-	private String sRootNew;    //Der Wert, der in der ComboBox als neues Laufwerk ausgewählt worden ist.
-	private String sText2Update; //Der Wert, der mit "update label" in ein Feld geschrieben werden kann, dass über den Status "der work" berichten soll.
+	private String sRootNew;    //Der Wert, der in der ComboBox als neues Laufwerk ausgewï¿½hlt worden ist.
+	private String sText2Update; //Der Wert, der mit "update label" in ein Feld geschrieben werden kann, dass ï¿½ber den Status "der work" berichten soll.
 	
 	//Flags
 	private boolean bFlagInit = false;
@@ -51,7 +52,7 @@ public class SwingWorker4ProgramTreeContentVIA extends SwingWorker implements IC
 			this.objKernel = objKernel;
 			this.objLog = objKernel.getLogObject();
 			
-			 //setzen der übergebenen Flags	
+			 //setzen der ï¿½bergebenen Flags	
 			  if(saFlagControlIn != null){
 				  for(int iCount = 0;iCount<=saFlagControlIn.length-1;iCount++){
 					  String stemp = saFlagControlIn[iCount];
@@ -100,13 +101,13 @@ public class SwingWorker4ProgramTreeContentVIA extends SwingWorker implements IC
 			//Das alte Model durch neues ersetzen
 			ModelJTreeNodeRootDummyZZZ treeModelMutableLoading = new ModelJTreeNodeRootDummyZZZ(fileStart);
 			DefaultTreeModel treeModelLoading = new DefaultTreeModel(treeModelMutableLoading);
-			tree.setModel(treeModelLoading); //Das bewirkt die Änderung des Modell, welches der JTree verwendet. 
+			tree.setModel(treeModelLoading); //Das bewirkt die ï¿½nderung des Modell, welches der JTree verwendet. 
 			tree.setRootVisible(false); //nun wird der ggf. eingestellte DummyRoot entfernt, daher hier nur die Child-Knoten anzeigen.
 			tree.repaint(); //doch notwendig, wenn es in einem extra thread ist  ???             //ist gar nicht notwendig, da .setModel schon alle Ereigniskomponenten Listener informiert. Ergo wird der Baum auch neu gezeichnet.
 		
 			
-			ModelJTreeNodeDirectoyZZZ treeRootModel = new ModelJTreeNodeDirectoyZZZ(fileStart);	//damit wird der neue Tree eingelesen, was eine Aufgabe für die nebenläufige Programmierung ist.
-																		   //																Das bewirkt aber keine Änderung der Anzeige
+			ModelJTreeNodeDirectoyZZZ treeRootModel = new ModelJTreeNodeDirectoyZZZ(fileStart);	//damit wird der neue Tree eingelesen, was eine Aufgabe fï¿½r die nebenlï¿½ufige Programmierung ist.
+																		   //																Das bewirkt aber keine ï¿½nderung der Anzeige
 		
 			//Falls der Worker von extern per .interrupt() abgebrochen wird, wird ein entsprechendes flag im .interrupt() gesetzt.
 			if(this.getFlag("Terminate")==true){
@@ -115,9 +116,9 @@ public class SwingWorker4ProgramTreeContentVIA extends SwingWorker implements IC
 			
 				//bis dato wird noch nix im JTree aktualisiert
 				//Dazu muss man mit dem wirklichen tree - Model arbeiten, das man z.B. bekommt mit:  DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
-				//Wir übergeben aber nun ein neues Model an den Baum, das dann auch auf unserem mühevoll (mit Rekursion) aufgebautem ModleJTreeNodeDirectoryZZZ baisert.
+				//Wir ï¿½bergeben aber nun ein neues Model an den Baum, das dann auch auf unserem mï¿½hevoll (mit Rekursion) aufgebautem ModleJTreeNodeDirectoryZZZ baisert.
 				DefaultTreeModel treeModel = new DefaultTreeModel(treeRootModel);
-				tree.setModel(treeModel); //Das bewirkt die Änderung des Modell, welches der JTree verwendet. 
+				tree.setModel(treeModel); //Das bewirkt die ï¿½nderung des Modell, welches der JTree verwendet. 
 				tree.setRootVisible(true); //das ist der einfachste Weg, auch Dateien im Root anzeigen zu lassen.
 				
 				//So wird ein Knoten markiert
@@ -136,7 +137,7 @@ public class SwingWorker4ProgramTreeContentVIA extends SwingWorker implements IC
 		return "all done";
 	}
 	
-	/** Dieser Methode sorgt dafür, dass die angegebene Komponente (hier ein JLabel unterhalb des JTrees) aktualisiert wird.
+	/** Dieser Methode sorgt dafï¿½r, dass die angegebene Komponente (hier ein JLabel unterhalb des JTrees) aktualisiert wird.
 	 * 
 	 *  Aus dem Worker-Thread heraus wird ein Thread gestartet (der sich in die EventQueue von Swing einreiht.)
 	 *  Entspricht auch ProgramIPContext.updateTextField(..)
@@ -148,7 +149,7 @@ public class SwingWorker4ProgramTreeContentVIA extends SwingWorker implements IC
 	public void updateLabel(String stext){
 		this.sText2Update = stext;
 		
-//		Das Schreiben des Ergebnisses wieder an den EventDispatcher thread übergeben
+//		Das Schreiben des Ergebnisses wieder an den EventDispatcher thread ï¿½bergeben
 		Runnable runnerUpdateLabel= new Runnable(){
 
 			public void run(){
@@ -157,7 +158,7 @@ public class SwingWorker4ProgramTreeContentVIA extends SwingWorker implements IC
 				JLabel label = (JLabel) panelCascaded.getComponent("label1");					
 				label.setText(sText2Update);
 				
-				//Für ein TextField interressant
+				//Fï¿½r ein TextField interressant
 				//label.setCaretPosition(0);   //Das soll bewirken, dass der Anfang jedes neu eingegebenen Textes sichtbar ist.  
 			}
 		};
@@ -207,8 +208,8 @@ public class SwingWorker4ProgramTreeContentVIA extends SwingWorker implements IC
 	
 	public void interrupt(){		
 		ReportLogZZZ.write(ReportLogZZZ.DEBUG, "This worker thread is interrupted.");
-		//this.get().wait(5000); //hält das ganze System (nur GUI)  an, vermutlich wird der Thread, auf dem der Event Queue läuft angehalten.
-		this.setFlag("Terminate", true);   //Damit kann der aufrufende Thread prüfen, ob dieser Thread abgebrochen wurde.
+		//this.get().wait(5000); //hï¿½lt das ganze System (nur GUI)  an, vermutlich wird der Thread, auf dem der Event Queue lï¿½uft angehalten.
+		this.setFlag("Terminate", true);   //Damit kann der aufrufende Thread prï¿½fen, ob dieser Thread abgebrochen wurde.
 		super.interrupt();		
 	}
 
@@ -255,7 +256,7 @@ public class SwingWorker4ProgramTreeContentVIA extends SwingWorker implements IC
 			String stemp = sFlagName.toLowerCase();
 			if(stemp.equals("debug")){
 				this.bFlagDebug = bFlagValue;
-				bFunction = true;                            //durch diesen return wert kann man "reflexiv" ermitteln, ob es in dem ganzen hierarchie-strang das flag überhaupt gibt !!!
+				bFunction = true;                            //durch diesen return wert kann man "reflexiv" ermitteln, ob es in dem ganzen hierarchie-strang das flag ï¿½berhaupt gibt !!!
 				break main;
 			}else if(stemp.equals("init")){
 				this.bFlagInit = bFlagValue;
@@ -273,6 +274,32 @@ public class SwingWorker4ProgramTreeContentVIA extends SwingWorker implements IC
 		
 		return bFunction;	
 	}
+	
+	//20170308: Enum FLAGZ nutzen
+		@Override
+		public HashMap<String, Boolean> getHashMapFlagZ() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public boolean proofFlagZExists(String sFlagName) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean setFlagZ(String sFlagName, boolean bFlagValue)
+				throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean getFlagZ(String sFlagName) {
+			// TODO Auto-generated method stub
+			return false;
+		}
 					
 
 }

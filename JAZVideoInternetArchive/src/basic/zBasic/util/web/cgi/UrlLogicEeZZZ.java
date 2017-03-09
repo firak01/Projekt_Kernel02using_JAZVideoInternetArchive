@@ -12,7 +12,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
  *
  */
 public class UrlLogicEeZZZ extends UrlLogicZZZ {
-	
+	 
 //	Default Konstruktor
 	public UrlLogicEeZZZ(){
 		super();
@@ -21,7 +21,7 @@ public class UrlLogicEeZZZ extends UrlLogicZZZ {
 		super(sUrl);
 	}
 	
-	/** HttpServletRequest.getProtocol()  liefert z.B. HTTP/1.1 zurück !!!
+	/** HttpServletRequest.getProtocol()  liefert z.B. HTTP/1.1 zurï¿½ck !!!
 	 *  Diese Methode redudiert dies auf z.B. "http"
 	 *  ABER: Da HttpServletRequest ein Bestandteil von J2EE ist, und dieses .jar File in der ZKernel-Bibliothek nicht genutzt werden darf,  
 	 *             siehe: UrlLogicZZZ
