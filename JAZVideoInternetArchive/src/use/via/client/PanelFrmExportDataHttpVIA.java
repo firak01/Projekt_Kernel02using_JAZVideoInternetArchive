@@ -4,7 +4,7 @@ package use.via.client;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
-//wg. gleichnaiger XMLBean Klasse File nicht möglich....    import java.io.File;
+//wg. gleichnaiger XMLBean Klasse File nicht mï¿½glich....    import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -147,7 +147,7 @@ import basic.zKernelUI.component.model.ISenderSelectionResetZZZ;
 import basic.zKernelUI.component.model.KernelSenderComponentSelectionResetZZZ;
 import basic.zKernelUI.component.model.JTree.ModelJTreeNodeRootDummyZZZ;
 import basic.zKernelUI.util.KernelJComboBoxHelperZZZ;
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 import custom.zUtil.io.FileZZZ;
 import de.tOnline.homepage.fgl.jazVideoInternetArchiveClient.ArchiveEntry;
 import de.tOnline.homepage.fgl.jazVideoInternetArchiveClient.ArchiveEntryList;
@@ -160,7 +160,7 @@ import de.wenzlaff.cdrom.CdRom;
 
 public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 	
-	public PanelFrmExportDataHttpVIA(KernelZZZ objKernel, KernelJFrameCascadedZZZ frameParent) throws ExceptionZZZ{
+	public PanelFrmExportDataHttpVIA(IKernelZZZ objKernel, KernelJFrameCascadedZZZ frameParent) throws ExceptionZZZ{
 		super(objKernel, frameParent);
 		  
 		//Zur Normierung der Komponenten werden diese Dimsion-Objekte in .setPrefferedSize herangezgen.
@@ -176,13 +176,13 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 				
 		
 		//Diese einfache Maske besteht aus 3 Zeilen und 4 Spalten. 
-		//Es gibt außen einen Rand von jeweils einer Spalte/Zeile
-		//Merke: gibt man pref an, so bewirkt dies, das die Spalte beim verändern der Fenstergröße nicht angepasst wird, auch wenn grow dahinter steht.
-		final String sCSep = "center:max(10pt;min)"; //"1dlu:grow(0.5)"; //z.B. eine Trennspalte zwiwschen Führungstext und dahinterliegendem Textfeld
+		//Es gibt auï¿½en einen Rand von jeweils einer Spalte/Zeile
+		//Merke: gibt man pref an, so bewirkt dies, das die Spalte beim verï¿½ndern der Fenstergrï¿½ï¿½e nicht angepasst wird, auch wenn grow dahinter steht.
+		final String sCSep = "center:max(10pt;min)"; //"1dlu:grow(0.5)"; //z.B. eine Trennspalte zwiwschen Fï¿½hrungstext und dahinterliegendem Textfeld
 		final String sCButLeft = ",right:max(15pt;min), "; 
-		final String sCButRight = ",left:max(10pt;min), ";//dient als spalte für zusätzliche Buttons (z.B. den Refresh Button für die Tree-Auswahl)
+		final String sCButRight = ",left:max(10pt;min), ";//dient als spalte fï¿½r zusï¿½tzliche Buttons (z.B. den Refresh Button fï¿½r die Tree-Auswahl)
 		final String sSection = ",right:100dlu,";       //darin ist die Dateiliste
-		final String sSection75 = ",right:75dlu,";       //darin ist der Tree (er geht dann auch noch über mehrer Button Sections)
+		final String sSection75 = ",right:75dlu,";       //darin ist der Tree (er geht dann auch noch ï¿½ber mehrer Button Sections)
 		final String sColumnLeft = ",left:60dlu:grow(0.5),";
 		final String sColumnRight = ",right:60dlu:grow(0.5),";
 	
@@ -193,10 +193,10 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		final String sRow = ",center:20dlu,";
 		final int iNumberOfRow = 18;
 		
-		//Nach jeder Zeile wird so automatisch eine Trennzeile eingeführt
+		//Nach jeder Zeile wird so automatisch eine Trennzeile eingefï¿½hrt
 		String sRowAll = new String(sRSep);
 		for(int icount=1; icount <= iNumberOfRow; icount ++){
-			//Ausnahme: Zeile über eine Block (hier die 19.+20. Zeile)
+			//Ausnahme: Zeile ï¿½ber eine Block (hier die 19.+20. Zeile)
 			//					 Zeile 1 + 2 
 			if(icount==9 || icount == 1){
 				sRowAll = sRowAll + sRow + sRow;
@@ -206,8 +206,8 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		};
 	
 		/*	FormLayout layout = new FormLayout(						
-				"5dlu, right:pref:grow(0.5), 5dlu:grow(0.5), left:50dlu:grow(0.5), 5dlu",         //erster Parameter sind die Spalten/Columns, als Komma getrennte Eintäge.
-				"5dlu, center:10dlu, 5dlu"); 				 //zweiter Parameter sind die Zeilen/Rows (hier:  drei), Merke: Wenn eine feste Länge kürzer ist als der Inhalt, dann wird der Inaht als "..." dargestellt
+				"5dlu, right:pref:grow(0.5), 5dlu:grow(0.5), left:50dlu:grow(0.5), 5dlu",         //erster Parameter sind die Spalten/Columns, als Komma getrennte Eintï¿½ge.
+				"5dlu, center:10dlu, 5dlu"); 				 //zweiter Parameter sind die Zeilen/Rows (hier:  drei), Merke: Wenn eine feste Lï¿½nge kï¿½rzer ist als der Inhalt, dann wird der Inaht als "..." dargestellt
 		*/
 		
 		FormLayout layout = new FormLayout(sColumnAll, sRowAll);		
@@ -216,39 +216,39 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		
 		//#######################################################
 		//# MERKE:
-		//# Die Combo-Box und der JTree fungieren nicht direkt als Sender von den "künstlichen, eigenen Events",
-		//# sondern es sind die Listener, welche auf die ComboBox, bzw. der Auswahl im Tree hören, die auch als Sender für die "künstlichen, eigenen Events" fungieren.
+		//# Die Combo-Box und der JTree fungieren nicht direkt als Sender von den "kï¿½nstlichen, eigenen Events",
+		//# sondern es sind die Listener, welche auf die ComboBox, bzw. der Auswahl im Tree hï¿½ren, die auch als Sender fï¿½r die "kï¿½nstlichen, eigenen Events" fungieren.
 		//# Zu diesem Zweck haben die Listener meine Interfaces implementiert, die sie zu "Sendern" machen.
 		//#
 		//# MERKE 2:
 		//# Die JList, sowie (im Debug-Teil) die JLabels, bzw. (im Produktiv-Teil) die JTextFields sind so erweitert, dass sie Methoden der IListener-Interfaces implementieren.
-		//# Daher können sie durch die entsprechenden .fireEvent(event) - Methoden der Sender herangezogen werden. Sprich: In den .fireEvent(event) - Methoden der Sender wird eine Methode
+		//# Daher kï¿½nnen sie durch die entsprechenden .fireEvent(event) - Methoden der Sender herangezogen werden. Sprich: In den .fireEvent(event) - Methoden der Sender wird eine Methode
 		//# des IListener-Interfaces aufgerufen. Da sich die Komponenten-Objekte an den entsprechenden Sender registriert haben (d.h. in der ArrayList der Listener der Sender aufgenommen sind), werden ihre Methoden aufgerufen. 
 		//#######################################################
 		
 		//++++ ALLE verwendeten Listener
-		//TODO: Den Eventbroker erzeugen, der den Event abfeuert "neuer Datenträger ausgewählt".
-		//TODO: Alle Komponenten müssen sich an diesen EventBroker registrieren.
+		//TODO: Den Eventbroker erzeugen, der den Event abfeuert "neuer Datentrï¿½ger ausgewï¿½hlt".
+		//TODO: Alle Komponenten mï¿½ssen sich an diesen EventBroker registrieren.
 		
 		
 		
-		//TODO: Den EventBroker hinzufügen, damit darüber der Event abgefeuert werden kann
+		//TODO: Den EventBroker hinzufÃ¼gen, damit darï¿½ber der Event abgefeuert werden kann
 		KernelSenderComponentSelectionResetZZZ objEventDriveBroker = new KernelSenderComponentSelectionResetZZZ(objKernel);
 		
-		//FGL20081001 Den EventBroker mehrfach nutzen ListenerComboDriveSelectionVIA listenerComboSelection = new ListenerComboDriveSelectionVIA(objKernel, this);      //Erzeugt den Event, wenn in der Combobox ein neues Laufwerk ausgewählt wird. Merke: Wird 2mal das gleiche ausgewählt, so wird kein Event gestartet.
-		ListenerComboDriveSelectionVIA listenerComboSelection = new ListenerComboDriveSelectionVIA(objKernel, this, objEventDriveBroker);      //Erzeugt den Event, wenn in der Combobox ein neues Laufwerk ausgewählt wird. Merke: Wird 2mal das gleiche ausgewählt, so wird kein Event gestartet.
+		//FGL20081001 Den EventBroker mehrfach nutzen ListenerComboDriveSelectionVIA listenerComboSelection = new ListenerComboDriveSelectionVIA(objKernel, this);      //Erzeugt den Event, wenn in der Combobox ein neues Laufwerk ausgewï¿½hlt wird. Merke: Wird 2mal das gleiche ausgewï¿½hlt, so wird kein Event gestartet.
+		ListenerComboDriveSelectionVIA listenerComboSelection = new ListenerComboDriveSelectionVIA(objKernel, this, objEventDriveBroker);      //Erzeugt den Event, wenn in der Combobox ein neues Laufwerk ausgewï¿½hlt wird. Merke: Wird 2mal das gleiche ausgewï¿½hlt, so wird kein Event gestartet.
 		
-		//FGL 20081001 Den EventBroker mehrfach nutzen  ListenerComboDriveRefreshVIA listenerComboRefresh = new ListenerComboDriveRefreshVIA(objKernel, this);				//Erzeugt den Event, wenn der RefreshButton neben der ComboBox ausgewählt wird. Entspricht im Grunde dem Listerne Combo Drive Selection.
-		ListenerComboDriveRefreshVIA listenerComboRefresh = new ListenerComboDriveRefreshVIA(objKernel, this, objEventDriveBroker); //Erzeugt den Event, wenn der RefreshButton neben der ComboBox ausgewählt wird. Entspricht im Grunde dem Listerne Combo Drive Selection, aber: Wird auch bei gleicher vorherigen Auswahl ausgefürht
+		//FGL 20081001 Den EventBroker mehrfach nutzen  ListenerComboDriveRefreshVIA listenerComboRefresh = new ListenerComboDriveRefreshVIA(objKernel, this);				//Erzeugt den Event, wenn der RefreshButton neben der ComboBox ausgewï¿½hlt wird. Entspricht im Grunde dem Listerne Combo Drive Selection.
+		ListenerComboDriveRefreshVIA listenerComboRefresh = new ListenerComboDriveRefreshVIA(objKernel, this, objEventDriveBroker); //Erzeugt den Event, wenn der RefreshButton neben der ComboBox ausgewï¿½hlt wird. Entspricht im Grunde dem Listerne Combo Drive Selection, aber: Wird auch bei gleicher vorherigen Auswahl ausgefï¿½rht
 	
-		ListenerListFileSelectionVIA listenerListSelection = new ListenerListFileSelectionVIA(objKernel, this);                              //Erzeugt den Event, wenn in der Dateiliste ein Eintrag ausgwählt wird
-		ListenerTreeDirectorySelectionVIA listenerTreeSelection = new ListenerTreeDirectorySelectionVIA(objKernel, this);      //Erzeugt den Event, wenn im Verzeichnisbaum ein Eintrag ausgewählt wird
+		ListenerListFileSelectionVIA listenerListSelection = new ListenerListFileSelectionVIA(objKernel, this);                              //Erzeugt den Event, wenn in der Dateiliste ein Eintrag ausgwï¿½hlt wird
+		ListenerTreeDirectorySelectionVIA listenerTreeSelection = new ListenerTreeDirectorySelectionVIA(objKernel, this);      //Erzeugt den Event, wenn im Verzeichnisbaum ein Eintrag ausgewï¿½hlt wird
 		
 		//+++++++++++++++++++++++++++++++++++++++++
 				
-		//    +++  COMBO-Box, für die Auswahl des Laufwerks
+		//    +++  COMBO-Box, fÃ¼r die Auswahl des Laufwerks
 		JComboBox comboDrive = new JComboBox();
-		this.setComponent("combo", comboDrive); //Die combo Box über den PanelCascadedZZZ-Mechanismus für andere Komponenten greifbar machen.
+		this.setComponent("combo", comboDrive); //Die combo Box ï¿½ber den PanelCascadedZZZ-Mechanismus fï¿½r andere Komponenten greifbar machen.
 		comboDrive.setEditable(true);
 		
 		java.io.File[] filea = java.io.File.listRoots();
@@ -264,7 +264,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 			ReportLogZZZ.write(ReportLogZZZ.ERROR, "DriveDefault not configured. Will use c:\\");
 			sDriveDefault = "C:\\";
 		}
-		//prüfen, ob dieses Laufwerk überhaupt in der liste ist
+		//prÃ¼fen, ob dieses Laufwerk Ã¼berhaupt in der liste ist
 		boolean bDefaultSelectable = false;
 		for (int icount = 0; icount <= comboDrive.getItemCount()-1; icount++){
 			String sItem = (String) comboDrive.getItemAt(icount);
@@ -274,46 +274,46 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 			}
 		}
 		if(bDefaultSelectable==false){
-			comboDrive.setSelectedIndex(0);  //Das erste Element auswählen
+			comboDrive.setSelectedIndex(0);  //Das erste Element auswï¿½hlen
 		}else{
 			comboDrive.setSelectedItem(sDriveDefault);  //Mit einer Vorauswahl belegen. z.b. comboDrive.setSelectedItem("C:\\");
 		}		
 		
-		//Diese Actionen werden von der Combo-Box abgefeuert, wenn sich die aktuelle Auswahl ändert.
-		//1. Starte einen Event-der die (an diesen Sender) angemeldeten Komponenten über den "Reset" informiert.		
+		//Diese Actionen werden von der Combo-Box abgefeuert, wenn sich die aktuelle Auswahl ï¿½ndert.
+		//1. Starte einen Event-der die (an diesen Sender) angemeldeten Komponenten ï¿½ber den "Reset" informiert.		
 		comboDrive.addActionListener(listenerComboSelection);
 		
-		//2. Bei Änderung der ComboBox: Starte jeweils einen SwingWorker-Thread, der den JTree und die File-Liste  mit einem neuen Model der Verzeichnisse versorgt.
+		//2. Bei Ã„nderung der ComboBox: Starte jeweils einen SwingWorker-Thread, der den JTree und die File-Liste  mit einem neuen Model der Verzeichnisse versorgt.
 		ListenerCombo4TreeRefreshVIA listenerComboCascaded = new ListenerCombo4TreeRefreshVIA(objKernel, this);                    //
 		comboDrive.addActionListener(listenerComboCascaded);
 		
-		//Füge die ComboBox der Maske hinzu
+		//FÃ¼ge die ComboBox der Maske hinzu
 		this.add(comboDrive, cc.xy(2,2));   
 		
 		
-		//Dieser String bzw. das File ist die Grundlage für die Initalbefüllung des Verzeichnisbaums und der JList Komponente
+		//Dieser String bzw. das File ist die Grundlage fï¿½r die Initalbefï¿½llung des Verzeichnisbaums und der JList Komponente
 		String sRoot = (String) comboDrive.getSelectedItem();
 		java.io.File fileRoot = new java.io.File(sRoot);
-		boolean bRootExists = fileRoot.exists(); //An dieser zentralen Stelle abprüfen, damit die Aufforderung "Bitte Datenträger einlegen" bei leerer CD nur einmal erscheint
+		boolean bRootExists = fileRoot.exists(); //An dieser zentralen Stelle abprï¿½fen, damit die Aufforderung "Bitte Datentrï¿½ger einlegen" bei leerer CD nur einmal erscheint
 		
 		
 		//+++ BUTTON - Verzeichnisbaum Refreshen.
-		//Refresh - Button für die Aktualisierung des Verzeichnisbaums, basierend auf dem ausgewählten Laufwerk
+		//Refresh - Button fï¿½r die Aktualisierung des Verzeichnisbaums, basierend auf dem ausgewï¿½hlten Laufwerk
 		JButton buttonTreeRefresh = new JButton(); //TODO: Kein Text, sondern nur ein kleines Image
 		buttonTreeRefresh.setPreferredSize(dimButtonTiny);
-		buttonTreeRefresh.addActionListener(listenerComboCascaded); //aktualisiert den Tree, startet zusätzliche Threads
-		//nein: dieser Listener feuert keinen Event ab, wenn dier gleich Eintrag gewählt wurde buttonTreeRefresh.addActionListener(listenerComboSelection); //aktualisiert die Liste, auch wenn das Laufwerk nicht bereit ist wird die Liste dadurch zurückgesetzt 
-		buttonTreeRefresh.addActionListener(listenerComboRefresh); //aktualisiert die Liste, auch wenn das Laufwerk nicht bereit ist wird die Liste dadurch zurückgesetzt
+		buttonTreeRefresh.addActionListener(listenerComboCascaded); //aktualisiert den Tree, startet zusï¿½tzliche Threads
+		//nein: dieser Listener feuert keinen Event ab, wenn dier gleich Eintrag gewï¿½hlt wurde buttonTreeRefresh.addActionListener(listenerComboSelection); //aktualisiert die Liste, auch wenn das Laufwerk nicht bereit ist wird die Liste dadurch zurï¿½ckgesetzt 
+		buttonTreeRefresh.addActionListener(listenerComboRefresh); //aktualisiert die Liste, auch wenn das Laufwerk nicht bereit ist wird die Liste dadurch zurï¿½ckgesetzt
 		this.add(buttonTreeRefresh,  cc.xy(3,2));
 		
-		//+++ BUTTON - CD-ROM Laufwerk öffnen
-		//--- TODO: Soll sich an einen Event anhängen, der dann den Button verbirgt, wenn kein CD/DVD-Laufwerk ausgwählt wird
-		//--- TODO: Soll das CD-ROM Laufwerk öffnen, soll einen Thread starten, der auf eine neue CD wartet. Wenn eine neue CD eingelegt wurde, dann den internen Status af "geschlossen" setzen.
+		//+++ BUTTON - CD-ROM Laufwerk ï¿½ffnen
+		//--- TODO: Soll sich an einen Event anhï¿½ngen, der dann den Button verbirgt, wenn kein CD/DVD-Laufwerk ausgwï¿½hlt wird
+		//--- TODO: Soll das CD-ROM Laufwerk ï¿½ffnen, soll einen Thread starten, der auf eine neue CD wartet. Wenn eine neue CD eingelegt wurde, dann den internen Status af "geschlossen" setzen.
 		//--- TODO: Soll das CD-ROM Laufwerk ggf. schliessen, wenn der interne Status auf "offen" gesetzt wurde.
 		JButton buttonCd = new JButton();
 		buttonCd.setPreferredSize(dimButtonTiny);
 		
-		//Bild hinzufügen
+		//Bild hinzufï¿½gen
 		ImageIcon bild = new ImageIcon("./Jade Metallic_32.png");
 		buttonCd.setIcon(bild);
 		
@@ -329,7 +329,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 
 		
 		//### VERZEICHNISBAUM ########################################
-		//Ein Label, dass über den Verzeichnisbaum berichten soll. s. updateLabel in der SwingWorker Klasse für den Aufbau des TreeModels.
+		//Ein Label, dass ï¿½ber den Verzeichnisbaum berichten soll. s. updateLabel in der SwingWorker Klasse fï¿½r den Aufbau des TreeModels.
 		JLabel labelTreeStatus = new JLabel("");
 		this.add(labelTreeStatus, cc.xywh(2,2*iNumberOfRow, 2, 1));  //2* , wg. der "Trennzeilen", umfasst also die Buttonspalte des Refresh-Buttons plus weitere
 		this.setComponent("label1", labelTreeStatus);
@@ -341,12 +341,12 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		JTree tree = new JTree();
 		this.setComponent("tree", tree);
 		
-		//2. Listener und weitere Eigenschaften für den Tree und die Auswahl von Knoten hinzufügen
-		//    Merke: Darin wird ein event angestossen, der alle angemeldeten Komponenten über die neue Auswahl informiert		
+		//2. Listener und weitere Eigenschaften fï¿½r den Tree und die Auswahl von Knoten hinzufï¿½gen
+		//    Merke: Darin wird ein event angestossen, der alle angemeldeten Komponenten ï¿½ber die neue Auswahl informiert		
 		tree.addTreeSelectionListener(listenerTreeSelection);
 		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		
-		//3, Model hinzufügen UND den Versuch die Performance zu verbessern, indem man einen externen Thread startet.
+		//3, Model hinzufï¿½gen UND den Versuch die Performance zu verbessern, indem man einen externen Thread startet.
 		try{
 //			FGL 20080314 Damit nur einmal die Abfrage "Bitte legen Sie eine CD ein" kommt, vor dem Start des Worker Thread auf die Existenz des Pfades abfragen
 			if(bRootExists){
@@ -359,7 +359,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 				DefaultTreeModel treeModelDummy = new DefaultTreeModel(dummyModel);
 				tree.setModel(treeModelDummy);  //Sonst steht dort nur Mist drin.  "Sports, Color, Food", wohl default von Sun
 				
-//				!!! Da zunächst ein Dummy-Tree, der nur aus dem Root besteht eingelesen werden soll, Merke: Am Ende des WorkerThreads wird. tree.setRootVisible(false);  aufgerufen.
+//				!!! Da zunï¿½chst ein Dummy-Tree, der nur aus dem Root besteht eingelesen werden soll, Merke: Am Ende des WorkerThreads wird. tree.setRootVisible(false);  aufgerufen.
 				tree.setRootVisible(true);    //Dadurch sind auch Dateien auf Root-Ebene in der List-Box anzeigbar.
 				tree.setShowsRootHandles(true);
 				
@@ -367,7 +367,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 				SwingWorker4ProgramTreeContentVIA workerTree = null; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ERST MAL RAUS         listenerComboCascaded.getWorkerThreadTree();
 				if(workerTree==null){
 					workerTree = new SwingWorker4ProgramTreeContentVIA(objKernel, this, sRoot, saFlag);
-				//!!!!!!!!!!!!!!!!!!!	listenerComboCascaded.setWorkerThreadTree(workerTree); //Damit immer nur ein worker thread arbeitet. Theoretisch kann man ja nach dem Starten des Frames die Combo - Box ändern. Hier wird dann ein bereits laufender Thread abgebrochen.
+				//!!!!!!!!!!!!!!!!!!!	listenerComboCascaded.setWorkerThreadTree(workerTree); //Damit immer nur ein worker thread arbeitet. Theoretisch kann man ja nach dem Starten des Frames die Combo - Box ï¿½ndern. Hier wird dann ein bereits laufender Thread abgebrochen.
 					workerTree.start();  //Merke: Das Setzen des Label Felds geschieht durch einen extra Thread, der mit SwingUtitlities.invokeLater(runnable) gestartet wird.	
 				}
 			}else{
@@ -394,22 +394,22 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		 */
 		
 		
-		//4. Scrollbar hinzufügen und in das Formular einbauen
-		//!!! Bei längeren Einträgen sind einige Einträge nicht erreichbar per Scrollen.
+		//4. Scrollbar hinzufï¿½gen und in das Formular einbauen
+		//!!! Bei lï¿½ngeren Eintrï¿½gen sind einige Eintrï¿½ge nicht erreichbar per Scrollen.
 		JScrollPane scrollTree = new JScrollPane(tree);
 		scrollTree.setPreferredSize(dimTree);
-		this.add(scrollTree, cc.xywh(2,3,3, 2*iNumberOfRow-3));  //beinhaltet also die Button-Refresh Spalte, Höhe 2* , wg. der "Trennzeilen"  -3 weil es erst in der 3. Zeile anfängt 
+		this.add(scrollTree, cc.xywh(2,3,3, 2*iNumberOfRow-3));  //beinhaltet also die Button-Refresh Spalte, Hï¿½he 2* , wg. der "Trennzeilen"  -3 weil es erst in der 3. Zeile anfï¿½ngt 
 		
 		//################## LISTE DER DATEIEN eines Verzeichnissed ############################
-		//Die Liste hört auf den Tree und auf die ComboBox der Laufwerksauswahl
+		//Die Liste hï¿½rt auf den Tree und auf die ComboBox der Laufwerksauswahl
 		//Die Liste feuert einen eigenen "EventListFileSelectedVIA"
 		DefaultListModel listModel = new DefaultListModel();
 		JListFileListening4ComponentResetVIA listListening = new JListFileListening4ComponentResetVIA(objKernel, listModel, listenerComboCascaded, this);
 		listListening.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listListening.addListSelectionListener(listenerListSelection);   //Der listener, für die Auswahl aus der ListBox
-		this.setComponent("list", listListening);   		//Die Dateiliste, auch über die Kernel-Funktionalität per Alias "bekannt" machen.
+		listListening.addListSelectionListener(listenerListSelection);   //Der listener, fï¿½r die Auswahl aus der ListBox
+		this.setComponent("list", listListening);   		//Die Dateiliste, auch ï¿½ber die Kernel-Funktionalitï¿½t per Alias "bekannt" machen.
 		
-		//Scrollbar hinzufügen und in das Formular einbauen
+		//Scrollbar hinzufï¿½gen und in das Formular einbauen
 		//listListening.setPreferredSize(dimTree); //damit soll dies Liste das gleiche Format haben wie der Baum. ABER: Wenn das gesetzt ist, hat JScrollPane Probleme neue Dateien per Scrollen zu erreichen
 		JScrollPane scrollList = new JScrollPane(listListening);
 		scrollList.setPreferredSize(dimTree); //damit soll dies Liste das gleiche Format haben wie der Baum. 
@@ -419,12 +419,12 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 //		Diese Listbox an den Listener des Trees registrieren. Merke: Der Listener des Trees fungiert gleichzeitig als Sender des "Reset-Events"
 		listenerTreeSelection.addListenerSelectionReset(listListening);
 		
-		//Diese Listbox an den Listener der Combobox für die Auswahl des Laufwerks registrieren. Damit bei einer Änderung des Laufwerks die Liste mit den neuen root-Datein gefüllt wird.
+		//Diese Listbox an den Listener der Combobox fï¿½r die Auswahl des Laufwerks registrieren. Damit bei einer ï¿½nderung des Laufwerks die Liste mit den neuen root-Datein gefï¿½llt wird.
 //		FGL 20081001 nun direkt an den EventBroker registrieren		listenerComboSelection.addListenerSelectionReset(listListening);
 		//FGL 20081001 nun direkt an den EventBroker registrieren  listenerComboRefresh.addListenerSelectionReset(listListening); //Beim Refresh Button soll der Eintrag leer gesetzt werden
 		objEventDriveBroker.addListenerSelectionReset(listListening); //FGL 20081001 nun direkt an den EventBroker registrieren //Beim Refresh Button soll der Eintrag leer gesetzt werden, Das passiert auch beim CD-Open-Button
 		
-		//Die Dateien des ausgewählten Roots (in der Combo-Box) anzeigen
+		//Die Dateien des ausgewï¿½hlten Roots (in der Combo-Box) anzeigen
 //		Versuch die Performance zu verbessern, indem man einen externen Thread startet
 		try{
 			//FGL 20080314 Damit nur einmal die Abfrage "Bitte legen Sie eine CD ein" kommt, vor dem Start des Worker Thread auf die Existenz des Pfades abfragen
@@ -433,7 +433,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 				SwingWorker4ProgramListContentVIA workerList = null; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   listenerComboCascaded.getWorkerThreadList();
 				if(workerList == null){
 					workerList = new SwingWorker4ProgramListContentVIA(objKernel, this, sRoot, saFlag);
-				//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!	listenerComboCascaded.setWorkerThreadList(workerList); //Damit immer nur ein worker thread PRO ALIAS arbeitet. Theoretisch kann man ja nach dem Starten des Frames die Combo - Box ändern. Hier wird dann ein bereits laufender Thread abgebrochen.
+				//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!	listenerComboCascaded.setWorkerThreadList(workerList); //Damit immer nur ein worker thread PRO ALIAS arbeitet. Theoretisch kann man ja nach dem Starten des Frames die Combo - Box ï¿½ndern. Hier wird dann ein bereits laufender Thread abgebrochen.
 					workerList.start();  //Merke: Das Setzen des Label Felds geschieht durch einen extra Thread, der mit SwingUtitlities.invokeLater(runnable) gestartet wird.
 				}							
 			}else{
@@ -450,16 +450,16 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		
 	
 		
-		//####################### PRODUKTIVE EINGABEFELDER: AUCH WENN AUSKOMMENTIERT, NICHT LÖSCHEN #######
+		//####################### PRODUKTIVE EINGABEFELDER: AUCH WENN AUSKOMMENTIERT, NICHT Lï¿½SCHEN #######
 		
-		//+++ LABEL als Überschrift 		
+		//+++ LABEL als ï¿½berschrift 		
 		JLabel labelHeader = new JLabel("Data for transmission to server:");
-		this.add(labelHeader, cc.xywh(10,2,3,1)); //Soll möglichst zentriert stehen
+		this.add(labelHeader, cc.xywh(10,2,3,1)); //Soll mï¿½glichst zentriert stehen
 		
 		JLabel labelTXTFile = new JLabel("Carrier / File Data ...");
 		this.add(labelTXTFile, cc.xy(10,3));
 		
-		//+++ Label: Eigenschaften des Datenträgers anzeigen
+		//+++ Label: Eigenschaften des Datentrï¿½gers anzeigen
 		JLabel labelTXTCarrier = new JLabel("Carrier Title:");
 		this.add(labelTXTCarrier, cc.xy(8,4));
 
@@ -476,19 +476,19 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		}
 		JLabel_Listening_CarrierTitleVIA labelCarrier=  new JLabel_Listening_CarrierTitleVIA(objKernel, sRootUI);
 		
-//		!!! Wenn sich die Auswahl in der Dateilste ändert, dann soll auch der Datenträgertiltel aktualisiert werden. Das liegt an dem Problem, dass Windows bei neu eingelgten CDs den Titel z.B. als "CD-DVD-ROM Laufwerk" identifiziert, was nicht aktuell ist.
+//		!!! Wenn sich die Auswahl in der Dateilste ï¿½ndert, dann soll auch der Datentrï¿½gertiltel aktualisiert werden. Das liegt an dem Problem, dass Windows bei neu eingelgten CDs den Titel z.B. als "CD-DVD-ROM Laufwerk" identifiziert, was nicht aktuell ist.
 		listenerListSelection.addListenerFileSelection(labelCarrier);
 		
-		//!!! Wenn sich die Auswahl im Tree oder in der Combo-Box ändert, dann werden hier ResetEvents "künstlich" erzeugt und an dieses Label geschickt.		
-//		FGL 20081001 nun direkt an den EventBroker registrieren		listenerComboSelection.addListenerSelectionReset(labelCarrier);  //Das ändert sich nur, wenn sich die Auswal in der Combo-Box ändert.
+		//!!! Wenn sich die Auswahl im Tree oder in der Combo-Box ï¿½ndert, dann werden hier ResetEvents "kï¿½nstlich" erzeugt und an dieses Label geschickt.		
+//		FGL 20081001 nun direkt an den EventBroker registrieren		listenerComboSelection.addListenerSelectionReset(labelCarrier);  //Das ï¿½ndert sich nur, wenn sich die Auswal in der Combo-Box ï¿½ndert.
  //FGL 20081001 nun direkt an den EventBroker registrieren listenerComboRefresh.addListenerSelectionReset(labelCarrier);
 		objEventDriveBroker.addListenerSelectionReset(labelCarrier);  //FGL 20081001 nun direkt an den EventBroker registrieren  //Beim Refresh Button soll der Eintrag leer gesetzt werden, Das passiert auch beim CD-Open-Button
 		
-		//labelCarrier.setPreferredSize(dim); //Keine Prefered Size für Labels, sondern nur für TextFields		
+		//labelCarrier.setPreferredSize(dim); //Keine Prefered Size fï¿½r Labels, sondern nur fï¿½r TextFields		
 		this.setComponent("labelCarrierTitle", labelCarrier);
 		this.add(labelCarrier, cc.xywh(10,4, 1, 1)); //Wenn das nur 1 Feld breit ist, hat man daneben noch Platz
 		
-		//+++ Label und Combo-Box: Datenträgertyp
+		//+++ Label und Combo-Box: Datentrï¿½gertyp
 		JLabel labelTXTCarrierType = new JLabel("Carrier type:");
 		this.add(labelTXTCarrierType, cc.xy(12, 4));
 		
@@ -497,17 +497,17 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 			try{
 				sDriveAlias = JComboBox_Listening_CarrierTypeVIA.computeDriveAliasByRootFile(fileRoot);
 			} catch (ExceptionZZZ ez) {
-				ReportLogZZZ.write(ReportLogZZZ.DEBUG, "Keine DETAILS über das ausgewählte Laufwerk ermittelbar. " + ez.getDetailAllLast());
+				ReportLogZZZ.write(ReportLogZZZ.DEBUG, "Keine DETAILS ï¿½ber das ausgewï¿½hlte Laufwerk ermittelbar. " + ez.getDetailAllLast());
 			}
 		}
 		
-		//Combo - Box hat als Vorbelegung den CarrierType des Laufwerks, das in der Auswahl für den Laufwerksbuchstaben enthalten ist.
+		//Combo - Box hat als Vorbelegung den CarrierType des Laufwerks, das in der Auswahl fï¿½r den Laufwerksbuchstaben enthalten ist.
 		JComboBox_Listening_CarrierTypeVIA comboCarrierType = new JComboBox_Listening_CarrierTypeVIA(objKernel, sDriveAlias);
 		comboCarrierType.addItem("CD");
 		comboCarrierType.addItem("DVD");
 		comboCarrierType.addItem("HD");
 		
-//		FGL 20081001 nun direkt an den EventBroker registrieren		listenerComboSelection.addListenerSelectionReset(comboCarrierType);  //Das ändert sich nur, wenn sich die Auswahl des Laufwerks/des Roots in der Combo-Box ändert.
+//		FGL 20081001 nun direkt an den EventBroker registrieren		listenerComboSelection.addListenerSelectionReset(comboCarrierType);  //Das ï¿½ndert sich nur, wenn sich die Auswahl des Laufwerks/des Roots in der Combo-Box ï¿½ndert.
 //		FGL 20081001 nun direkt an den EventBroker registrieren listenerComboRefresh.addListenerSelectionReset(comboCarrierType);   //Beim Refresh-Button soll der Eintrag leer gesetzt werden
 		objEventDriveBroker.addListenerSelectionReset(comboCarrierType);  //FGL 20081001 nun direkt an den EventBroker registrieren  //Beim Refresh Button soll der Eintrag leer gesetzt werden, Das passiert auch beim CD-Open-Button
 		comboCarrierType.setPreferredSize(dimHalft);
@@ -516,12 +516,12 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		
 		
 		//IDEE: Wenn die CarrierID eingegeben wird, dann sucht das Servlet selbst nach der Nummer
-		//TODO: Hier ein Feld für die CarrierID incl. Führungtext erstellen
+		//TODO: Hier ein Feld fï¿½r die CarrierID incl. Fï¿½hrungtext erstellen
 		JLabel labelTXTCarrierId = new JLabel("Carrier Id:");
 		this.add(labelTXTCarrierId, cc.xy(8,6));
 		
 		JTextFieldListening4ComponentSelectionResetVIA textCarrierId = new JTextFieldListening4ComponentSelectionResetVIA(objKernel,this,  "");
-//		FGL 20081001 nun direkt an den EventBroker registrieren		listenerComboSelection.addListenerSelectionReset(textCarrierId); //Das ändert sich nun bei einer Änderung des Laufwerks
+//		FGL 20081001 nun direkt an den EventBroker registrieren		listenerComboSelection.addListenerSelectionReset(textCarrierId); //Das ï¿½ndert sich nun bei einer ï¿½nderung des Laufwerks
 //		FGL 20081001 nun direkt an den EventBroker registrieren listenerComboRefresh.addListenerSelectionReset(textCarrierId);   //Beim Refresh-Button soll der Eintrag leer gesetzt werden
 		objEventDriveBroker.addListenerSelectionReset(textCarrierId);  //FGL 20081001 nun direkt an den EventBroker registrieren  //Beim Refresh Button soll der Eintrag leer gesetzt werden, Das passiert auch beim CD-Open-Button
 		textCarrierId.setPreferredSize(dimSingle);
@@ -529,15 +529,15 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		this.add(textCarrierId, cc.xy(10, 6));
 		
 		
-		//+++ TEXTFIELDer für die Berechnung der CarrierId: BRENNDATUM +  fortlaufende Nummer (hat die Form JJMMDDX, also Jahr, Monat Tag, fortlaufende Nummer)	
-		//IDEE: Wenn in der Carrier Sequenz Number nix eingegeben wird,  dann holt sich das Servlet die 2. Nummer durch Suche nach Datenträgernamen und Brenndatum
+		//+++ TEXTFIELDer fï¿½r die Berechnung der CarrierId: BRENNDATUM +  fortlaufende Nummer (hat die Form JJMMDDX, also Jahr, Monat Tag, fortlaufende Nummer)	
+		//IDEE: Wenn in der Carrier Sequenz Number nix eingegeben wird,  dann holt sich das Servlet die 2. Nummer durch Suche nach Datentrï¿½gernamen und Brenndatum
 		JLabel labelTXTCarrierCreated = new JLabel("Carrier created:");
 		this.add(labelTXTCarrierCreated, cc.xy(8, 8));
 		
 		String sDateCarrierLastModified = "";
 		if(bRootExists) sDateCarrierLastModified = CommonUtilVIA.computeDateLastModifiedByFile(fileRoot);
 		JTextField_Listening_CarrierDateVIA textCarrierCreated = new JTextField_Listening_CarrierDateVIA(objKernel,  sDateCarrierLastModified);   
-//		FGL 20081001 nun direkt an den EventBroker registrieren		listenerComboSelection.addListenerSelectionReset(textCarrierCreated); //Das ändert sich nun bei einer Änderung des Laufwerks
+//		FGL 20081001 nun direkt an den EventBroker registrieren		listenerComboSelection.addListenerSelectionReset(textCarrierCreated); //Das ï¿½ndert sich nun bei einer ï¿½nderung des Laufwerks
  //FGL 20081001 nun direkt an den EventBroker registrieren listenerComboRefresh.addListenerSelectionReset(textCarrierCreated);   //Beim Refresh-Button soll der Eintrag leer gesetzt werden
 		objEventDriveBroker.addListenerSelectionReset(textCarrierCreated);  //FGL 20081001 nun direkt an den EventBroker registrieren  //Beim Refresh Button soll der Eintrag leer gesetzt werden, Das passiert auch beim CD-Open-Button
 		textCarrierCreated.setPreferredSize(dimSingle);
@@ -565,7 +565,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		textFilename.setEditable(false); //Es soll nur Scrollbar und "ausschneidbar" sein
 		textFilename.setPreferredSize(dimDouble);
 		
-		//Bei Auswahl eines neuen Laufwerks oder eines neuen Verzeichnisses zurücksetzen. Bei Auswahl einer Datei aus der Liste: Setzen.
+		//Bei Auswahl eines neuen Laufwerks oder eines neuen Verzeichnisses zurï¿½cksetzen. Bei Auswahl einer Datei aus der Liste: Setzen.
 //		FGL 20081001 nun direkt an den EventBroker registrieren		listenerComboSelection.addListenerSelectionReset(textFilename);
 //		FGL 20081001 nun direkt an den EventBroker registrierenlistenerComboRefresh.addListenerSelectionReset(textFilename); //Beim Refresh Button soll der Eintrag leer gesetzt werden
 		objEventDriveBroker.addListenerSelectionReset(textFilename);  //FGL 20081001 nun direkt an den EventBroker registrieren  //Beim Refresh Button soll der Eintrag leer gesetzt werden, Das passiert auch beim CD-Open-Button
@@ -580,7 +580,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		this.add(labelTXTFileDate, cc.xy(8,12));
 		
 		JLabel_Listening_FileDateVIA labelFileDate = new JLabel_Listening_FileDateVIA(objKernel, JLabel_Listening_FileSizeVIA.sTEXT_INITIAL);
-//		Bei Auswahl eines neuen Laufwerks oder eines neuen Verzeichnisses zurücksetzen. Bei Auswahl einer Datei aus der Liste: Setzen.
+//		Bei Auswahl eines neuen Laufwerks oder eines neuen Verzeichnisses zurï¿½cksetzen. Bei Auswahl einer Datei aus der Liste: Setzen.
 //		FGL 20081001 nun direkt an den EventBroker registrierenlistenerComboSelection.addListenerSelectionReset(labelFileDate);
 //		FGL 20081001 nun direkt an den EventBroker registrieren		listenerComboRefresh.addListenerSelectionReset(labelFileDate); //Beim Refresh Button soll der Eintrag leer gesetzt werden
 		objEventDriveBroker.addListenerSelectionReset(labelFileDate);  //FGL 20081001 nun direkt an den EventBroker registrieren  //Beim Refresh Button soll der Eintrag leer gesetzt werden, Das passiert auch beim CD-Open-Button
@@ -594,7 +594,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		this.add(labelTXTFileSize, cc.xy(12,12));
 		
 		JLabel_Listening_FileSizeVIA labelFileSize = new JLabel_Listening_FileSizeVIA(objKernel, JLabel_Listening_FileSizeVIA.sTEXT_INITIAL);
-//		Bei Auswahl eines neuen Laufwerks oder eines neuen Verzeichnisses zurücksetzen. Bei Auswahl einer Datei aus der Liste: Setzen.
+//		Bei Auswahl eines neuen Laufwerks oder eines neuen Verzeichnisses zurï¿½cksetzen. Bei Auswahl einer Datei aus der Liste: Setzen.
 //		FGL 20081001 nun direkt an den EventBroker registrieren		listenerComboSelection.addListenerSelectionReset(labelFileSize);
 //		FGL 20081001 nun direkt an den EventBroker registrieren		listenerComboRefresh.addListenerSelectionReset(labelFileSize); //Beim Refresh Button soll der Eintrag leer gesetzt werden
 		objEventDriveBroker.addListenerSelectionReset(labelFileSize);  //FGL 20081001 nun direkt an den EventBroker registrieren  //Beim Refresh Button soll der Eintrag leer gesetzt werden, Das passiert auch beim CD-Open-Button
@@ -609,7 +609,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		
 		//HINTERGRUND: Items dieser ComboBox werden aus einer Datei geholt.
 		//TODO // IDEE: In einer extra Maske diese per spezieller Servlet Abfrage aktualisieren.
-		//!!! Diese Einstellung ändert sich nicht, darum ist das kein Listener
+		//!!! Diese Einstellung ï¿½ndert sich nicht, darum ist das kein Listener
 		JComboBox comboFileCompression = new JComboBox();
 		
 		//1. die Datei auslesen:
@@ -643,7 +643,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 			ReportLogZZZ.write(ReportLogZZZ.ERROR, e.getDetailAllLast());
 		}
 		
-		//2. die Datei auswerten und in die combo-Box füllen		
+		//2. die Datei auswerten und in die combo-Box fï¿½llen		
 		if(fileCatalogFileCompression!=null){			
 				try {
 					FileReader fread = new FileReader(fileCatalogFileCompression);
@@ -663,13 +663,13 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 					ReportLogZZZ.write(ReportLogZZZ.ERROR, "Unable to read line in configured 'CatalogFileCompressionFilename'="+ fileCatalogFileCompression.getPath() + " for local catalog.");
 				}
 		}
-		/* Diese Combo Box soll nicht auf Änderungen der Auswahl reagieren
+		/* Diese Combo Box soll nicht auf ï¿½nderungen der Auswahl reagieren
 		listenerComboSelection.addListenerSelectionReset(comboSerieTitle);
 		listenerTreeSelection.addListenerSelectionReset(comboSerieTitle);
 		listenerListSelection.addListenerFileSelection(comboSerieTitle);
 		*/
 		
-		comboFileCompression.setEditable(false);  //Wenn man diese ComboBox Editierbar macht, dann müsste beim Verschicken der Daten auf "Vorhandensein" in der  TXT-Datei geprüft werden, etc.
+		comboFileCompression.setEditable(false);  //Wenn man diese ComboBox Editierbar macht, dann mï¿½sste beim Verschicken der Daten auf "Vorhandensein" in der  TXT-Datei geprï¿½ft werden, etc.
 		this.setComponent("comboFileCompression", comboFileCompression);
 		this.add(comboFileCompression, cc.xywh(14,14, 1, 1));
 		
@@ -694,7 +694,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		JLabel labelTXTMovieData = new JLabel("Episode / Movie data.....");
 		this.add(labelTXTMovieData, cc.xywh(10,19,3,1));
 		
-		//+++ COMBOBOX - SERIE AUSWÄHLEN
+		//+++ COMBOBOX - SERIE AUSWï¿½HLEN
 		JLabel labelTXTSerieTitle = new JLabel("Choose serie:");
 		this.add(labelTXTSerieTitle, cc.xy(8,20));
 		
@@ -711,7 +711,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 			ReportLogZZZ.write(ReportLogZZZ.ERROR, e.getDetailAllLast());
 		}
 		
-		//2. die Datei auswerten und in die combo-Box füllen		
+		//2. die Datei auswerten und in die combo-Box fï¿½llen		
 		if(fileCatalogSerieTitle!=null){			
 				try {
 					FileReader fread = new FileReader(fileCatalogSerieTitle);
@@ -736,7 +736,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		objEventDriveBroker.addListenerSelectionReset(comboSerieTitle);  //FGL 20081001 nun direkt an den EventBroker registrieren  //Beim Refresh Button soll der Eintrag leer gesetzt werden, Das passiert auch beim CD-Open-Button
 		listenerTreeSelection.addListenerSelectionReset(comboSerieTitle);
 		listenerListSelection.addListenerFileSelection(comboSerieTitle);
-		comboSerieTitle.setEditable(false);  //Wenn man diese ComboBox Editierbar macht, dann müsste beim Verschicken der Daten auf "Vorhandensein" in der  TXT-Datei geprüft werden, etc.
+		comboSerieTitle.setEditable(false);  //Wenn man diese ComboBox Editierbar macht, dann mï¿½sste beim Verschicken der Daten auf "Vorhandensein" in der  TXT-Datei geprï¿½ft werden, etc.
 		this.setComponent("comboSerieTitle", comboSerieTitle);
 		this.add(comboSerieTitle, cc.xywh(10,20, 3, 1));
 		
@@ -749,21 +749,21 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		
 		
 		//+++ TEXTFIELD SERIETITLE
-		//Dieses Textfield dient dazu neue Elemente sowohl der ComboBox als auch der Datei hinzuzufügen.
-		//Er muss immer wieder geleert werden, wenn eine neue Datei ausgewählt wurde, oder wenn die Serie der ComboBox hinzugefügt worden ist.
+		//Dieses Textfield dient dazu neue Elemente sowohl der ComboBox als auch der Datei hinzuzufï¿½gen.
+		//Er muss immer wieder geleert werden, wenn eine neue Datei ausgewï¿½hlt wurde, oder wenn die Serie der ComboBox hinzugefï¿½gt worden ist.
 		JLabel labelTXTSerieTitleNew = new JLabel("New serie: ");
 		this.add(labelTXTSerieTitleNew, cc.xywh(8, 22,1,1));
 		
-		//!!!Merke, dadurch, dass dieses TextField auf die Auswahländerung des Verzeichnisse, des Laufwerks, der Datei achtet, wird der Inahlt zurückgesetzt.
+		//!!!Merke, dadurch, dass dieses TextField auf die Auswahlï¿½nderung des Verzeichnisse, des Laufwerks, der Datei achtet, wird der Inahlt zurï¿½ckgesetzt.
 		JTextFieldListening4ComponentSelectionResetVIA textSerieTitleNew = new JTextFieldListening4ComponentSelectionResetVIA(objKernel, this, "");
 //		FGL 20081001 nun direkt an den EventBroker registrieren		listenerComboSelection.addListenerSelectionReset(textSerieTitleNew);
 		listenerTreeSelection.addListenerSelectionReset(textSerieTitleNew);
 		listenerListSelection.addListenerFileSelection(textSerieTitleNew);
 		JScrollPane scrollSerieTiltleNew = new JScrollPane(textSerieTitleNew); 
-		this.setComponent("textSerieTitleNew", textSerieTitleNew); //das Textfield bekannt machen, zkernel-funktionalität		
-		this.add(scrollSerieTiltleNew, cc.xywh(10, 22,3,2));//wg. des JScrollPane werden die (kleine) Zeilen darunter plus die große Ziele darunter auch noch genommen.
+		this.setComponent("textSerieTitleNew", textSerieTitleNew); //das Textfield bekannt machen, zkernel-funktionalitï¿½t		
+		this.add(scrollSerieTiltleNew, cc.xywh(10, 22,3,2));//wg. des JScrollPane werden die (kleine) Zeilen darunter plus die groï¿½e Ziele darunter auch noch genommen.
 		
-		//+++ BUTTON - SERIE HINZUFÜGEN (zur ComboBox und zur TXT-Datei.
+		//+++ BUTTON - SERIE HINZUFï¿½GEN (zur ComboBox und zur TXT-Datei.
 		JButton buttonSerieTitleUpdate = new JButton("+ catalog");
 		buttonSerieTitleUpdate.setPreferredSize(dimSingle);
 		ActionCatalogSerieTitleUpdateVIA actionSerieTitleUpdate = new ActionCatalogSerieTitleUpdateVIA(objKernel, this);
@@ -775,7 +775,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		this.add(labelTXTMovieTitle, cc.xy(8,26));
 		
 		JTextField_Listening_MovieTitleVIA textMovieTitle = new JTextField_Listening_MovieTitleVIA(objKernel, JTextField_Listening_MovieTitleVIA.sTEXT_INITIAL);
-		//Bei Auswahl eines neuen Laufwerks oder eines neuen Verzeichnisses zurücksetzen. Bei Auswahl einer Datei aus der Liste: Setzen.
+		//Bei Auswahl eines neuen Laufwerks oder eines neuen Verzeichnisses zurï¿½cksetzen. Bei Auswahl einer Datei aus der Liste: Setzen.
 //		FGL 20081001 nun direkt an den EventBroker registrieren		listenerComboSelection.addListenerSelectionReset(textMovieTitle);
 //		FGL 20081001 nun direkt an den EventBroker registrieren		listenerComboRefresh.addListenerSelectionReset(textMovieTitle); //Beim Refresh Button soll der Eintrag leer gesetzt werden
 		objEventDriveBroker.addListenerSelectionReset(textMovieTitle);  //FGL 20081001 nun direkt an den EventBroker registrieren  //Beim Refresh Button soll der Eintrag leer gesetzt werden, Das passiert auch beim CD-Open-Button		
@@ -783,7 +783,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		listenerListSelection.addListenerFileSelection(textMovieTitle);
 		this.setComponent("textMovieTitle", textMovieTitle);
 		JScrollPane scrollMovieTitle = new JScrollPane(textMovieTitle);
-		this.add(scrollMovieTitle, cc.xywh(10,26, 5, 2));  //wg. des JScrollPane werden die (kleine) Zeilen darunter plus die große Ziele darunter auch noch genommen.
+		this.add(scrollMovieTitle, cc.xywh(10,26, 5, 2));  //wg. des JScrollPane werden die (kleine) Zeilen darunter plus die groï¿½e Ziele darunter auch noch genommen.
 		
 //		Weil der Title noch ScrollBars bekommen kann, bleibt eine Zeile frei
 		
@@ -819,13 +819,13 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		
 		
 		/*DAS WIRD NUN EINE TEXTAREA
-//		+++ TEXTFIELD STATUS DER ÜBERTRAGUNG, 
+//		+++ TEXTFIELD STATUS DER ï¿½BERTRAGUNG, 
 		//Merke: Das ist ein TextField, damit der Inhalt gescrollt und "ausschneidbar" ist.
 		JTextFieldListening4ComponentSelectionResetVIA textExportStatus = new JTextFieldListening4ComponentSelectionResetVIA(objKernel, "Status: GUI Initialized.");
 		textExportStatus.setEditable(false); //Es soll nur Scrollbar und "ausschneidbar" sein
 		textExportStatus.setPreferredSize(dimDouble);
 		
-		//Bei Auswahl eines neuen Laufwerks oder eines neuen Verzeichnisses zurücksetzen. Bei Auswahl einer Datei aus der Liste: Setzen.
+		//Bei Auswahl eines neuen Laufwerks oder eines neuen Verzeichnisses zurï¿½cksetzen. Bei Auswahl einer Datei aus der Liste: Setzen.
 		listenerComboSelection.addListenerSelectionReset(textExportStatus);
 		listenerTreeSelection.addListenerSelectionReset(textExportStatus);
 		listenerListSelection.addListenerFileSelection(textExportStatus);
@@ -834,7 +834,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		this.add(scrollExportStatus, cc.xywh(6,32, 7, 2));  //wg. des JScrollPane wird die (kleine) Zeile darunter auch noch genommen.
 		 */
 		
-//		+++ JEDITORPANE:  STATUS DER ÜBERTRAGUNG.		
+//		+++ JEDITORPANE:  STATUS DER ï¿½BERTRAGUNG.		
 			JEditorPane_Listening_ExportStatusVIA editor = new JEditorPane_Listening_ExportStatusVIA(objKernel, "GUI initialized");		
 			//Dimension dim = new Dimension(iEDITOR_WIDTH, iEDITOR_HEIGHT);
 			editor.setPreferredSize(dimDouble);//Das funktioniert nicht, wahrscheinlich, weil frame.pack gemacht wird:    .setSize(100,100);
@@ -845,7 +845,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 			editor.setCaretPosition(0);
 			this.setComponent("editorExportStatus", editor);
 		
-		//Bei Auswahl eines neuen Laufwerks oder eines neuen Verzeichnisses zurücksetzen. Bei Auswahl einer Datei aus der Liste: Setzen.			
+		//Bei Auswahl eines neuen Laufwerks oder eines neuen Verzeichnisses zurï¿½cksetzen. Bei Auswahl einer Datei aus der Liste: Setzen.			
 //			FGL 20081001 nun direkt an den EventBroker registrieren		listenerComboSelection.addListenerSelectionReset(editor);
 			//nein, default ist  der ecomponent.text.()     editor.setFlag("useeventresetdefault", true);  //Damit wird der Pane leergesetzt
 			objEventDriveBroker.addListenerSelectionReset(editor);
@@ -856,55 +856,55 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		
 		
 		
-		/* NICHT LÖSCHEN !!!
+		/* NICHT Lï¿½SCHEN !!!
 		
-		//###################### BEISPIEL UND TEST/DEBUG Möglichkeit ###########################
+		//###################### BEISPIEL UND TEST/DEBUG Mï¿½glichkeit ###########################
 		//Dimension dim = new Dimension(10, 15);
 		//label.setPreferredSize(dim);
 		
 		
-//		### Der TreeSelectionListener ist die Quelle für den ResetEvent. Hier muss sich das Label registrieren...
-		//Label als Feldführungstext für dieses DebugFeld:
+//		### Der TreeSelectionListener ist die Quelle fï¿½r den ResetEvent. Hier muss sich das Label registrieren...
+		//Label als Feldfï¿½hrungstext fï¿½r dieses DebugFeld:
 		JLabel labelTree = new JLabel("Selection im Tree: ");
 		this.add(labelTree, cc.xy(6,2));
 		
-//		Label, das auf den Event hört und sich demnach verändern kann an den Listener für die Tree-Auswahl registrieren und zur Maske hinzufügen
+//		Label, das auf den Event hï¿½rt und sich demnach verï¿½ndern kann an den Listener fï¿½r die Tree-Auswahl registrieren und zur Maske hinzufï¿½gen
 		KernelJLabelListening4ComponentSelectionResetZZZ labelTreeListening = new KernelJLabelListening4ComponentSelectionResetZZZ(objKernel, "Nothing selected");
 		listenerTreeSelection.addListenerSelectionReset(labelTreeListening);
 		this.add(labelTreeListening, cc.xywh(8,2, 3, 1));
 		
 		
-		//### Der ComboSelectionListener als Quelle für den ResetEvent. Hier muss sich das Label registrieren....
-//		Label als Feldführungstext für dieses DebugFeld:
+		//### Der ComboSelectionListener als Quelle fï¿½r den ResetEvent. Hier muss sich das Label registrieren....
+//		Label als Feldfï¿½hrungstext fï¿½r dieses DebugFeld:
 		JLabel labelCombo = new JLabel("Selection in ComboBox: ");
 		this.add(labelCombo, cc.xy(6,4));
 		
-//		Label, das uf den Event hört und sich demnach verändern kann an den Listener für die ComboBox-Auswahl registrieren und der Maske hinzufügen
+//		Label, das uf den Event hï¿½rt und sich demnach verï¿½ndern kann an den Listener fï¿½r die ComboBox-Auswahl registrieren und der Maske hinzufï¿½gen
 		KernelJLabelListening4ComponentSelectionResetZZZ labelComboListening = new KernelJLabelListening4ComponentSelectionResetZZZ(objKernel, "Nothing selected");
 		listenerComboSelection.addListenerSelectionReset(labelComboListening);		
 		this.add(labelComboListening, cc.xywh(8,4, 3, 1));
 		
 		
 		
-		//### Der List FileSelectedListener als Quelle für den FileSelectedEvent. Hier muss sich das Label registrieren....
-		//Label als Führungstext für dieses Debugfeld:
+		//### Der List FileSelectedListener als Quelle fï¿½r den FileSelectedEvent. Hier muss sich das Label registrieren....
+		//Label als Fï¿½hrungstext fï¿½r dieses Debugfeld:
 		JLabel labelList = new JLabel("File selected in ListBox: ");
 		this.add(labelList, cc.xy(6,6));
 		
-		//Label, das auf den Event hört und sich demnach verändern kann an den Listener für die ListBox-Auswahl registrieren und zur Maske hinzufügen
+		//Label, das auf den Event hï¿½rt und sich demnach verï¿½ndern kann an den Listener fï¿½r die ListBox-Auswahl registrieren und zur Maske hinzufï¿½gen
 		JLabelListening4Reset_SelectionVIA labelListListening = new JLabelListening4Reset_SelectionVIA(objKernel, "Nothing selected");
 		listenerListSelection.addListenerFileSelection(labelListListening);
 		this.add(labelListListening, cc.xywh(8,6, 3, 1));
 		
-		//!!! Wenn sich die Auswahl im Tree oder in der Combo-Box ändert, dann werden hier ResetEvents "künstlich" erzeugt und an dieses Label geschickt.
+		//!!! Wenn sich die Auswahl im Tree oder in der Combo-Box ï¿½ndert, dann werden hier ResetEvents "kï¿½nstlich" erzeugt und an dieses Label geschickt.
 		listenerTreeSelection.addListenerSelectionReset(labelListListening);	
 		listenerComboSelection.addListenerSelectionReset(labelListListening);
 		
-		//### Der List FileSelectListener als Quelle für den FileSelectedEvent. Hier muss sich das TextField regitstrieren....
+		//### Der List FileSelectListener als Quelle fï¿½r den FileSelectedEvent. Hier muss sich das TextField regitstrieren....
 		JLabel labelListSize = new JLabel("Size of file (in MB): ");
 		this.add(labelListSize, cc.xy(6, 8));
 		
-		//TextField, das auf den Event hört und sich demnach verändern kann, an den Listener für die ListBox-Auswahl registrieren und zur Maske hinzufügen
+		//TextField, das auf den Event hï¿½rt und sich demnach verï¿½ndern kann, an den Listener fï¿½r die ListBox-Auswahl registrieren und zur Maske hinzufï¿½gen
 		JLabel_Listening_SizeVIA textListSize = new JLabel_Listening_SizeVIA(objKernel, "0");
 		listenerListSelection.addListenerFileSelection(textListSize);
 		
@@ -912,42 +912,42 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		textListSize.setPreferredSize(dimText);
 		this.add(textListSize, cc.xy(8,8));
 		
-		//!!! Wenn sich die Auswahl im Tree oder in der Combo-Box ändert, dann werden hier ResetEvents "künstlich" erzeugt und an dieses Label geschickt.
+		//!!! Wenn sich die Auswahl im Tree oder in der Combo-Box ï¿½ndert, dann werden hier ResetEvents "kï¿½nstlich" erzeugt und an dieses Label geschickt.
 		listenerTreeSelection.addListenerSelectionReset(textListSize);	
 		listenerComboSelection.addListenerSelectionReset(textListSize);
 		
 		
 		//DEBUG NEU 20070206
-		//### Diese Kernel-Komponente ist eine Combo-Box, die auf den Reset-Event hört, der von der Combo-Box zur Laufwerksauswahl abgefeuert wird. 
+		//### Diese Kernel-Komponente ist eine Combo-Box, die auf den Reset-Event hï¿½rt, der von der Combo-Box zur Laufwerksauswahl abgefeuert wird. 
 		KernelJComboBoxListening4ComponentSelectionResetZZZ comboCarrierType = new KernelJComboBoxListening4ComponentSelectionResetZZZ(objKernel);		
-		comboCarrierType.addItem("C:\\");   //Standardmäßig wird im doReset(...) auf ein Item des gleichen Namens gesetzt. Dadurch das man die ComboBox so füllt, kann man das nachvollziehen
+		comboCarrierType.addItem("C:\\");   //Standardmï¿½ï¿½ig wird im doReset(...) auf ein Item des gleichen Namens gesetzt. Dadurch das man die ComboBox so fï¿½llt, kann man das nachvollziehen
 		comboCarrierType.addItem("D:\\");
 		comboCarrierType.addItem("E:\\");
 				
-		listenerComboSelection.addListenerSelectionReset(comboCarrierType);  //Das ändert sich nur, wenn sich die Auswal in der Combo-Box ändert.		
+		listenerComboSelection.addListenerSelectionReset(comboCarrierType);  //Das ï¿½ndert sich nur, wenn sich die Auswal in der Combo-Box ï¿½ndert.		
 		this.add(comboCarrierType, cc.xy(12,4));
 		
 		
-		*/ //ENDE DER DEBUGMÖGLICHKEIT
+		*/ //ENDE DER DEBUGMï¿½GLICHKEIT
 		
 		/* Das funktioniert nicht. Warum ???
 		PanelBuilder builder = new PanelBuilder(layout);
 		builder.setDefaultDialogBorder();
 		builder.addLabel("Externe IP Adresse des Servers");
-		JTextField textfield = new JTextField("noch automatisch zu füllen");
+		JTextField textfield = new JTextField("noch automatisch zu fï¿½llen");
 		builder.add(textfield, cc.xy(3,2));
 		*/
 		
 	}
 	
-	/** Klasse wird dem Button CD OPEN/CLOSE als ActionListener hinzugefügt.
-	 *    Über das Öffnen und Schliesen hinaus, muss noch gemacht werden
+	/** Klasse wird dem Button CD OPEN/CLOSE als ActionListener hinzugefï¿½gt.
+	 *    ï¿½ber das ï¿½ffnen und Schliesen hinaus, muss noch gemacht werden
 	 *    -- Start des Swing Worker Threads zum Einlesen des JTrees und des Root-Inhalts
 	 *    		(TODO: Das Interface IJTreeRefresher erstellen und hier implementieren.)
 	 *    
-	 *    -- Feuer den Event ab, der ander Komponenten darüber benachrichtigt, dass ein neuer Datenträger eingelegt worden ist.
+	 *    -- Feuer den Event ab, der ander Komponenten darï¿½ber benachrichtigt, dass ein neuer Datentrï¿½ger eingelegt worden ist.
 	 *        (Daher implementiert diese Klasse das IEventBrokerUserZZZ Interface)
-	 *        Das Abfeuern übernimmt ein EventBroker, der auch im "RefreshButton" verwendet wird. Daher brauchen sich die Komponenten nur einmal am EventBroker zu registrieren. 
+	 *        Das Abfeuern ï¿½bernimmt ein EventBroker, der auch im "RefreshButton" verwendet wird. Daher brauchen sich die Komponenten nur einmal am EventBroker zu registrieren. 
 	 *        
 	 * @author lindhaueradmin
 	 *
@@ -957,7 +957,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		private SwingWorker4ProgramTreeContentVIA workerTree =null;
 		private KernelSenderComponentSelectionResetZZZ objEventDriveBroker = null;
 		
-		public ActionCdDriveOpenCloseVIA(KernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent, KernelSenderComponentSelectionResetZZZ objEventDriveBroker){
+		public ActionCdDriveOpenCloseVIA(IKernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent, KernelSenderComponentSelectionResetZZZ objEventDriveBroker){
 			super(objKernel, panelParent);
 			this.setSenderUsed(objEventDriveBroker);
 		}
@@ -965,7 +965,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		public boolean actionPerformCustom(ActionEvent ae, boolean bQueryResult) throws ExceptionZZZ {
 			boolean bReturn = true;
 			main:{
-				//Den Laufwerksbuchstaben des gerade gewählten Laufwerks auslesen
+				//Den Laufwerksbuchstaben des gerade gewï¿½hlten Laufwerks auslesen
 				KernelJPanelCascadedZZZ panelParent = this.getPanelParent();
 				JComboBox comboDrive = (JComboBox) panelParent.getComponent("combo");
 				
@@ -990,13 +990,13 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 					 this.bDriveOpened=true;
 					 
 					 //TODO: Externen Thread starten, der auch beim Schliessen per Button abgebrochen wird.
-					 //TODO: Im Extenenen Thread eine Verzögerung von 30 Sekunden einbauen.
+					 //TODO: Im Extenenen Thread eine Verzï¿½gerung von 30 Sekunden einbauen.
 					 //TODO: Im Externen Thread: Wird die Root der CD-gefunen... den Event losschicken, das der JTree und die JList zu refreshen sind (s. Refresh Button)
 					 String sDriveRoot = sDrive;
 					 java.io.File fileRoot = new java.io.File(sDriveRoot);
 					 boolean bFound = false;
 						do{
-							System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ": Warte auf neuen Datenträger " + sDriveRoot + ".");
+							System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ": Warte auf neuen Datentrï¿½ger " + sDriveRoot + ".");
 							//if(FileEasyZZZ.isRoot(fileRoot)==false) bFound = true;
 							try {
 								Thread.sleep(1000);
@@ -1006,7 +1006,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 							}
 							bFound = fileRoot.exists();
 						}while(bFound == false);
-						System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ": Neuen Datenträger gefunden " + sDriveRoot + ".");
+						System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ": Neuen Datentrï¿½ger gefunden " + sDriveRoot + ".");
 					 
 						 this.bDriveOpened=false;
 						 try{
@@ -1017,16 +1017,16 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 							ReportLogZZZ.write(ReportLogZZZ.ERROR, e.getMessage());
 						}
 				
-						 //Starte erst jetzt den Worker Tree, der die Baumeinträge ermittelt
+						 //Starte erst jetzt den Worker Tree, der die Baumeintrï¿½ge ermittelt
 //						### TREE
 							//+++ Versuch die Performance zu verbessern, indem man einen externen Thread startet			
-							//Falls es schon einen anderen worker gibt, der läuft, diesen beenden.
+							//Falls es schon einen anderen worker gibt, der lï¿½uft, diesen beenden.
 							if(this.workerTree!=null){
-								ReportLogZZZ.write(ReportLogZZZ.DEBUG , "Es gibt schon einen anderen WorkerThread für Tree.(1)");
-								System.out.println(ReflectCodeZZZ.getMethodCurrentName() + "#Es gibt schon einen anderen WorkerThread für Tree.(2)");
+								ReportLogZZZ.write(ReportLogZZZ.DEBUG , "Es gibt schon einen anderen WorkerThread fï¿½r Tree.(1)");
+								System.out.println(ReflectCodeZZZ.getMethodCurrentName() + "#Es gibt schon einen anderen WorkerThread fï¿½r Tree.(2)");
 								this.workerTree.interrupt();
-								ReportLogZZZ.write(ReportLogZZZ.DEBUG, "Versuche den alten WorkerThread für Tree zu interrupten.(1)");
-								System.out.println(ReflectCodeZZZ.getMethodCurrentName() + "#Versuche den alten WorkerThread für Tree zu interrupten.(2)");
+								ReportLogZZZ.write(ReportLogZZZ.DEBUG, "Versuche den alten WorkerThread fï¿½r Tree zu interrupten.(1)");
+								System.out.println(ReflectCodeZZZ.getMethodCurrentName() + "#Versuche den alten WorkerThread fï¿½r Tree zu interrupten.(2)");
 							}
 							
 							//Neuer Worker
@@ -1034,7 +1034,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 							this.workerTree = new SwingWorker4ProgramTreeContentVIA(objKernel, panelParent, sDriveRoot, saFlagTree);
 							this.workerTree .start();  //Merke: Das Setzen des Label Felds geschieht durch einen extra Thread, der mit SwingUtitlities.invokeLater(runnable) gestartet wird.
 
-						//### Den Event starten, das ein neuer Datenträger/Laufwerk gewählt wurde
+						//### Den Event starten, das ein neuer Datentrï¿½ger/Laufwerk gewï¿½hlt wurde
 							System.out.println(ReflectCodeZZZ.getMethodCurrentName() + "#EVENTEVENT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 							EventComponentSelectionResetZZZ eventNew= new EventComponentSelectionResetZZZ(comboDrive, 10002, sDriveRoot);
 							this.getSenderUsed().fireEvent(eventNew);
@@ -1076,7 +1076,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 	class ActionCatalogSerieTitleUpdateVIA extends  KernelActionCascadedZZZ{ //KernelUseObjectZZZ implements ActionListener{
 		//private JPanel panelParent;
 				
-		public ActionCatalogSerieTitleUpdateVIA(KernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent){
+		public ActionCatalogSerieTitleUpdateVIA(IKernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent){
 			super(objKernel, panelParent);			
 		}
 		
@@ -1126,9 +1126,9 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 					throw ez;
 				}
 				
-				//1. Daten zur TXT-Datei hinzufügen
+				//1. Daten zur TXT-Datei hinzufï¿½gen
 				//Datei holen:
-				KernelZZZ objKernel = this.getKernelObject();
+				IKernelZZZ objKernel = this.getKernelObject();
 				java.io.File fileCatalog = objKernel.getParameterFileByProgramAlias(sModule, sProgram, "CatalogSerieTitleFilename");
 				if(fileCatalog==null){
 					ReportLogZZZ.write(ReportLogZZZ.INFO, "No catalog file configured for the property 'CatalogSerieTitleFilename' in the program '" + sProgram + "', and module '" + sModule +"'");
@@ -1161,20 +1161,20 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 				} 
 				
 				//+++ Catalogdatei bearbeiten				
-				//Prüfen, ob in Datei der Eintrag vorhanden ist.		
+				//Prï¿½fen, ob in Datei der Eintrag vorhanden ist.		
 				String[] saFlagReader = {"IsFileSorted"};
 				TxtReaderZZZ objReader = new TxtReaderZZZ(fileCatalog, saFlagReader);
 				long lBytePosition = objReader.readPositionLineFirst(sValue, 0);
 				if(lBytePosition <= -1){
 				
-	//				Den Eintrag in alphabetisch sortierter Stelle einfügen.
+	//				Den Eintrag in alphabetisch sortierter Stelle einfï¿½gen.
 					String[] saFlagWriter = {"IsFileSorted","IgnoreCase"};
 					TxtWriterZZZ objWriter = new TxtWriterZZZ(objReader, saFlagWriter);
 					objWriter.insertLine(sValue);
 					
 					//2. ComboBox aktualisieren 
-					//Prüfen, ob der Eintrag in der ComboBox vorhanden ist.
-					//Den Eintrag an alphabetisch sortierter Stelle einfügen.
+					//Prï¿½fen, ob der Eintrag in der ComboBox vorhanden ist.
+					//Den Eintrag an alphabetisch sortierter Stelle einfï¿½gen.
 					KernelJComboBoxHelperZZZ objComboHelper = new KernelJComboBoxHelperZZZ(objKernel, comboSerieTitle);
 					objComboHelper.insertSorted(sValue);
 					
@@ -1209,7 +1209,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 	class ActionCatalogSerieTitleRemoveVIA extends  KernelActionCascadedZZZ{ //KernelUseObjectZZZ implements ActionListener{
 		//private JPanel panelParent;
 				
-		public ActionCatalogSerieTitleRemoveVIA(KernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent){
+		public ActionCatalogSerieTitleRemoveVIA(IKernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent){
 			super(objKernel, panelParent);			
 		}
 		
@@ -1251,9 +1251,9 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 					throw ez;
 				}
 				
-				//1. Daten zur TXT-Datei hinzufügen
+				//1. Daten zur TXT-Datei hinzufï¿½gen
 				//Datei holen:
-				KernelZZZ objKernel = this.getKernelObject();
+				IKernelZZZ objKernel = this.getKernelObject();
 				java.io.File fileCatalog = objKernel.getParameterFileByProgramAlias(sModule, sProgram, "CatalogSerieTitleFilename");
 				if(fileCatalog==null){
 					ReportLogZZZ.write(ReportLogZZZ.INFO, "No catalog file configured for the property 'CatalogSerieTitleFilename' in the program '" + sProgram + "', and module '" + sModule +"'");
@@ -1265,14 +1265,14 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 					break main;
 				}
 				
-				//Prüfen, ob in Datei der Eintrag vorhanden ist.
+				//Prï¿½fen, ob in Datei der Eintrag vorhanden ist.
 				//Den Eintrag aus der Datei entfernen.
 				String[] saFlagWriter = {"IsFileSorted"};
 				TxtWriterZZZ objWriter = new TxtWriterZZZ(fileCatalog, saFlagWriter);
 				objWriter.removeLineFirst(sValue, 0);
 				
 				//2. ComboBox aktualisieren
-				//Prüfen, ob der Eintrag in der ComboBox vorhanden ist.
+				//Prï¿½fen, ob der Eintrag in der ComboBox vorhanden ist.
 				//Den Eintrag aus der Liste der Items entfernen				
 				comboSerieTitle.removeItem(sValue);
 				
@@ -1304,21 +1304,21 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 	}//END Class "ActionExportDataLaunchVIA
 	
 	class ActionDataSendVIA extends  KernelActionCascadedZZZ{ //KernelUseObjectZZZ implements ActionListener{	
-		public ActionDataSendVIA(KernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent){
+		public ActionDataSendVIA(IKernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent){
 			super(objKernel, panelParent);			
 		}
 		
 		/* (non-Javadoc)
 		 * @see basic.zKernelUI.component.KernelActionCascadedZZZ#actionPerformed(java.awt.event.ActionEvent)
 		 * 
-		 * !!! überschreibt die Methode der Kernel-Klasse, weil hier die Exception in einem Feld des UI-Clients sichtbar gemacht werden soll
+		 * !!! ï¿½berschreibt die Methode der Kernel-Klasse, weil hier die Exception in einem Feld des UI-Clients sichtbar gemacht werden soll
 		 */
 		public void actionPerformCustomOnError(ActionEvent ae, ExceptionZZZ ez){
 			try{
 				main:{
 				if(ez==null) break main;
 				
-	//			+++ EditorPane für Rückgabe von Meldungen					
+	//			+++ EditorPane fï¿½r Rï¿½ckgabe von Meldungen					
 				KernelJPanelCascadedZZZ panelParent= this.getPanelParent();
 				if(panelParent==null) break main;
 				
@@ -1351,15 +1351,15 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 					String sStatus = "Performing action: 'Send data to server'";
 					ReportLogZZZ.write(ReportLogZZZ.DEBUG, sStatus);
 					
-					//+++ EditorPane für Rückgabe von Meldungen					
+					//+++ EditorPane fï¿½r Rï¿½ckgabe von Meldungen					
 					KernelJPanelCascadedZZZ panelParent= this.getPanelParent();
 					
 					JEditorPane editorExportStatus = (JEditorPane) panelParent.getComponent("editorExportStatus");
 					editorExportStatus.setText(sStatus);
 					editorExportStatus.setCaretPosition(0);
 					
-					//+++ Textfield für die ggf. zurückgelieferte CarrierId, SequenceNumber
-					//!!! Falls in einem vorherigen Lauf ein Fehler passiert ist, dann ist ggf. noch der vorherige Standardtext "wird gesetzt ..." darin. Dieser muss eintfernt werden, da das wieder eine Falscheingabe für das Servlet wäre.
+					//+++ Textfield fï¿½r die ggf. zurï¿½ckgelieferte CarrierId, SequenceNumber
+					//!!! Falls in einem vorherigen Lauf ein Fehler passiert ist, dann ist ggf. noch der vorherige Standardtext "wird gesetzt ..." darin. Dieser muss eintfernt werden, da das wieder eine Falscheingabe fï¿½r das Servlet wï¿½re.
 					JTextField textIdCarrier = (JTextField) panelParent.getComponent("textCarrierId");
 					if(textIdCarrier!=null){
 						if(textIdCarrier.getText().equals("wird neu gesetzt...")){
@@ -1375,7 +1375,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 					
 				//#############################################################	
 				//TODO DIES ALLES IN EINEN WORKER-THREAD PACKEN	
-				KernelZZZ objKernel = this.getKernelObject();
+				IKernelZZZ objKernel = this.getKernelObject();
 				
 //				Wichtige Informationen, zum Auslesen von Parametern aus der KernelConfiguration
 				KernelJFrameCascadedZZZ frameParent = (KernelJFrameCascadedZZZ) this.getFrameParent();
@@ -1389,8 +1389,8 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 					throw ez;
 				}
 									
-//				Create als get method für die Anmeldung
-				//+++ prüfe auf Vorhandensein des Proxys
+//				Create als get method fï¿½r die Anmeldung
+				//+++ prï¿½fe auf Vorhandensein des Proxys
 				//TODO						
 				
 				//+++ lies den Benutzernamen und das Kennwort aus der ini-Konfiguration aus.	
@@ -1398,11 +1398,11 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 				String sPassword = objKernel.getParameterByProgramAlias(sModule, "Login_Context", "Password");
 								
 				//+++ lies die URL des Servlets UND der Authentifizierung aus
-				//a) Das gehört in den Export_Context
+				//a) Das gehï¿½rt in den Export_Context
 				String sUrlServlet = objKernel.getParameterByProgramAlias(sModule, "Export_Context", "URLServlet"); //"http://" + sIPExternal + "/servlet/VIADocumentCreate";
 				sUrlServlet = StringZZZ.trimQuotationMarked(sUrlServlet);
 				
-				//b) Das gehört in den "Login_Context"					
+				//b) Das gehï¿½rt in den "Login_Context"					
 				String sUrlAuthentification = objKernel.getParameterByProgramAlias(sModule, "Login_Context", "URLLogin");	//"http://" + sIPExternal + "/names.nsf?Login";				
 				sUrlAuthentification = StringZZZ.trimQuotationMarked(sUrlAuthentification);
 				
@@ -1445,7 +1445,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 				//#####################################
 				//Den httpClient erstellen, zum Authentifizieren
 
-				//+++ Auch in der Eingabemaske müsste man sich per Post authentitfizieren. Per Post die Daten für die Anmeldung an den Server übertragen			
+				//+++ Auch in der Eingabemaske mï¿½sste man sich per Post authentitfizieren. Per Post die Daten fï¿½r die Anmeldung an den Server ï¿½bertragen			
 				//MERKE: Per POST ist die Anzahl der Authentifizierungsversuche wohl nicht begrenzt, was da ein Hacker wohl denkt .....
 
 				//Merke: Das Protokoll kann nur erkannt werden, wenn es einen entprechenden StreamHandler gibt.
@@ -1465,7 +1465,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 				
                 HttpPost httpRequest = new HttpPost(uri); 
 				                
-                 //+++ Ausführung               
+                 //+++ Ausfï¿½hrung               
 				String sResponseAuthentification=null;	
 				boolean bAuthentificated = false;
 				CloseableHttpResponse response2 = null;
@@ -1486,7 +1486,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 					//PROBLEM: Man darf mehrmals das Kennwort eingeben. Ergo wird auch nach einem falschen Passwort zuerst der Returncode 200 gegeben.					
 					if(statusline.getStatusCode()<400){	
 												
-						//HEURISTISCHE LÖSUNG: Bei der wirklich erfolgreichen Anmeldung wird ein Cookie mit einer SessionID gesetzt.
+						//HEURISTISCHE Lï¿½SUNG: Bei der wirklich erfolgreichen Anmeldung wird ein Cookie mit einer SessionID gesetzt.
 						cookies = cookieStore.getCookies();
 		                if (cookies.isEmpty()) {
 		                    System.out.println("No cookie available");
@@ -1545,7 +1545,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 				
 		
 				//###################################################################
-				//+++ Die im Mapperstore definierten Felder holen und per POST an das Servlet übertragen
+				//+++ Die im Mapperstore definierten Felder holen und per POST an das Servlet ï¿½bertragen
 				//###################################################################
 				
 				String sSchemeServlet = UrlLogicZZZ.getProtocol(sUrlServlet);
@@ -1564,7 +1564,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
                 HttpPost httpServlet = new HttpPost(uriServlet);
                 List <NameValuePair> nvpsServlet = new ArrayList <NameValuePair>();
                            							
-				//+++ Mapper Store holen und daraus den DataStore für dieses Panel
+				//+++ Mapper Store holen und daraus den DataStore fï¿½r dieses Panel
 				MapperStoreClientVIA mapperStore = new MapperStoreClientVIA(objKernel);
 				
 				//+++ Aus dem mapperStore alle Aliasse holen				
@@ -1573,11 +1573,11 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 
 				while(it.hasNext()){
 											
-					//+++ In einer Schleife alle Aliasse für den Mapper store verarbeiten, sprich die Werte aus den Komponenten auslesen
+					//+++ In einer Schleife alle Aliasse fï¿½r den Mapper store verarbeiten, sprich die Werte aus den Komponenten auslesen
 					String sAliasTemp = (String) it.next();
 					System.out.println(ReflectCodeZZZ.getMethodCurrentName() + "# alias current: " + sAliasTemp);	
 					
-					//+++ Nun für den Alias der Übertragung den richtigen HTTP-PArameter holen
+					//+++ Nun fï¿½r den Alias der ï¿½bertragung den richtigen HTTP-PArameter holen
 					String sHttpParamName = mapperStore.getParameterNameHttpByAlias("ExportPanel", sAliasTemp);
 					if(StringZZZ.isEmpty(sHttpParamName)){
 						ReportLogZZZ.write(ReportLogZZZ.DEBUG,  "No http parameter name mapped for the alias '" + sAliasTemp +"' and the mapperstore 'ExportPanel', skipping this parameter.");						
@@ -1598,17 +1598,17 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 							//#######################################################################
 							//WERTE als Berechnung der @Z-Formula setzen. Dabei auf die Fieldmethod beziehen
 							
-							//1. Formel aus dem Mapping holen (diese Formel besteht aus allgemeinen Aliasnamen und hat noch keine konkrete Klassen / Methodenausprägung
-							String sFormulaRaw = mapperStore.getParameterFieldMethodByAlias("ExportPanel", sAliasTemp); //Merke: ExportPanel ist der Alias für den DataStore
+							//1. Formel aus dem Mapping holen (diese Formel besteht aus allgemeinen Aliasnamen und hat noch keine konkrete Klassen / Methodenausprï¿½gung
+							String sFormulaRaw = mapperStore.getParameterFieldMethodByAlias("ExportPanel", sAliasTemp); //Merke: ExportPanel ist der Alias fï¿½r den DataStore
 							System.out.println(ReflectCodeZZZ.getMethodCurrentName() + "# processing raw-formula: " + sFormulaRaw);
 							
 							//2. Formel in eine Formel umwandeln, welche die UI aliaswerte UND deren Methoden verwendet
-							ExpressionTranslatorZZZ exprTranslator = new ExpressionTranslatorZZZ(objKernel, mapperStore, "ExportPanel"); //Merke: ExportPanel ist der Alias für den DataStore
+							ExpressionTranslatorZZZ exprTranslator = new ExpressionTranslatorZZZ(objKernel, mapperStore, "ExportPanel"); //Merke: ExportPanel ist der Alias fï¿½r den DataStore
 							String sFormulaUI = exprTranslator.translate(sFormulaRaw, MapperStoreHttpZZZ.iPARAMETER_FIELDNAME);
 							
-							//3. Formel ausführen (intern wir JEXL verwendet)							
+							//3. Formel ausfï¿½hren (intern wir JEXL verwendet)							
 							KernelUIExpressionZZZ exprUI = new KernelUIExpressionZZZ(objKernel, (KernelJFrameCascadedZZZ) this.getFrameParent());
-							String sValue = exprUI.computeString("ContentPane", sFormulaUI);   //Merke: ContentPane ist der UIAlias für das Panel, in dem sich die Felder befinden.
+							String sValue = exprUI.computeString("ContentPane", sFormulaUI);   //Merke: ContentPane ist der UIAlias fï¿½r das Panel, in dem sich die Felder befinden.
 							
 							//4. Wert setzen							
 				             if(sValue!=null) nvpsServlet.add(new BasicNameValuePair(sHttpParamName, sValue.trim())); 
@@ -1621,25 +1621,25 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 							//System.out.println("textCarrierId.getText()=" + textTemp.getText());
 												
 							
-							//1. Formel aus dem Mapping holen (diese Formel besteht aus allgemeinen Aliasnamen und hat noch keine konkrete Klassen / Methodenausprägung
-							String sFormulaRaw = mapperStore.getParameterZMethodByAlias("ExportPanel", sAliasTemp); //Merke: ExportPanel ist der Alias für den DataStore
+							//1. Formel aus dem Mapping holen (diese Formel besteht aus allgemeinen Aliasnamen und hat noch keine konkrete Klassen / Methodenausprï¿½gung
+							String sFormulaRaw = mapperStore.getParameterZMethodByAlias("ExportPanel", sAliasTemp); //Merke: ExportPanel ist der Alias fï¿½r den DataStore
 							System.out.println(ReflectCodeZZZ.getMethodCurrentName() + "# processing raw-formula: " + sFormulaRaw);
 							
 							//2. Formel in eine Formel umwandeln, welche die UI aliaswerte UND deren Methoden verwendet
-							ExpressionTranslatorZZZ exprTranslator = new ExpressionTranslatorZZZ(objKernel, mapperStore, "ExportPanel"); //Merke: ExportPanel ist der Alias für den DataStore
+							ExpressionTranslatorZZZ exprTranslator = new ExpressionTranslatorZZZ(objKernel, mapperStore, "ExportPanel"); //Merke: ExportPanel ist der Alias fï¿½r den DataStore
 							String sFormulaUI = exprTranslator.translate(sFormulaRaw, MapperStoreHttpZZZ.iPARAMETER_FIELDNAME);
 							
-							//3. Formel ausführen (intern wir JEXL verwendet)							
+							//3. Formel ausfï¿½hren (intern wir JEXL verwendet)							
 							//FALSCH HIER WIRD DER WERT NICTH GEFUNDEN !!!!KernelUIExpressionZZZ exprUI = new KernelUIExpressionZZZ(objKernel, (KernelJFrameCascadedZZZ) this.getFrameParent());
 							KernelUIExpressionZZZ exprUI = new KernelUIExpressionZZZ(objKernel, (KernelJFrameCascadedZZZ) panelParent.getFrameParent(), panelParent);
 					
-							//String sValue = exprUI.computeString("ContentPane", sFormulaUI);   //Merke: ContentPane ist der UIAlias für das Panel, in dem sich die Felder befinden.
+							//String sValue = exprUI.computeString("ContentPane", sFormulaUI);   //Merke: ContentPane ist der UIAlias fï¿½r das Panel, in dem sich die Felder befinden.
 							String sValue = exprUI.computeString(sFormulaUI);
 							
 							//4. Wert setzen
 							if(sValue!=null) nvpsServlet.add(new BasicNameValuePair(sHttpParamName, sValue.trim())); 
 							}else{
-								ExceptionZZZ ez = new ExceptionZZZ("Wrong Component ZName'" + sZComponent +"'' bisher nur für @Z etwas entwickelt.");
+								ExceptionZZZ ez = new ExceptionZZZ("Wrong Component ZName'" + sZComponent +"'' bisher nur fï¿½r @Z etwas entwickelt.");
 								editorExportStatus.setText("Error: " + ez.getMessageLast());
 								editorExportStatus.setCaretPosition(0);
 								editorExportStatus.updateUI();
@@ -1650,7 +1650,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 								//#######################################################################
 								//WERTE Ohne Berechnung setzen
 								
-								//+++ Nun für den Alias der Übertragung den entsprechenden Aliasse der Swing-Komponente holen
+								//+++ Nun fï¿½r den Alias der ï¿½bertragung den entsprechenden Aliasse der Swing-Komponente holen
 								String sAliasComponent = mapperStore.getParameterFieldNameByAlias("ExportPanel", sAliasTemp);
 								if(StringZZZ.isEmpty(sAliasComponent)){
 									ExceptionZZZ ez = new ExceptionZZZ("No componentalias mapped for the alias '" + sAliasTemp +"' and the mapperstore 'ExportPanel'");
@@ -1669,7 +1669,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 									Object obj = cl.newInstance();
 									obj = panelParent.getComponent(sAliasComponent);
 									
-				//					+++ Nun für diese Komponente die Datails aus dem DataStore-Objekt holen									
+				//					+++ Nun fï¿½r diese Komponente die Datails aus dem DataStore-Objekt holen									
 									//1. Methode holen und aufrufen
 									String sMethodComponent = mapperStore.getParameterFieldMethodByAlias("ExportPanel", sAliasTemp);
 									Method method = cl.getMethod(sMethodComponent, null);//Das holt scheinbar nur Werte aus der Elternklasse   cl.getDeclaredMethod(sMethodComponent, null);													
@@ -1700,12 +1700,12 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 				}//End while it.hasnext
 				
 				
-				//+++  Im Client soll konfiguriert werden können, welcher SystemKey und welche ini-Datei auf dem Server verwendet werden soll.
+				//+++  Im Client soll konfiguriert werden kï¿½nnen, welcher SystemKey und welche ini-Datei auf dem Server verwendet werden soll.
 				//          Ziel ist es, dem Server zu sagen "Mach mal den Debug-Modus"
 				String stemp = this.getKernelObject().getSystemNumber();
 				nvpsServlet.add(new BasicNameValuePair("Systemnumber", stemp));
 			 
-//				//+++ Per POST die Formulardaten an den Server übertragen	
+//				//+++ Per POST die Formulardaten an den Server ï¿½bertragen	
 //				/*darauf verlassen, das ein Cookie vom Client-Objekt verwaltet wird
 //				String sIPExternal2 = "172.16.0.102";
 //				
@@ -1715,20 +1715,20 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 //				state2.setCredentials(scope2, credentials2);
 //				*/
 //				
-				//+++ Im Client soll konfiguriert werden können, was als Antwort zurückkommen soll, XML oder html. Das wird vom Servlet ausgewertet.
+				//+++ Im Client soll konfiguriert werden kï¿½nnen, was als Antwort zurï¿½ckkommen soll, XML oder html. Das wird vom Servlet ausgewertet.
 				String sResultContentType = objKernel.getParameterByProgramAlias(sModule, "Export_Context", "ResultContentType");  //Merke: text/html ist default
 				if(sResultContentType.trim().toLowerCase().equals("text/xml")){
 					nvpsServlet.add(new BasicNameValuePair("ResultContentType", sResultContentType.trim().toLowerCase()));				 
 				}
 				
-				//+++ Vor dem Ausführen der Methode, alles leer setzen. Dadurch merkt man, das etwas passiert und was nicht richtig zurückgegeben wurde
+				//+++ Vor dem Ausfï¿½hren der Methode, alles leer setzen. Dadurch merkt man, das etwas passiert und was nicht richtig zurï¿½ckgegeben wurde
 				if(editorExportStatus!=null){
 				editorExportStatus.setText("wird neu gesetzt ..."); 
 				editorExportStatus.setCaretPosition(0);
 				editorExportStatus.updateUI();
 				}
 				if(textIdCarrier!=null){
-					if(textIdCarrier.getText().equals("")){  //Falls etwas eingegeben wurde dann nicht überschreiben
+					if(textIdCarrier.getText().equals("")){  //Falls etwas eingegeben wurde dann nicht ï¿½berschreiben
 						textIdCarrier.setText("wird neu gesetzt...");
 						textIdCarrier.setCaretPosition(0);
 						textIdCarrier.updateUI();
@@ -1742,7 +1742,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 					}
 				}
 							
-				//+++ Die Methode ausführen
+				//+++ Die Methode ausfï¿½hren
 				httpServlet.setEntity(new UrlEncodedFormEntity(nvpsServlet));
 				 responseServlet = httpclient.execute(httpServlet);
 				 
@@ -1772,12 +1772,12 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 							//Elemente holen
 							Element elemRoot = docjdom.getRootElement();
 							if(elemRoot==null){
-								ExceptionZZZ ez = new ExceptionZZZ("Result XML enthält kein Root Element.", iERROR_RUNTIME, this, ReflectCodeZZZ.getMethodCurrentName());
+								ExceptionZZZ ez = new ExceptionZZZ("Result XML enthï¿½lt kein Root Element.", iERROR_RUNTIME, this, ReflectCodeZZZ.getMethodCurrentName());
 								throw ez;
 							}
 							
 							
-							//+++ Rückgabe an den Client,  das zuvorher alles leergesetze wieder befüllen. Wird dies nicht ausgeführt, dann ist ein Fehler im Client passiert oder der Wert wurde im Servlet nicht gefüllt.
+							//+++ Rï¿½ckgabe an den Client,  das zuvorher alles leergesetze wieder befï¿½llen. Wird dies nicht ausgefï¿½hrt, dann ist ein Fehler im Client passiert oder der Wert wurde im Servlet nicht gefï¿½llt.
 							String sTagMessage= objKernel.getParameterByProgramAlias(sModule, "Export_Context", "ResultTagMessage"); 
 							String sTagIdCarrier= objKernel.getParameterByProgramAlias(sModule, "Export_Context", "ResultTagIdCarrier"); 
 							String sTagSequenceNrCarrier = objKernel.getParameterByProgramAlias(sModule, "Export_Context", "ResultTagSequenzeNrCarrier");
@@ -1806,8 +1806,8 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 							}
 							
 						}else{
-							//B) HTML zurückgeben
-							//    Merke: Hier müsste ggf. auch der HTML-String geparsed werden, um die Carrier ID zu erhalten
+							//B) HTML zurï¿½ckgeben
+							//    Merke: Hier mï¿½sste ggf. auch der HTML-String geparsed werden, um die Carrier ID zu erhalten
 							editorExportStatus.setText(sResponseRequest);
 							editorExportStatus.setCaretPosition(0);
 							editorExportStatus.updateUI();
@@ -1874,7 +1874,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 	 *
 	 */
 	class ActionDataSaveVIA extends KernelActionCascadedZZZ{
-		public ActionDataSaveVIA(KernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent){
+		public ActionDataSaveVIA(IKernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent){
 			super(objKernel, panelParent);			
 		}
 		public boolean actionPerformCustom(ActionEvent ae, boolean bQueryResult) throws ExceptionZZZ {
@@ -1886,16 +1886,16 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 					String sStatus = "Performing action: 'Save data to file'";
 					ReportLogZZZ.write(ReportLogZZZ.DEBUG, sStatus);
 					
-					//+++ EditorPane für Rückgabe von Meldungen					
+					//+++ EditorPane fï¿½r Rï¿½ckgabe von Meldungen					
 					KernelJPanelCascadedZZZ panelParent= this.getPanelParent();
 					
 					JEditorPane editorExportStatus = (JEditorPane) panelParent.getComponent("editorExportStatus");
 					editorExportStatus.setText(sStatus);
 					editorExportStatus.setCaretPosition(0);
 					
-					//+++ Textfield für die ggf. zurückgelieferte CarrierId, SequenceNumber
-					//!!! Falls in einem vorherigen Lauf ein Fehler passiert ist, dann ist ggf. noch der vorherige Standardtext "wird gesetzt ..." darin. Dieser muss eintfernt werden, da das wieder eine Falscheingabe für das Servlet wäre.
-					//Merke: Es kann beim Speichern in eine lokale Datei noch keine CarrierId, SequenceNumber etc. zurückgegeben werden. Aber es soll möglich sein sie sofort einzugeben.
+					//+++ Textfield fï¿½r die ggf. zurï¿½ckgelieferte CarrierId, SequenceNumber
+					//!!! Falls in einem vorherigen Lauf ein Fehler passiert ist, dann ist ggf. noch der vorherige Standardtext "wird gesetzt ..." darin. Dieser muss eintfernt werden, da das wieder eine Falscheingabe fï¿½r das Servlet wï¿½re.
+					//Merke: Es kann beim Speichern in eine lokale Datei noch keine CarrierId, SequenceNumber etc. zurï¿½ckgegeben werden. Aber es soll mï¿½glich sein sie sofort einzugeben.
 					JTextField textIdCarrier = (JTextField) panelParent.getComponent("textCarrierId");
 					if(textIdCarrier!=null){
 						if(textIdCarrier.getText().equals("") | textIdCarrier.getText().equals("wird neu gesetzt...")) {
@@ -1911,7 +1911,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 					
 				//#############################################################	
 				//TODO DIES ALLES IN EINEN WORKER-THREAD PACKEN	
-				KernelZZZ objKernel = this.getKernelObject();
+				IKernelZZZ objKernel = this.getKernelObject();
 				
 //				Wichtige Informationen, zum Auslesen von Parametern aus der KernelConfiguration
 				KernelJFrameCascadedZZZ frameParent = (KernelJFrameCascadedZZZ) this.getFrameParent();
@@ -1935,7 +1935,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 				String sFilePathTotal = sFilePath + java.io.File.separator + sFileName;
 				
 				
-				//+++ Auf das Vorhandensein der Datei prüfen.
+				//+++ Auf das Vorhandensein der Datei prï¿½fen.
 				boolean bDirectoryExists = FileEasyZZZ.exists(sFilePath);
 				boolean bFileExists = false;
 				if(!bDirectoryExists){
@@ -1945,7 +1945,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 				}
 				java.io.File xmlFile = new java.io.File(sFilePathTotal);
 				
-				//+++ Je nachdem neues XML Dokument erstellen oder an bestehendes anhängen.
+				//+++ Je nachdem neues XML Dokument erstellen oder an bestehendes anhï¿½ngen.
 				JAZVideoInternetArchiveClientDocument docBeanXML = null;
 				ArchiveEntryList al = null;
 				ArchiveEntry a = null;
@@ -1991,7 +1991,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 				docBeanXML.documentProperties().setVersion("1.0");
 				docBeanXML.documentProperties().setEncoding("UTF-8");
 				
-//				+++ Vor dem Ausführen der Methode, alles auf gespeichert setzen. Dadurch merkt man, das etwas passiert und was nicht richtig zurückgegeben wurde
+//				+++ Vor dem Ausfï¿½hren der Methode, alles auf gespeichert setzen. Dadurch merkt man, das etwas passiert und was nicht richtig zurï¿½ckgegeben wurde
 				if(editorExportStatus!=null){
 				editorExportStatus.setText("wird gespeichert ..."); 
 				editorExportStatus.setCaretPosition(0);
@@ -2010,11 +2010,11 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 				}
 				
 				/* hier zum Testen hart verdrahtet
-				//+++ XML mäßiges anhängen: Neuer Archiv Eintrag
+				//+++ XML mï¿½ï¿½iges anhï¿½ngen: Neuer Archiv Eintrag
 				ArchiveEntry a = al.addNewArchiveEntry();
 				
 				//TODO Goon: Hier die realen Werte aus dem GUI auslesen
-				//Aktuelles Datum als Dummy Wert für alle Datumswerte
+				//Aktuelles Datum als Dummy Wert fï¿½r alle Datumswerte
 				GregorianCalendar objGregCal = new GregorianCalendar();
 				Date objDate = objGregCal.getTime();
 				Calendar cal = Calendar.getInstance();
@@ -2039,12 +2039,12 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 				//+++++++++++++++++++++++++++++++++++++++++++++
 			*/
 				
-				//#### FÜR DIE XML-BEANS ist nur das Ergebnis wichtig. 
+				//#### Fï¿½R DIE XML-BEANS ist nur das Ergebnis wichtig. 
 				//TODO: Anhand des Alias muss festgelegt werden welche Methode verwendet wird.....
 				
-				//+++ Mapper Store holen und daraus den DataStore für dieses Panel
+				//+++ Mapper Store holen und daraus den DataStore fï¿½r dieses Panel
 				MapperStoreClientVIA mapperStore = new MapperStoreClientVIA(objKernel);
-				//DataStoreZZZ storePanel = mapperStore.getDataStoreExportPanel(); //TODO Dies dynamischer machen, z.B. über den Klassennamen
+				//DataStoreZZZ storePanel = mapperStore.getDataStoreExportPanel(); //TODO Dies dynamischer machen, z.B. ï¿½ber den Klassennamen
 				
 				
 				//+++ Aus dem mapperStore alle Aliasse holen				
@@ -2055,15 +2055,15 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 				while(it.hasNext()){
 					String sValue = null;
 										
-					//+++ In einer Schleife alle Aliasse für den Mapper store verarbeiten, sprich die Werte aus den Komponenten auslesen
+					//+++ In einer Schleife alle Aliasse fï¿½r den Mapper store verarbeiten, sprich die Werte aus den Komponenten auslesen
 					String sAliasTemp = (String) it.next();
 					System.out.println(ReflectCodeZZZ.getMethodCurrentName() + "# alias current: " + sAliasTemp);	
 					
 
 					//TODO Goon: Man muss aus dem Aliasnamen heraus das XMLBeans-Objekt holen......
-					//             UND die dazugehörende Methode den Wert zu setzen
-					//             UND schon für das Auslesen... die dazugehörende Methode.
-					//MERKE: Lediglich die Berechnung des Wertes aus dem GUI - Element kann übernommen werden. 
+					//             UND die dazugehï¿½rende Methode den Wert zu setzen
+					//             UND schon fï¿½r das Auslesen... die dazugehï¿½rende Methode.
+					//MERKE: Lediglich die Berechnung des Wertes aus dem GUI - Element kann ï¿½bernommen werden. 
 					//TODO: Im 1. Schritt: Die Ermittlung des Wertes kapseln, so das der Wert geholt wird.
 					//TODO: Im 2. Schritt: Im ersten Entwurf die richtigen XML-Bean-Objekte lediglich in einer If-Abfrage ansteuern, die auf den Alias basiert.
 
@@ -2078,17 +2078,17 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 							//#######################################################################
 							//WERTE als Berechnung der @Z-Formula setzen. Dabei auf die Fieldmethod beziehen
 							
-							//1. Formel aus dem Mapping holen (diese Formel besteht aus allgemeinen Aliasnamen und hat noch keine konkrete Klassen / Methodenausprägung
-							String sFormulaRaw = mapperStore.getParameterFieldMethodByAlias("ExportPanel", sAliasTemp); //Merke: ExportPanel ist der Alias für den DataStore
+							//1. Formel aus dem Mapping holen (diese Formel besteht aus allgemeinen Aliasnamen und hat noch keine konkrete Klassen / Methodenausprï¿½gung
+							String sFormulaRaw = mapperStore.getParameterFieldMethodByAlias("ExportPanel", sAliasTemp); //Merke: ExportPanel ist der Alias fï¿½r den DataStore
 							System.out.println(ReflectCodeZZZ.getMethodCurrentName() + "# processing raw-formula: " + sFormulaRaw);
 							
 							//2. Formel in eine Formel umwandeln, welche die UI aliaswerte UND deren Methoden verwendet
-							ExpressionTranslatorZZZ exprTranslator = new ExpressionTranslatorZZZ(objKernel, mapperStore, "ExportPanel"); //Merke: ExportPanel ist der Alias für den DataStore
+							ExpressionTranslatorZZZ exprTranslator = new ExpressionTranslatorZZZ(objKernel, mapperStore, "ExportPanel"); //Merke: ExportPanel ist der Alias fï¿½r den DataStore
 							String sFormulaUI = exprTranslator.translate(sFormulaRaw, MapperStoreHttpZZZ.iPARAMETER_FIELDNAME);
 							
-							//3. Formel ausführen (intern wir JEXL verwendet)							
+							//3. Formel ausfï¿½hren (intern wir JEXL verwendet)							
 							KernelUIExpressionZZZ exprUI = new KernelUIExpressionZZZ(objKernel, (KernelJFrameCascadedZZZ) this.getFrameParent());
-							sValue = exprUI.computeString("ContentPane", sFormulaUI);   //Merke: ContentPane ist der UIAlias für das Panel, in dem sich die Felder befinden.
+							sValue = exprUI.computeString("ContentPane", sFormulaUI);   //Merke: ContentPane ist der UIAlias fï¿½r das Panel, in dem sich die Felder befinden.
 							
 							//!!! DAS NUN PER XML BEAN.... 4. Wert setzen
 							//if(sValue!=null) methodRequest.setParameter(sHttpParamName, sValue.trim());
@@ -2101,32 +2101,32 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 							//System.out.println("textCarrierId.getText()=" + textTemp.getText());
 												
 							
-							//1. Formel aus dem Mapping holen (diese Formel besteht aus allgemeinen Aliasnamen und hat noch keine konkrete Klassen / Methodenausprägung
-							String sFormulaRaw = mapperStore.getParameterZMethodByAlias("ExportPanel", sAliasTemp); //Merke: ExportPanel ist der Alias für den DataStore
+							//1. Formel aus dem Mapping holen (diese Formel besteht aus allgemeinen Aliasnamen und hat noch keine konkrete Klassen / Methodenausprï¿½gung
+							String sFormulaRaw = mapperStore.getParameterZMethodByAlias("ExportPanel", sAliasTemp); //Merke: ExportPanel ist der Alias fï¿½r den DataStore
 							System.out.println(ReflectCodeZZZ.getMethodCurrentName() + "# processing raw-formula: " + sFormulaRaw);
 							
 							//2. Formel in eine Formel umwandeln, welche die UI aliaswerte UND deren Methoden verwendet
-							ExpressionTranslatorZZZ exprTranslator = new ExpressionTranslatorZZZ(objKernel, mapperStore, "ExportPanel"); //Merke: ExportPanel ist der Alias für den DataStore
+							ExpressionTranslatorZZZ exprTranslator = new ExpressionTranslatorZZZ(objKernel, mapperStore, "ExportPanel"); //Merke: ExportPanel ist der Alias fï¿½r den DataStore
 							String sFormulaUI = exprTranslator.translate(sFormulaRaw, MapperStoreHttpZZZ.iPARAMETER_FIELDNAME);
 							
-							//3. Formel ausführen (intern wir JEXL verwendet)							
+							//3. Formel ausfï¿½hren (intern wir JEXL verwendet)							
 							//FALSCH HIER WIRD DER WERT NCITH GEFUNDEN !!!!KernelUIExpressionZZZ exprUI = new KernelUIExpressionZZZ(objKernel, (KernelJFrameCascadedZZZ) this.getFrameParent());
 							KernelUIExpressionZZZ exprUI = new KernelUIExpressionZZZ(objKernel, (KernelJFrameCascadedZZZ) panelParent.getFrameParent(), panelParent);
 					
-							//String sValue = exprUI.computeString("ContentPane", sFormulaUI);   //Merke: ContentPane ist der UIAlias für das Panel, in dem sich die Felder befinden.
+							//String sValue = exprUI.computeString("ContentPane", sFormulaUI);   //Merke: ContentPane ist der UIAlias fï¿½r das Panel, in dem sich die Felder befinden.
 							sValue = exprUI.computeString(sFormulaUI);
 							
 							//!!! DAS NUN PER XML BEAN .... 4. Wert setzen
 							//if(sValue!=null) methodRequest.setParameter(sHttpParamName, sValue.trim());
 							}else{
-								ExceptionZZZ ez = new ExceptionZZZ("Wrong Component ZName'" + sZComponent +"'' bisher nur für @Z etwas entwickelt.");	
+								ExceptionZZZ ez = new ExceptionZZZ("Wrong Component ZName'" + sZComponent +"'' bisher nur fï¿½r @Z etwas entwickelt.");	
 								throw ez;
 							}
 						}else{
 								//#######################################################################
 								//WERTE Ohne Berechnung setzen
 								
-								//+++ Nun für den Alias der Übertragung den entsprechenden Aliasse der Swing-Komponente holen
+								//+++ Nun fï¿½r den Alias der ï¿½bertragung den entsprechenden Aliasse der Swing-Komponente holen
 								String sAliasComponent = mapperStore.getParameterFieldNameByAlias("ExportPanel", sAliasTemp);
 								if(StringZZZ.isEmpty(sAliasComponent)){
 									ExceptionZZZ ez = new ExceptionZZZ("No componentalias mapped for the alias '" + sAliasTemp +"' and the mapperstore 'ExportPanel'");	
@@ -2141,7 +2141,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 									Object obj = cl.newInstance();
 									obj = panelParent.getComponent(sAliasComponent);
 									
-				//					+++ Nun für diese Komponente die Datails aus dem DataStore-Objekt holen									
+				//					+++ Nun fï¿½r diese Komponente die Datails aus dem DataStore-Objekt holen									
 									//1. Methode holen und aufrufen
 									String sMethodComponent = mapperStore.getParameterFieldMethodByAlias("ExportPanel", sAliasTemp);
 									Method method = cl.getMethod(sMethodComponent, null);//Das holt scheinbar nur Werte aus der Elternklasse   cl.getDeclaredMethod(sMethodComponent, null);													
@@ -2179,7 +2179,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 						if(c==null) c=a.addNewCarrier();
 						if(f==null) f= a.addNewFile();
 						if(m==null) m = a.addNewMovie(); 
-						//Merke: Serien werden nur hinzugefügt, wenn auch dafür ein Wert vorhanden ist.
+						//Merke: Serien werden nur hinzugefï¿½gt, wenn auch dafï¿½r ein Wert vorhanden ist.
 						if(sAliasTemp.equalsIgnoreCase("CarrierTitle")){
 							c.setTitle(sValue);
 						}else if(sAliasTemp.equalsIgnoreCase("CarrierType")){
@@ -2191,7 +2191,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 						}else if(sAliasTemp.equalsIgnoreCase("CarrierCreated")){
 							
 							//++++ Datum verarbeiten
-//							Aktuelles Datum als Dummy Wert für alle Datumswerte
+//							Aktuelles Datum als Dummy Wert fï¿½r alle Datumswerte
 							//GregorianCalendar objGregCal = new GregorianCalendar();
 							//Date objDate = objGregCal.getTime();
 							
@@ -2280,7 +2280,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 					
 					
 					
-//	++++++				NAch dem Ausführen der MEthode alles wieder leer setzen
+//	++++++				NAch dem Ausfï¿½hren der MEthode alles wieder leer setzen
 					if(editorExportStatus!=null){
 						editorExportStatus.setText("erfolgreich gespeichert"); 
 						editorExportStatus.setCaretPosition(0);
@@ -2355,7 +2355,7 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 				main:{
 				if(ez==null) break main;
 				
-	//			+++ EditorPane für Rückgabe von Meldungen					
+	//			+++ EditorPane fï¿½r Rï¿½ckgabe von Meldungen					
 				KernelJPanelCascadedZZZ panelParent= this.getPanelParent();
 				if(panelParent==null) break main;
 				

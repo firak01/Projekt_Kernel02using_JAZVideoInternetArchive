@@ -3,7 +3,7 @@ package use.via.client.module.export;
 import java.io.File;
 import java.util.Vector;
 
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.log.ReportLogZZZ;
@@ -12,7 +12,7 @@ import basic.zKernelUI.component.model.EventComponentSelectionResetZZZ;
 
 public class JComboBoxListening_SerieTitleVIA  extends KernelJComboBoxListening4ComponentSelectionResetZZZ   implements IListenerFileSelectedVIA{
 	public static String sTEXT_ERROR = " ";
-	public JComboBoxListening_SerieTitleVIA(KernelZZZ objKernel, Object objItemInitial) {
+	public JComboBoxListening_SerieTitleVIA(IKernelZZZ objKernel, Object objItemInitial) {
 		super(objKernel, objItemInitial);		
 	}
 

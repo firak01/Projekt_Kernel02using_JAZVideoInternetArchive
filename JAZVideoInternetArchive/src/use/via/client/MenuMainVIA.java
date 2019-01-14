@@ -17,7 +17,7 @@ import basic.zBasic.util.log.ReportLogZZZ;
 import basic.zKernel.IKernelUserZZZ;
 import basic.zKernelUI.component.KernelActionJMenuZZZ;
 import basic.zKernelUI.component.KernelJFrameCascadedZZZ;
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 import custom.zKernel.LogZZZ;
 
 
@@ -28,11 +28,11 @@ import custom.zKernel.LogZZZ;
  *
  */
 public class MenuMainVIA extends JMenuBar implements IConstantZZZ, IObjectZZZ, IKernelUserZZZ {
-	private KernelZZZ objKernel;
+	private IKernelZZZ objKernel;
 	private LogZZZ objLog;
 	private KernelJFrameCascadedZZZ frameParent;
 	
-	public MenuMainVIA(KernelZZZ objKernel, KernelJFrameCascadedZZZ frameParent){
+	public MenuMainVIA(IKernelZZZ objKernel, KernelJFrameCascadedZZZ frameParent){
 		super();
 		this.setKernelObject(objKernel);
 		this.setLogObject(this.getKernelObject().getLogObject());
@@ -84,14 +84,14 @@ public class MenuMainVIA extends JMenuBar implements IConstantZZZ, IObjectZZZ, I
 	/* (non-Javadoc)
 	 * @see basic.zKernel.IKernelZZZ#getKernelObject()
 	 */
-	public KernelZZZ getKernelObject() {
+	public IKernelZZZ getKernelObject() {
 		return this.objKernel;
 	}
 
 	/* (non-Javadoc)
 	 * @see basic.zKernel.IKernelZZZ#setKernelObject(custom.zKernel.KernelZZZ)
 	 */
-	public void setKernelObject(KernelZZZ objKernel) {
+	public void setKernelObject(IKernelZZZ objKernel) {
 		this.objKernel = objKernel;
 	}
 
@@ -115,7 +115,7 @@ public class MenuMainVIA extends JMenuBar implements IConstantZZZ, IObjectZZZ, I
 	private class ActionMenuHelpAboutVIA extends KernelActionJMenuZZZ{
 		private DlgAboutVIA dlgAbout=null;
 		
-		public ActionMenuHelpAboutVIA(KernelZZZ objKernel, KernelJFrameCascadedZZZ frmParent) {
+		public ActionMenuHelpAboutVIA(IKernelZZZ objKernel, KernelJFrameCascadedZZZ frmParent) {
 			super(objKernel, frmParent);			
 		}
 		
@@ -139,7 +139,7 @@ public class MenuMainVIA extends JMenuBar implements IConstantZZZ, IObjectZZZ, I
 	private class ActionMenuConnectionIPExternalVIA extends KernelActionJMenuZZZ{
 		private DlgIPExternalVIA dlgIPExternal=null;
 				
-		public ActionMenuConnectionIPExternalVIA(KernelZZZ objKernel, KernelJFrameCascadedZZZ frmParent){
+		public ActionMenuConnectionIPExternalVIA(IKernelZZZ objKernel, KernelJFrameCascadedZZZ frmParent){
 			super(objKernel, frmParent);
 		}
 		

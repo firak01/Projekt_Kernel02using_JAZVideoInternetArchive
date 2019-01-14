@@ -4,7 +4,7 @@ import java.io.File;
 
 import javax.swing.filechooser.FileSystemView;
 
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
@@ -23,7 +23,7 @@ public class JLabel_Listening_CarrierTitleVIA  extends KernelJLabelListening4Com
 	private String sRootPrevious=null;
 	private String sTextPrevious = null;
 	
-	public JLabel_Listening_CarrierTitleVIA(KernelZZZ objKernel, String sTextInitial) {
+	public JLabel_Listening_CarrierTitleVIA(IKernelZZZ objKernel, String sTextInitial) {
 		super(objKernel, sTextInitial);
 	}
 	
@@ -34,7 +34,7 @@ public class JLabel_Listening_CarrierTitleVIA  extends KernelJLabelListening4Com
 	/* (non-Javadoc)
 	 * @see basic.zKernelUI.component.KernelJLabelListening4ComponentSelectionResetZZZ#doResetCustom(basic.zKernelUI.component.model.EventComponentSelectionResetZZZ)
 	 * 
-	 * Bei der Änderung des Laufwerks in der Combo-Box den Datenträgertitel ändern
+	 * Bei der ï¿½nderung des Laufwerks in der Combo-Box den Datentrï¿½gertitel ï¿½ndern
 	 */
 	public void doResetCustom(EventComponentSelectionResetZZZ event){	
 		String sReturnUI = new String(JLabel_Listening_CarrierTitleVIA.sTEXT_NO_DRIVE);
@@ -50,7 +50,7 @@ public class JLabel_Listening_CarrierTitleVIA  extends KernelJLabelListening4Com
 				}
 				
 				File fileRoot = new File(sDrive);				
-//				!!! if(fileRoot.exists()==false)break main;    //Nur bei der Erzeugung des events abprüfen.... sonst kommt in jedem Listener ggf. Meldung hoch. "Bitte Datenträger einlegen." 
+//				!!! if(fileRoot.exists()==false)break main;    //Nur bei der Erzeugung des events abprï¿½fen.... sonst kommt in jedem Listener ggf. Meldung hoch. "Bitte Datentrï¿½ger einlegen." 
 				
 				this.sTextPrevious=this.getText();
 				sReturnUI = CommonUtilVIA.computeDriveTitleByRootFile(fileRoot);	
@@ -65,9 +65,9 @@ public class JLabel_Listening_CarrierTitleVIA  extends KernelJLabelListening4Com
 	/* (non-Javadoc)
 	 * @see use.via.client.module.export.IListenerFileSelectedVIA#fileChanged(use.via.client.module.export.EventListFileSelectedVIA)
 	 * 
-	 * Bei der Änderung der Dateiauswahl den Datenträgertitel ändern.
+	 * Bei der ï¿½nderung der Dateiauswahl den Datentrï¿½gertitel ï¿½ndern.
 	 * Hintergrund: Bei neu eingelegten CDs/DVDs erkennt Windows den Titel nicht sofort, sondern benennt sie z.B. "CD-DVD-ROM Laufwerk". 
-	 *                   Diese Methode soll sicherstellen, dass nach einer Dateiauswahl der Datenträgertitel korrekt ist, also vor der Übertragung der Daten an das Servlet.
+	 *                   Diese Methode soll sicherstellen, dass nach einer Dateiauswahl der Datentrï¿½gertitel korrekt ist, also vor der ï¿½bertragung der Daten an das Servlet.
 	 */
 	public void fileChanged(EventListFileSelectedVIA eventFileSelected) {
 		String sReturnUI = new String(JLabel_Listening_CarrierTitleVIA.sTEXT_NO_DRIVE);
@@ -84,7 +84,7 @@ public class JLabel_Listening_CarrierTitleVIA  extends KernelJLabelListening4Com
 				String sRoot = FileEasyZZZ.getRoot(file);
 				ReportLogZZZ.write(ReportLogZZZ.DEBUG, "EventListFileSelectedVIA received: Weiterverarbeitet wird auf dem Root sRoot='"+ sRoot +"'");
 				File fileRoot = new File(sRoot);
-				//!!! if(fileRoot.exists()==false)break main;    //Nur bei der Erzeugung des events abprüfen.... sonst kommt in jedem Listener ggf. Meldung hoch. "Bitte Datenträger einlegen." 
+				//!!! if(fileRoot.exists()==false)break main;    //Nur bei der Erzeugung des events abprï¿½fen.... sonst kommt in jedem Listener ggf. Meldung hoch. "Bitte Datentrï¿½ger einlegen." 
 				
 				sReturnUI = CommonUtilVIA.computeDriveTitleByRootFile(fileRoot);	
 			}catch(ExceptionZZZ ez){

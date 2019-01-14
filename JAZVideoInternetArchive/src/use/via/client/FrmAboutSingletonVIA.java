@@ -11,7 +11,7 @@ import basic.zBasic.util.log.ReportLogZZZ;
 import basic.zKernelUI.component.KernelJFrameCascadedZZZ;
 import basic.zKernelUI.component.KernelJPanelCascadedZZZ;
 import basic.zKernelUI.util.JFrameHelperZZZ;
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 
 /**
  * @author 0823
@@ -25,7 +25,7 @@ public class FrmAboutSingletonVIA  extends KernelJFrameCascadedZZZ{
 	 * @param objFrame
 	 * @throws ExceptionZZZ
 	 */
-	private FrmAboutSingletonVIA(KernelZZZ objKernel, KernelJFrameCascadedZZZ objFrame) throws ExceptionZZZ{
+	private FrmAboutSingletonVIA(IKernelZZZ objKernel, KernelJFrameCascadedZZZ objFrame) throws ExceptionZZZ{
 		super(objKernel, objFrame);
 	} 
 	private FrmAboutSingletonVIA(){
@@ -39,21 +39,21 @@ public class FrmAboutSingletonVIA  extends KernelJFrameCascadedZZZ{
 		return (FrmAboutSingletonVIA) frmCascadedSingleton;		
 	}
 	
-	public static FrmAboutSingletonVIA getInstance(KernelZZZ objKernel, KernelJFrameCascadedZZZ frameParent) throws ExceptionZZZ{
+	public static FrmAboutSingletonVIA getInstance(IKernelZZZ objKernel, KernelJFrameCascadedZZZ frameParent) throws ExceptionZZZ{
 		if(frmCascadedSingleton==null){
 			frmCascadedSingleton = new FrmAboutSingletonVIA(objKernel, frameParent);
 		}
 		return  (FrmAboutSingletonVIA) frmCascadedSingleton;		
 	}
 	
-	/**Falls ...Singleton.getInstance() zum Holen der Instanz genutzt wurde, so ist das die Möglichkeit anschliessend noch wichtige Paramter an das Singleton-Objekt zu übertragen.
+	/**Falls ...Singleton.getInstance() zum Holen der Instanz genutzt wurde, so ist das die Mï¿½glichkeit anschliessend noch wichtige Paramter an das Singleton-Objekt zu ï¿½bertragen.
 	 * @param objKernel
 	 * @param frameParent
 	 * @return boolean
 	 *
 	 * javadoc created by: 0823, 10.01.2007 - 15:17:37
 	 */
-	public boolean loadContext(KernelZZZ objKernel, KernelJFrameCascadedZZZ frameParent){
+	public boolean loadContext(IKernelZZZ objKernel, KernelJFrameCascadedZZZ frameParent){
 		boolean bReturn = false;
 		main:{
 			if(frmCascadedSingleton==null) break main;

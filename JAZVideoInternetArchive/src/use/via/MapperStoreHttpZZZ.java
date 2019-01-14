@@ -8,7 +8,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.data.DataFieldZZZ;
@@ -19,10 +19,10 @@ import basic.zNotes.use.log4j.NotesReportLogZZZ;
 
 
 /**Aufgabe dieser Klasse ist die Erstellung von Notesdokumenten in der "Application"-Datenbank.
- * Die notwendigen Informationen werden über das DocumentData-Objekt zur Verfügung gestellt.
+ * Die notwendigen Informationen werden ï¿½ber das DocumentData-Objekt zur Verfï¿½gung gestellt.
  * 
  * Merke:
- * Es wird nicht nur ein Dokument hiermit erstellbar, sondern alle Dokumente, für die es auch ein entsprechendes DataStore-Objekt gibt.
+ * Es wird nicht nur ein Dokument hiermit erstellbar, sondern alle Dokumente, fï¿½r die es auch ein entsprechendes DataStore-Objekt gibt.
  * 
  * @author lindhaueradmin
  *
@@ -32,19 +32,19 @@ public abstract class MapperStoreHttpZZZ extends KernelUseObjectZZZ{
 	public static final int iPARAMETER_NAME_HTTP=1;  //Das ist die index position in der Mehrdimensionalen Arraylist, siehe loadFieldMapAllDefault()
 	public static final int iPARAMETER_FIELDNAME=2;
 	
-	//Hinweis: Diese DataStore-Objekte enthalten nur die Daten, die von A nach B übertragen werden. Dazu kommen noch Daten, die an alle Dokumente übertragen werden sollen und aus "Umgebungsvariablen" oder "statischen Werten" bestehen.
+	//Hinweis: Diese DataStore-Objekte enthalten nur die Daten, die von A nach B ï¿½bertragen werden. Dazu kommen noch Daten, die an alle Dokumente ï¿½bertragen werden sollen und aus "Umgebungsvariablen" oder "statischen Werten" bestehen.
 	protected HashMap hmDataStore = new HashMap();
-	protected DataStoreZZZ objDataMeta = new DataStoreZZZ("$ALL"); //DataStore für die Dokument Metadaten, die in alle Dokumente kommen, z.B. Ersteller
+	protected DataStoreZZZ objDataMeta = new DataStoreZZZ("$ALL"); //DataStore fï¿½r die Dokument Metadaten, die in alle Dokumente kommen, z.B. Ersteller
 																		     //Merke: Das ist kein Notes(!)DataStoreZZZ, weil es keinen Maskennamen darin gibt.
 	protected HashMap hmFieldMapping = new HashMap();
 	
-	public MapperStoreHttpZZZ(KernelZZZ objKernel) throws ExceptionZZZ{
+	public MapperStoreHttpZZZ(IKernelZZZ objKernel) throws ExceptionZZZ{
 		super(objKernel);
 		hmDataStore.put("$ALL", objDataMeta);		
 	}
 	
-	/** !!! Diese MEthode führt alle zu überschreibenden MEthoden aus. Sie muss nach der erzeugung des Objekts ausgefürht werden.
-	 *        Dieses Vorgehen erlaubt es den Klassen, die von dieser Klasse erben, ihre speziellen Fähigkeiten (z.B.Protokollierung mit  NotesLogZZZ) zu nutzen, die es für diese Klasse noch nicht gibt.
+	/** !!! Diese MEthode fï¿½hrt alle zu ï¿½berschreibenden MEthoden aus. Sie muss nach der erzeugung des Objekts ausgefï¿½rht werden.
+	 *        Dieses Vorgehen erlaubt es den Klassen, die von dieser Klasse erben, ihre speziellen Fï¿½higkeiten (z.B.Protokollierung mit  NotesLogZZZ) zu nutzen, die es fï¿½r diese Klasse noch nicht gibt.
 	* @throws ExceptionZZZ
 	* 
 	* lindhauer; 30.01.2008 13:13:04
@@ -58,7 +58,7 @@ public abstract class MapperStoreHttpZZZ extends KernelUseObjectZZZ{
 		//Die DataStore Objekte festlegen
 		this.loadDataStoreAll();
 		
-		//Die DataFieldStruktur für alle DataStore Objekte laden
+		//Die DataFieldStruktur fï¿½r alle DataStore Objekte laden
 		this.loadFieldDataStoreFieldStructureAll();
 	}
 	
@@ -76,8 +76,8 @@ public abstract class MapperStoreHttpZZZ extends KernelUseObjectZZZ{
 	}
 	
 	
-	/** Gibt alle Aliasnamen für das HTTP-Mapping zurück, bezogen auf einen bestimmten Aliasnamen eines DataStores.
-	 *  Merke: Das Mapping wird in .loadFieldMapAll() durchgeführt.
+	/** Gibt alle Aliasnamen fï¿½r das HTTP-Mapping zurï¿½ck, bezogen auf einen bestimmten Aliasnamen eines DataStores.
+	 *  Merke: Das Mapping wird in .loadFieldMapAll() durchgefï¿½hrt.
 	* @param sAliasDataStore
 	* @return
 	* @throws ExceptionZZZ
@@ -86,7 +86,7 @@ public abstract class MapperStoreHttpZZZ extends KernelUseObjectZZZ{
 	 */
 	public ArrayList getAliasMappedAll(String sAliasDataStore) throws ExceptionZZZ{
 		ArrayList listaReturn = null;
-			//TODO; Falls sAliasDataStore leer ist, sollen alle Werte zurückgegeben werden.
+			//TODO; Falls sAliasDataStore leer ist, sollen alle Werte zurï¿½ckgegeben werden.
 			HashMap hmAll = this.getFieldMapAll();
 			ArrayList[] listaaForDataStoreAlias = (ArrayList[]) hmAll.get(sAliasDataStore);
 			
@@ -147,9 +147,9 @@ public abstract class MapperStoreHttpZZZ extends KernelUseObjectZZZ{
 			while(enumeration.hasMoreElements()){
 				sParam = (String) enumeration.nextElement();
 				if(! StringZZZ.isEmpty(sParam)){
-					sValue = req.getParameter(sParam); //TODO: Hier die Verarbeitung von mehrerern gleichnamigen Parametern mit .getParameters(...) einfügen.
-					                                                   //           Dazu muss aber auch die Speicherung gelöst werden. Vielleicht JSON als Lösung wie in der Hashmap noch weitere Mehrfachwerte gespeichert werden sollen...
-					                                                   //           Hier eine weitere HashMap für Mehrfachwerte einzuführen, wird zu extrem komplexen Datenstrukturen führen, FGL 20070609
+					sValue = req.getParameter(sParam); //TODO: Hier die Verarbeitung von mehrerern gleichnamigen Parametern mit .getParameters(...) einfï¿½gen.
+					                                                   //           Dazu muss aber auch die Speicherung gelï¿½st werden. Vielleicht JSON als Lï¿½sung wie in der Hashmap noch weitere Mehrfachwerte gespeichert werden sollen...
+					                                                   //           Hier eine weitere HashMap fï¿½r Mehrfachwerte einzufï¿½hren, wird zu extrem komplexen Datenstrukturen fï¿½hren, FGL 20070609
 					objReturn.put(sParam, sValue);
 				}
 			}
@@ -241,7 +241,7 @@ public abstract class MapperStoreHttpZZZ extends KernelUseObjectZZZ{
 				throw ez;
 			}
 		
-			//!!! Der Alias ist nun der Alias für den HTTP-Parameter, bzw. die SwingKomponente (als Quelle) oder das Notesdokument (als Ziel)
+			//!!! Der Alias ist nun der Alias fï¿½r den HTTP-Parameter, bzw. die SwingKomponente (als Quelle) oder das Notesdokument (als Ziel)
 			//Daher erst den "KomponentenAlias" ermitteln
 			String sStoreName = objStore.getStoreAlias();
 			String sAliasComponent = this.getParameterNameByAlias(sStoreName, sAlias, iPARAMETER_FIELDNAME);
@@ -380,7 +380,7 @@ public abstract class MapperStoreHttpZZZ extends KernelUseObjectZZZ{
 				throw ez;
 			}
 			
-			//Das ist aber nicht der Aliasname, der in der Field-Struktur gespeichert ist, sondern ein übergeordneter
+			//Das ist aber nicht der Aliasname, der in der Field-Struktur gespeichert ist, sondern ein ï¿½bergeordneter
 			String sFieldStructureAlias = this.getParameterNameFieldByAlias(sStoreName, sAliasSearchedFor);
 			bReturn = objStore.isFieldAliasMapped(sFieldStructureAlias);
 			
@@ -460,7 +460,7 @@ public abstract class MapperStoreHttpZZZ extends KernelUseObjectZZZ{
 						sColumnAlias =  (String) objItAlias.next();  //Name des HTTP Parameters
 						sParam = (String) alsColumnHTTP.get(icountline);
 						if(!StringZZZ.isEmpty(sColumnAlias)){													
-							//weil beim Testen kein HTTPRequest-Objekt (Auch kein Mock-Objekt) zur Verfügung steht, wird hier der Umweg über einen weitere HashMap gemacht. Die steht dem Test nämlich zur Verfügung: sValue = req.getParameter(sParam);   //Wert des HTTP Parameters, kann nur String sein, wird aber durch den objStore in den konfigurierten Datentyp umgewandelt.
+							//weil beim Testen kein HTTPRequest-Objekt (Auch kein Mock-Objekt) zur Verfï¿½gung steht, wird hier der Umweg ï¿½ber einen weitere HashMap gemacht. Die steht dem Test nï¿½mlich zur Verfï¿½gung: sValue = req.getParameter(sParam);   //Wert des HTTP Parameters, kann nur String sein, wird aber durch den objStore in den konfigurierten Datentyp umgewandelt.
 							sValue = (String) hmParamValue.get(sParam);
 							if(sValue!=null){
 								NotesReportLogZZZ.write(NotesReportLogZZZ.DEBUG, "Parameter '" + sParam + "', trying to set: '" + sValue + "'");
@@ -542,7 +542,7 @@ public abstract class MapperStoreHttpZZZ extends KernelUseObjectZZZ{
 			objStore.appendValue(sFieldAlias, lValue);
 	}
 	
-	//### für $ALL
+	//### fï¿½r $ALL
 	public void setValue(String sFieldAlias, String sValue) throws ExceptionZZZ{
 			DataStoreZZZ objStore = this.getDataStoreByAlias("$ALL");
 			if(objStore==null){

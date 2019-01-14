@@ -13,15 +13,15 @@ import basic.zBasic.util.log.ReportLogZZZ;
 import basic.zKernelUI.component.KernelActionCascadedZZZ;
 import basic.zKernelUI.component.KernelJFrameCascadedZZZ;
 import basic.zKernelUI.component.KernelJPanelCascadedZZZ;
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 
 public class PanelMain_EASTVIA  extends KernelJPanelCascadedZZZ{
 	private final int iBUTTON_COLUMN_LENGTH_DEFAULT = 100;  // WIE kann man alle Buttons gleich gross machen ????
-	public PanelMain_EASTVIA(KernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent) throws ExceptionZZZ{
+	public PanelMain_EASTVIA(IKernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent) throws ExceptionZZZ{
 		super(objKernel, panelParent);
 		
 		BoxLayout objLayout = new BoxLayout((JPanel) this, BoxLayout.Y_AXIS);
-		this.setLayout(objLayout);  //!!! Nur den LayoutManager zu initialisieren reicht nicht. Auch wenn das Panel-Objekt mit übergeben wird.
+		this.setLayout(objLayout);  //!!! Nur den LayoutManager zu initialisieren reicht nicht. Auch wenn das Panel-Objekt mit ï¿½bergeben wird.
 		
 		Dimension dim4Button = new Dimension(iBUTTON_COLUMN_LENGTH_DEFAULT, 50);
 		
@@ -57,7 +57,7 @@ public class PanelMain_EASTVIA  extends KernelJPanelCascadedZZZ{
 	class ActionFormExportDataLaunchVIA extends  KernelActionCascadedZZZ{ //KernelUseObjectZZZ implements ActionListener{
 		//private JPanel panelParent;
 				
-		public ActionFormExportDataLaunchVIA(KernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent){
+		public ActionFormExportDataLaunchVIA(IKernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent){
 			super(objKernel, panelParent);			
 		}
 		
@@ -72,7 +72,7 @@ public class PanelMain_EASTVIA  extends KernelJPanelCascadedZZZ{
 				KernelJPanelCascadedZZZ panelDLG = (KernelJPanelCascadedZZZ)panelEast.getPanelParent();
 				KernelJFrameCascadedZZZ frameParent = panelDLG.getFrameParent();
 				
-				//Lösung: Singleton, damit man nur eine Dialogbox öffnen kann 
+				//Lï¿½sung: Singleton, damit man nur eine Dialogbox ï¿½ffnen kann 
 				FrmExportDataHttpSingletonVIA frameInfo = FrmExportDataHttpSingletonVIA.getInstance(objKernel, frameParent);
 				boolean bLaunched = frameInfo.launch(this.getKernelObject().getApplicationKey() + " - Client (Export Data)");
 				if(bLaunched == true){
@@ -87,8 +87,8 @@ public class PanelMain_EASTVIA  extends KernelJPanelCascadedZZZ{
 					
 				}
 				
-				/*Merke: Dieser Code wird vor dem Fensterstart ausgeführt. Nur möglich, weil der EventDispatcher-Code nebenläufig ausgeführt.... wird.
-				//            Und das ist nur möglich, wenn das der "Erste Frame/ der Hauptframe" der Applikation ist.
+				/*Merke: Dieser Code wird vor dem Fensterstart ausgefï¿½hrt. Nur mï¿½glich, weil der EventDispatcher-Code nebenlï¿½ufig ausgefï¿½hrt.... wird.
+				//            Und das ist nur mï¿½glich, wenn das der "Erste Frame/ der Hauptframe" der Applikation ist.
 				try{			
 					for(int icount = 0; icount <= 10; icount++){
 						ReportLogZZZ.write(ReportLogZZZ.DEBUG, "main - thread (actionPerformed): " + icount + ". doing something....");
@@ -121,7 +121,7 @@ public class PanelMain_EASTVIA  extends KernelJPanelCascadedZZZ{
 	class ActionDlgIPLaunchVIA extends  KernelActionCascadedZZZ{ //KernelUseObjectZZZ implements ActionListener{
 		private DlgIPExternalVIA dlgIPExternal = null;
 				
-		public ActionDlgIPLaunchVIA(KernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent){
+		public ActionDlgIPLaunchVIA(IKernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent){
 			super(objKernel, panelParent);			
 		}
 		
@@ -165,7 +165,7 @@ public class PanelMain_EASTVIA  extends KernelJPanelCascadedZZZ{
 	}//END Class "ActionExportDataLaunchZZZ
 	
 	class ActionFormMainCloseVIA extends KernelActionCascadedZZZ{
-		public ActionFormMainCloseVIA(KernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent){
+		public ActionFormMainCloseVIA(IKernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent){
 			super(objKernel, panelParent);
 		}
 		
@@ -193,7 +193,7 @@ public class PanelMain_EASTVIA  extends KernelJPanelCascadedZZZ{
 	
 	
 	class ActionFormAboutLaunchVIA extends  KernelActionCascadedZZZ{ //KernelUseObjectZZZ implements ActionListener{				
-		public ActionFormAboutLaunchVIA(KernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent){
+		public ActionFormAboutLaunchVIA(IKernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent){
 			super(objKernel, panelParent);			
 		}
 		
@@ -208,7 +208,7 @@ public class PanelMain_EASTVIA  extends KernelJPanelCascadedZZZ{
 				KernelJPanelCascadedZZZ panelDLG = (KernelJPanelCascadedZZZ)panelEast.getPanelParent();
 				KernelJFrameCascadedZZZ frameParent = panelDLG.getFrameParent();
 				
-				/*Nachteil: man kann beliebig viele Dialogboxen öffnen
+				/*Nachteil: man kann beliebig viele Dialogboxen ï¿½ffnen
 				FrmAboutVIA frameAbout = new FrmAboutVIA(this.getKernelObject(), frameParent);
 				boolean bLaunched = frameAbout.launch();
 				if(bLaunched==true){
@@ -224,7 +224,7 @@ public class PanelMain_EASTVIA  extends KernelJPanelCascadedZZZ{
 				*/
 				
 				
-				//Lösung: Singleton
+				//Lï¿½sung: Singleton
 				FrmAboutSingletonVIA frameAbout = FrmAboutSingletonVIA.getInstance(objKernel, frameParent);
 				boolean bLaunched = frameAbout.launch(this.getKernelObject().getApplicationKey() + " - Client (About)");
 				if(bLaunched==true){ 

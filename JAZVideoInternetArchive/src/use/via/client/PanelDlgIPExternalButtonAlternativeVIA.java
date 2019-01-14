@@ -17,14 +17,14 @@ import basic.zKernelUI.component.KernelJDialogExtendedZZZ;
 import basic.zKernelUI.component.KernelJFrameCascadedZZZ;
 import basic.zKernelUI.component.KernelJPanelCascadedZZZ;
 import basic.zKernelUI.component.KernelJPanelDialogButtonDefaultZZZ;
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 
 /**
  * @author 0823
  *
  */
 public class PanelDlgIPExternalButtonAlternativeVIA  extends KernelJPanelDialogButtonDefaultZZZ{
-	public PanelDlgIPExternalButtonAlternativeVIA(KernelZZZ objKernel, KernelJDialogExtendedZZZ dialogExtended, boolean bIsButtonOkAvailable, boolean bIsButtonCancelAvailable){
+	public PanelDlgIPExternalButtonAlternativeVIA(IKernelZZZ objKernel, KernelJDialogExtendedZZZ dialogExtended, boolean bIsButtonOkAvailable, boolean bIsButtonCancelAvailable){
 		super(objKernel, dialogExtended, bIsButtonOkAvailable, bIsButtonCancelAvailable);
 	}
 	
@@ -35,18 +35,18 @@ public class PanelDlgIPExternalButtonAlternativeVIA  extends KernelJPanelDialogB
 	}	
 	
 	class ActionListenerDlgIPExternalButtonOk extends  ActionListenerButtonOkDefaultZZZ {
-		/**  Durch Überschreiben des Standardbuttons für die Dialogbox, können hier noch andere Aktionen durchgeführt werden, als nur das Schliessen der Dialogbox. 
+		/**  Durch ï¿½berschreiben des Standardbuttons fï¿½r die Dialogbox, kï¿½nnen hier noch andere Aktionen durchgefï¿½hrt werden, als nur das Schliessen der Dialogbox. 
 		* lindhaueradmin; 17.01.2007 10:10:21
 		 * @param objKernel
 		 * @param panelParent
 		 */
-		public ActionListenerDlgIPExternalButtonOk(KernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent) {
+		public ActionListenerDlgIPExternalButtonOk(IKernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent) {
 			super(objKernel, panelParent);
 		}
 		
-		/**Durch überschreiben dieser Methoden können erbende Klassen noch anderen Code ausführen
+		/**Durch ï¿½berschreiben dieser Methoden kï¿½nnen erbende Klassen noch anderen Code ausfï¿½hren
 		* @param ActionEvent
-		* @return true ==> es wird der weitere Code ausgeführt
+		* @return true ==> es wird der weitere Code ausgefï¿½hrt
 		* 
 		* lindhaueradmin; 09.01.2007 09:03:32
 		 */		
@@ -54,7 +54,7 @@ public class PanelDlgIPExternalButtonAlternativeVIA  extends KernelJPanelDialogB
 			boolean bReturn = false;
 			try{
 				main:{
-				//Hier erst einmal den Inhalt einer per Alias zugänglich gemachten Komponente (siehe KernelPanelCascadedZZZ) auslesen
+				//Hier erst einmal den Inhalt einer per Alias zugï¿½nglich gemachten Komponente (siehe KernelPanelCascadedZZZ) auslesen
 				KernelJPanelCascadedZZZ panelButton = (KernelJPanelCascadedZZZ) this.getPanelParent();
 				KernelJPanelCascadedZZZ panelCenter = (KernelJPanelCascadedZZZ) panelButton.getPanelNeighbour("CENTER");
 				JTextField texttemp = (JTextField) panelCenter.getComponent("text1");
@@ -62,7 +62,7 @@ public class PanelDlgIPExternalButtonAlternativeVIA  extends KernelJPanelDialogB
 				
 				ReportLogZZZ.write(ReportLogZZZ.INFO, "IP/URL found for 'Export Data via Http': " + sIP);
 				
-				KernelZZZ objKernel = this.getKernelObject();
+				IKernelZZZ objKernel = this.getKernelObject();
 				KernelJDialogExtendedZZZ dialog = panelCenter.getDialogParent();	
 				KernelJFrameCascadedZZZ frameParent = null;
 				if(dialog==null){
@@ -80,19 +80,19 @@ public class PanelDlgIPExternalButtonAlternativeVIA  extends KernelJPanelDialogB
 					}
 				
 					objKernel.setParameterByProgramAlias(sModule, "IP_Context", "IPExternal", sIP);
-					bReturn = true; //erst dann wird das PostCustom-ausgeführt				
+					bReturn = true; //erst dann wird das PostCustom-ausgefï¿½hrt				
 				}else{		
 					System.out.println(ReflectCodeZZZ.getMethodCurrentName() + "# This is a dialog.....");
 					Frame frameParentDlg = dialog.getFrameParent();
 					
-					String sModule = frameParentDlg.getClass().getName();  //der Frame, über den diese Dialogbox liegt	
+					String sModule = frameParentDlg.getClass().getName();  //der Frame, ï¿½ber den diese Dialogbox liegt	
 					KernelJPanelCascadedZZZ panelParent = this.getPanelParent();
 					
 					String sProgram = panelParent.getDialogParent().getClass().getName();           //Die Dialogbox selbst 
 
 					//objKernel.setParameterByProgramAlias(sModule, "IP_Context", "IPExternal", sIP);
 					objKernel.setParameterByProgramAlias(sModule, sProgram, "IPExternal", sIP);
-					bReturn = true; //erst dann wird das PostCustom-ausgeführt
+					bReturn = true; //erst dann wird das PostCustom-ausgefï¿½hrt
 				}		
 							
 				}//END main:

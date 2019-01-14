@@ -2,7 +2,7 @@ package use.via.client.module.export;
 
 import java.io.File;
 
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
@@ -17,7 +17,7 @@ public class JLabel_Listening_FileSizeVIA  extends KernelJLabelListening4Compone
 	private String sRootPrevious = null;   //mit dem File.Seperator am Ende, wie es in der Dialogbox erwartet wird.
 	
 	
-	public JLabel_Listening_FileSizeVIA(KernelZZZ objKernel, String sTextInitial) {
+	public JLabel_Listening_FileSizeVIA(IKernelZZZ objKernel, String sTextInitial) {
 		super(objKernel, sTextInitial);
 	}
 
@@ -31,11 +31,11 @@ public class JLabel_Listening_FileSizeVIA  extends KernelJLabelListening4Compone
 				}
 				
 				//zum Setzen des Root-Strings (Merke: Es wird als Workaround die Dateiliste des Roots des Laufwerks schon angezeigt, bevor der Verzeichnisbaum erstellt ist)
-				//Wenn ohne Verzeichnisbaum schon eine Datei gewählt wurde, sorgt die Belegung dieser Variable dafür, dass kein "ungwolltes" Leersetzen passiert.
+				//Wenn ohne Verzeichnisbaum schon eine Datei gewï¿½hlt wurde, sorgt die Belegung dieser Variable dafï¿½r, dass kein "ungwolltes" Leersetzen passiert.
 				this.sRootPrevious = FileEasyZZZ.getRoot(file) + File.separator;
 				
 						
-				//Göße der Datei in Byte
+				//Gï¿½ï¿½e der Datei in Byte
 				Long lng = new Long(file.length());
 				double d = lng.doubleValue() / 1024 / 1024;  // -> KB  -> MB
 				
@@ -63,7 +63,7 @@ public class JLabel_Listening_FileSizeVIA  extends KernelJLabelListening4Compone
 			if(sRootNew.equals(this.sRootPrevious)) break main;
 			this.sRootPrevious = sRootNew;
 									
-//			Wenn das nicht überschreiben wird, so bekommt man vom JTree das Verzeichnis geliefert
+//			Wenn das nicht ï¿½berschreiben wird, so bekommt man vom JTree das Verzeichnis geliefert
 			this.setText(JLabel_Listening_FileSizeVIA.sTEXT_INITIAL);
 		}//end main		
 	}

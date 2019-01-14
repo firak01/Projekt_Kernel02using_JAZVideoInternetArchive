@@ -6,13 +6,13 @@ import java.util.Vector;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zBasic.util.log.ReportLogZZZ;
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 
 public class JTextArea_Listening_FileRemarkVIA extends JTextAreaListening4ComponentSelectionResetVIA{
 	private String sRootPrevious = null;   //mit dem File.Seperator am Ende, wie es in der Dialogbox erwartet wird. Das ist das Eingestllte Laufwerk. 
-	//Merke: Wenn ohne Verzeichnisbaum schon eine Datei gewählt wurde, sorgt die Belegung dieser Variable dafür, dass kein "ungwolltes" Leersetzen passiert.
+	//Merke: Wenn ohne Verzeichnisbaum schon eine Datei gewï¿½hlt wurde, sorgt die Belegung dieser Variable dafï¿½r, dass kein "ungwolltes" Leersetzen passiert.
 	
-	public JTextArea_Listening_FileRemarkVIA(KernelZZZ objKernel, String sTextInitial, int iRow, int iColumn) {
+	public JTextArea_Listening_FileRemarkVIA(IKernelZZZ objKernel, String sTextInitial, int iRow, int iColumn) {
 		super(objKernel, sTextInitial, iRow, iColumn);		
 	}
 	
@@ -32,7 +32,7 @@ public class JTextArea_Listening_FileRemarkVIA extends JTextAreaListening4Compon
 				
 				
 				//zum Setzen des Root-Strings (Merke: Es wird als Workaround die Dateiliste des Roots des Laufwerks schon angezeigt, bevor der Verzeichnisbaum erstellt ist)
-				//Wenn ohne Verzeichnisbaum schon eine Datei gewählt wurde, sorgt die Belegung dieser Variable dafür, dass kein "ungwolltes" Leersetzen passiert.
+				//Wenn ohne Verzeichnisbaum schon eine Datei gewï¿½hlt wurde, sorgt die Belegung dieser Variable dafï¿½r, dass kein "ungwolltes" Leersetzen passiert.
 				String stemp = FileEasyZZZ.getRoot(file) + File.separator;
 				this.sRootPrevious = stemp; 
 				

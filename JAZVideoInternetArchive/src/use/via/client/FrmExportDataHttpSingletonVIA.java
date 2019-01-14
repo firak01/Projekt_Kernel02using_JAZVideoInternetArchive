@@ -12,13 +12,13 @@ import basic.zKernelUI.component.KernelJFrameCascadedZZZ;
 import basic.zKernelUI.component.KernelJPanelCascadedZZZ;
 import basic.zKernelUI.util.JFrameHelperZZZ;
 
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 
 
 /**Wie DlgServerIPExternal, aber:
- *  Durch Verwendung des Singleton-Patterns wird dieser Frame immer nur einmal geöffnet !!!
+ *  Durch Verwendung des Singleton-Patterns wird dieser Frame immer nur einmal geï¿½ffnet !!!
  *  In .laucnchCustom() steht Code, der nix mit dem Starten des Frontends zu tun hat (welches in den EventQueue-Thread verlagert worden ist),
- *  sondern nebenläufig im main-Thread ausgeführt wird.
+ *  sondern nebenlï¿½ufig im main-Thread ausgefï¿½hrt wird.
  *   
  * @author 0823
  *
@@ -31,7 +31,7 @@ public class FrmExportDataHttpSingletonVIA extends KernelJFrameCascadedZZZ{
 	 * @param objFrame
 	 * @throws ExceptionZZZ
 	 */
-	private FrmExportDataHttpSingletonVIA(KernelZZZ objKernel, KernelJFrameCascadedZZZ objFrame) throws ExceptionZZZ{
+	private FrmExportDataHttpSingletonVIA(IKernelZZZ objKernel, KernelJFrameCascadedZZZ objFrame) throws ExceptionZZZ{
 		super(objKernel, objFrame);
 	}
 	private FrmExportDataHttpSingletonVIA(){
@@ -45,21 +45,21 @@ public class FrmExportDataHttpSingletonVIA extends KernelJFrameCascadedZZZ{
 		return dlgSingleton;		
 	}
 	
-	public static FrmExportDataHttpSingletonVIA getInstance(KernelZZZ objKernel, KernelJFrameCascadedZZZ frameParent) throws ExceptionZZZ{
+	public static FrmExportDataHttpSingletonVIA getInstance(IKernelZZZ objKernel, KernelJFrameCascadedZZZ frameParent) throws ExceptionZZZ{
 		if(dlgSingleton==null){
 			dlgSingleton = new FrmExportDataHttpSingletonVIA(objKernel, frameParent);
 		}
 		return dlgSingleton;		
 	}
 	
-	/**Falls ...Singleton.getInstance() zum Holen der Instanz genutzt wurde, so ist das die Möglichkeit anschliessend noch wichtige Paramter an das Singleton-Objekt zu übertragen.
+	/**Falls ...Singleton.getInstance() zum Holen der Instanz genutzt wurde, so ist das die Mï¿½glichkeit anschliessend noch wichtige Paramter an das Singleton-Objekt zu ï¿½bertragen.
 	 * @param objKernel
 	 * @param frameParent
 	 * @return boolean
 	 *
 	 * javadoc created by: 0823, 10.01.2007 - 15:17:37
 	 */
-	public boolean loadContext(KernelZZZ objKernel, KernelJFrameCascadedZZZ frameParent){
+	public boolean loadContext(IKernelZZZ objKernel, KernelJFrameCascadedZZZ frameParent){
 		boolean bReturn = false;
 		main:{
 			if(dlgSingleton==null) break main;
@@ -88,7 +88,7 @@ public class FrmExportDataHttpSingletonVIA extends KernelJFrameCascadedZZZ{
 	 */
 	public boolean launchCustom(){	
 		ReportLogZZZ.write(ReportLogZZZ.DEBUG, "launch - thread: " + ". doing CUSTOM....");
-		return false;  //Dadurch sollen die Komponenten die Größe des Frames bestimmen.
+		return false;  //Dadurch sollen die Komponenten die Grï¿½ï¿½e des Frames bestimmen.
 	}
 	public JComponent getPaneContent(String sAlias) throws ExceptionZZZ {
 		// TODO Auto-generated method stub

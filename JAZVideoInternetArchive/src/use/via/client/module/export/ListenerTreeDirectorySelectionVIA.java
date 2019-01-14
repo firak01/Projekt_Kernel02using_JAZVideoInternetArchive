@@ -11,7 +11,7 @@ import javax.swing.tree.TreePath;
 
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.log.ReportLogZZZ;
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 
 import basic.zKernelUI.component.IPanelCascadedUserZZZ;
 import basic.zKernelUI.component.IPanelCascadedZZZ;
@@ -22,12 +22,12 @@ import basic.zKernelUI.component.model.JTree.ModelJTreeNodeDirectoyZZZ;
 
 public class ListenerTreeDirectorySelectionVIA extends KernelSenderComponentSelectionResetZZZ implements TreeSelectionListener, IPanelCascadedUserZZZ{
 	/** Dieser Listener wird am JTree registriert und die Methode valueChanged(...) wird bei Auswahl eines anderen Verzeichnisses gestartet.
-	 *   Gleichzeitig können sich andere Komponenten an diesen Listener registrieren, da er KernelServerComponentSelectionResetZZZ erweitert.
-	 *   			Die sich an dem Listener registrierten Komponenten werden mit .fireEvent(event) über den EventComponetSelectionResetZZZ informiert. 
+	 *   Gleichzeitig kï¿½nnen sich andere Komponenten an diesen Listener registrieren, da er KernelServerComponentSelectionResetZZZ erweitert.
+	 *   			Die sich an dem Listener registrierten Komponenten werden mit .fireEvent(event) ï¿½ber den EventComponetSelectionResetZZZ informiert. 
 	 */
 	IPanelCascadedZZZ panelParent=null;
 	
-	public ListenerTreeDirectorySelectionVIA(KernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent){
+	public ListenerTreeDirectorySelectionVIA(IKernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent){
 		super(objKernel);
 		this.panelParent = panelParent;
 	}
@@ -36,14 +36,14 @@ public class ListenerTreeDirectorySelectionVIA extends KernelSenderComponentSele
 		 * @see javax.swing.event.TreeSelectionListener#valueChanged(javax.swing.event.TreeSelectionEvent)
 		 * 
 		 * 
-		 * Dieser Listener ist gleichzeitig auch die Quelle für das Abfeuern des "SelectionReset" Events.
+		 * Dieser Listener ist gleichzeitig auch die Quelle fï¿½r das Abfeuern des "SelectionReset" Events.
 		 */		
 		public void valueChanged(TreeSelectionEvent evt){
 		//	try{
 			
 					JTree treeDirectory = (JTree) evt.getSource();
 //						Weil ich neben dem ModelJTreeNodeDirectory ggf. auch andere Modelle verwenden will. 
-						//Z.B. ein dummy Modell, das beim Laden des Baums vorübergehend angezeigt wird, der aber keinen Event erzeugen soll.						
+						//Z.B. ein dummy Modell, das beim Laden des Baums vorï¿½bergehend angezeigt wird, der aber keinen Event erzeugen soll.						
 					TreeModel model = treeDirectory.getModel();
 					Object objRoot = (Object) model.getRoot();
 					if(objRoot instanceof ModelJTreeNodeDirectoyZZZ){
@@ -58,7 +58,7 @@ public class ListenerTreeDirectorySelectionVIA extends KernelSenderComponentSele
 						if(file==null) return;
 						ReportLogZZZ.write (ReportLogZZZ.DEBUG, ReflectCodeZZZ.getMethodCurrentName() + "# Selected entry: "+ file.getPath());
 						if(file.exists()){  //Besser hier abfragen, als in den Komponenten, die an dem Event registriert sind
-							//Nun einen neuen Event erzeugen, der andere Komponenten ändern soll und diesen abfeuern
+							//Nun einen neuen Event erzeugen, der andere Komponenten ï¿½ndern soll und diesen abfeuern
 							String sPath = file.getAbsolutePath();
 							EventComponentSelectionResetZZZ eventReset = new EventComponentSelectionResetZZZ(this, 10001,sPath);
 							this.fireEvent(eventReset);

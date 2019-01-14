@@ -3,7 +3,7 @@ package use.via.client.module.export;
 import java.io.File;
 import java.util.Vector;
 
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
@@ -19,13 +19,13 @@ public class JTextField_Listening_MovieTitleVIA  extends KernelJTextFieldListeni
 	
 	private String sRootPrevious = null;   //mit dem File.Seperator am Ende, wie es in der Dialogbox erwartet wird.
 	
-	/** Merke: PanelParent ist wichtig, um berechnen zu können, ob sich die eingelegte CD geändert hat.
+	/** Merke: PanelParent ist wichtig, um berechnen zu kï¿½nnen, ob sich die eingelegte CD geï¿½ndert hat.
 	* lindhauer; 16.08.2008 11:44:25
 	 * @param objKernel
 	 * @param panelParent
 	 * @param sTextInitial
 	 */
-	public JTextField_Listening_MovieTitleVIA(KernelZZZ objKernel, String sTextInitial) {
+	public JTextField_Listening_MovieTitleVIA(IKernelZZZ objKernel, String sTextInitial) {
 		super(objKernel, sTextInitial);
 	}
 
@@ -40,7 +40,7 @@ public class JTextField_Listening_MovieTitleVIA  extends KernelJTextFieldListeni
 				}
 				
 	//			zum Setzen des Root-Strings (Merke: Es wird als Workaround die Dateiliste des Roots des Laufwerks schon angezeigt, bevor der Verzeichnisbaum erstellt ist)
-				//Wenn ohne Verzeichnisbaum schon eine Datei gewählt wurde, sorgt die Belegung dieser Variable dafür, dass kein "ungwolltes" Leersetzen passiert.
+				//Wenn ohne Verzeichnisbaum schon eine Datei gewï¿½hlt wurde, sorgt die Belegung dieser Variable dafï¿½r, dass kein "ungwolltes" Leersetzen passiert.
 				this.sRootPrevious = FileEasyZZZ.getRoot(file) + File.separator;
 				
 			//Der Default-Titel ist der Dateiname OHNE Endung			
@@ -62,7 +62,7 @@ public class JTextField_Listening_MovieTitleVIA  extends KernelJTextFieldListeni
 			String sRootNew = event.getComponentText();
 			if(StringZZZ.isEmpty(sRootNew)) break main;
 
-			if(sRootPrevious==null && StringZZZ.isEmpty(this.getText())==false) break main; //dadurch soll verhindert werden, dass gerade eingegebener Text gelöscht wird, auch wenn z.B. noch keine Datei markiert worden ist.
+			if(sRootPrevious==null && StringZZZ.isEmpty(this.getText())==false) break main; //dadurch soll verhindert werden, dass gerade eingegebener Text gelï¿½scht wird, auch wenn z.B. noch keine Datei markiert worden ist.
 			 if(sRootNew.equals(this.sRootPrevious)) break main;
 			
 			this.sRootPrevious = sRootNew;

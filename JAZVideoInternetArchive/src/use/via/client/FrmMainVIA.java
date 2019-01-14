@@ -10,13 +10,14 @@ import basic.zBasic.util.log.KernelReportContextProviderZZZ;
 import basic.zBasic.util.log.ReportLogZZZ;
 import basic.zBasic.util.start.GetOpt;
 import basic.zKernel.GetOptZZZ;
+import basic.zKernel.KernelZZZ;
 import basic.zKernelUI.component.KernelJFrameCascadedZZZ;
 import basic.zKernelUI.component.KernelJPanelCascadedZZZ;
 import basic.zKernelUI.util.JFrameHelperZZZ;
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 
 public class FrmMainVIA extends KernelJFrameCascadedZZZ{
-	public FrmMainVIA(KernelZZZ objKernel, KernelJFrameCascadedZZZ frameParent) throws ExceptionZZZ{
+	public FrmMainVIA(IKernelZZZ objKernel, KernelJFrameCascadedZZZ frameParent) throws ExceptionZZZ{
 		super(objKernel, frameParent);	
 	}
 	public JMenuBar getMenuContent(){
@@ -39,7 +40,7 @@ public class FrmMainVIA extends KernelJFrameCascadedZZZ{
 	 * @see basic.zKernelUI.component.KernelJFrameCascadedZZZ#launchCustom()
 	 */
 	public boolean launchCustom(){
-		return false; //false=es wird ein Frame.pack() ausgeführt. Damit hängt die Größe des Frames von den Komponenten ab. 
+		return false; //false=es wird ein Frame.pack() ausgefï¿½hrt. Damit hï¿½ngt die Grï¿½ï¿½e des Frames von den Komponenten ab. 
 	}
 	
 	
@@ -47,11 +48,11 @@ public class FrmMainVIA extends KernelJFrameCascadedZZZ{
 	public static void main(String[] saArg){
 		try {		
 			//TODO GOON: Hier eine KernelFactory einbauen, die basierend auf den Startparametern ein KernelObjekt liefert.
-			//                    Falls die Parameter nicht gefüllt sind, so wird eine default Hashmap übergeben.....
+			//                    Falls die Parameter nicht gefï¿½llt sind, so wird eine default Hashmap ï¿½bergeben.....
 			
 			//Beim Start werden Parameter mitgegeben
 			//-- ApplikationKey, -- SystemNumber, -- Konfigurationsdirectory, -- Konfigurationsfile
-			//Den Argumentpatternstring übergeben. Dabei sind die Optionen auf 1 Zeichen beschränkt und ein Doppelpunkt besagt, dass ein Wert folgt.
+			//Den Argumentpatternstring ï¿½bergeben. Dabei sind die Optionen auf 1 Zeichen beschrï¿½nkt und ein Doppelpunkt besagt, dass ein Wert folgt.
 			/*
 			GetOptZZZ opt = new GetOptZZZ( "k:s:d:f:", saArg);
 			String sApplicationKey = opt.readValue("k");
@@ -68,13 +69,14 @@ public class FrmMainVIA extends KernelJFrameCascadedZZZ{
 			*/
 			ConfigVIA objConfig = new ConfigVIA(saArg);
 			
-			//---- Nun das eigentliche KernelObjekt initiieren. Dabei können z.B. Debug-Einstellungen ausgwählt worden sein.
+			//---- Nun das eigentliche KernelObjekt initiieren. Dabei kï¿½nnen z.B. Debug-Einstellungen ausgwï¿½hlt worden sein.
 			//KernelZZZ objKernel = new KernelZZZ(sApplicationKey, sSystemNr, sDir, sFile,(String)null);
-			KernelZZZ objKernel = new KernelZZZ(objConfig, (String)null);
+			//TODO GOON 20190114: Verwende hier ein Singleton, um den Kernel zu erzeugen!!!
+			IKernelZZZ objKernel = new KernelZZZ(objConfig, (String)null);
 			FrmMainVIA frmMain = new FrmMainVIA(objKernel, null);
 			
-			/*/Nur Debug: Auslesen einiger Einstellungen. Übergeben werden: Modul, Alias der Section, Section Property
-			//Hier muss das Kernel Objekt den Section wert aus dem Alias nehmen, der für den System Key-Definiert ist. Und das ist im Debug Fall 03.
+			/*/Nur Debug: Auslesen einiger Einstellungen. ï¿½bergeben werden: Modul, Alias der Section, Section Property
+			//Hier muss das Kernel Objekt den Section wert aus dem Alias nehmen, der fï¿½r den System Key-Definiert ist. Und das ist im Debug Fall 03.
 			String stemp = objKernel.getParameterByProgramAlias(frmMain.getClass().getName(), "use.via.client.DlgIPExternalVIA", "IPExternal");
 			System.out.println(stemp);
 			//END DEBUG*/
@@ -83,13 +85,13 @@ public class FrmMainVIA extends KernelJFrameCascadedZZZ{
 			FrameMainRunnerVIA runnerMain = frmMain.new FrameMainRunnerVIA(frmMain);
 			SwingUtilities.invokeLater(runnerMain);
 			System.out.println("TEST, this should be printed earlier than the print in run() of the later invoked thread ?");//*/
-			//*Alternativ dazu dauert es 2 Sekunden länger ....
+			//*Alternativ dazu dauert es 2 Sekunden lï¿½nger ....
 			frmMain.launch(objKernel.getApplicationKey() + " - Main Frame"); 
 			//*/
 
 			//Starten der Protokollierung, parallel in dem normalen Thread
 			//Merke1: Weil die ReportLogZZZ-Klasse keinen Konstruktor hat, wird ein ContextProvider verwendet
-			//Merke2: Dieser Code wird im main-Thread ausgeführt, also eher als der Start des Frames selbst (der im Event Dispatch Thread ausgeführt wird).
+			//Merke2: Dieser Code wird im main-Thread ausgefï¿½hrt, also eher als der Start des Frames selbst (der im Event Dispatch Thread ausgefï¿½hrt wird).
 			
 			//KernelReportContextProviderZZZ objContext = new KernelReportContextProviderZZZ(objKernel, frmMain.getClass().getName(), frmMain.getClass().getName());					
 			KernelReportContextProviderZZZ objContext = new KernelReportContextProviderZZZ(objKernel, frmMain.getClass().getName());  //Damit ist das ein Context Provider, der die Informationen auf "Modulebene" sucht.

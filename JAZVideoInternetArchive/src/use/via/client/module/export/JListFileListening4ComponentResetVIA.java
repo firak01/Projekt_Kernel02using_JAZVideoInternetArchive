@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
 
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.log.ReportLogZZZ;
@@ -15,14 +15,14 @@ import basic.zKernelUI.component.KernelJListListening4ComponentSelectionResetZZZ
 import basic.zKernelUI.component.KernelJPanelCascadedZZZ;
 import basic.zKernelUI.component.model.EventComponentSelectionResetZZZ;
 
-/**Erweitert das "listening auf eine Änderung" in den Komponenten, an die Objekte dieser Klasse angemeldet wurden, dahingehend, das die doReset(event) MEthode konkretisiert wird.
+/**Erweitert das "listening auf eine Ã„nderung" in den Komponenten, an die Objekte dieser Klasse angemeldet wurden, dahingehend, das die doReset(event) MEthode konkretisiert wird.
  * 
- * In der doReset(EventComponentSelectionResetZZZ) Methode wird nun ein SwingWorker-Thread gestartet, der die ListBox füllt (und zwar mit den Dateinamen)
+ * In der doReset(EventComponentSelectionResetZZZ) Methode wird nun ein SwingWorker-Thread gestartet, der die ListBox fï¿½llt (und zwar mit den Dateinamen)
  * 
  * 
  * ZUDEM:
  * Diese Klasse implementiert die Schnittstelle, die notwendig ist, eigene "Events" zu verschicken.
- * Diese Events werden in dem ListenerListFileSelectionVIA verschickt, nachdem ein Eintrag der Liste ausgewählt wurde.
+ * Diese Events werden in dem ListenerListFileSelectionVIA verschickt, nachdem ein Eintrag der Liste ausgewï¿½hlt wurde.
  * Hintergrund: In dem neuen verschickten Event steht der komplette Pfad der Datei drin
  *  
  * @author lindhaueradmin
@@ -39,7 +39,7 @@ public class JListFileListening4ComponentResetVIA extends KernelJListListening4C
     ArrayList listener = new ArrayList();  //hierin werden die "registrierten Komponenten" verwaltet.
     
     
-	public JListFileListening4ComponentResetVIA(KernelZZZ objKernel, DefaultListModel listModel, ListenerCombo4TreeRefreshVIA listenerComboBox, KernelJPanelCascadedZZZ panelParent) {
+	public JListFileListening4ComponentResetVIA(IKernelZZZ objKernel, DefaultListModel listModel, ListenerCombo4TreeRefreshVIA listenerComboBox, KernelJPanelCascadedZZZ panelParent) {
 		super(objKernel, listModel);
 		this.listenerComboBox = listenerComboBox;
 		this.panelParent = panelParent;
@@ -53,7 +53,7 @@ public class JListFileListening4ComponentResetVIA extends KernelJListListening4C
 			ReportLogZZZ.write(ReportLogZZZ.DEBUG, "JList has received EventComponentSelectionResetZZZ. Mit der Auswahl: " + sPathSelected);
 			
 			//FGL 20080314 Der Worker Thread darf nur gestartet werden, wenn es die Datei auch gibt. 
-			//                     Bei nicht eingelegter CD wird daraufhin nur einmal die Aufforderung angezeigt "Legen Sie einen Datenträger ein."
+			//                     Bei nicht eingelegter CD wird daraufhin nur einmal die Aufforderung angezeigt "Legen Sie einen Datentrï¿½ger ein."
 			File objFileSelected = new File(sPathSelected);
 			if(objFileSelected.exists()){
 				//if(sPathSelected.equals(this.sSelectedPrevious)) break main;
@@ -64,14 +64,14 @@ public class JListFileListening4ComponentResetVIA extends KernelJListListening4C
 					String[] saFlag = null;
 					SwingWorker4ProgramListContentVIA workerList = this.listenerComboBox.getWorkerThreadList();
 					if(workerList != null){
-						ReportLogZZZ.write(ReportLogZZZ.DEBUG, "BESTEHENDEN WorkerThread für den ListContent gefunden. Versuche diesen zu interrupten.(1)");
-						System.out.println(ReflectCodeZZZ.getMethodCurrentName() +"#BESTEHENDEN WorkerThread für den ListContent gefunden. Versuche diesen zu interrupten.(2)");
+						ReportLogZZZ.write(ReportLogZZZ.DEBUG, "BESTEHENDEN WorkerThread fï¿½r den ListContent gefunden. Versuche diesen zu interrupten.(1)");
+						System.out.println(ReflectCodeZZZ.getMethodCurrentName() +"#BESTEHENDEN WorkerThread fï¿½r den ListContent gefunden. Versuche diesen zu interrupten.(2)");
 						this.listenerComboBox.getWorkerThreadList().setFlag("Terminate", true);											
 					}
 					workerList = new SwingWorker4ProgramListContentVIA(this.getKernelObject(), (KernelJPanelCascadedZZZ)this.getPanelParent(), sPathSelected, saFlag);
-					this.listenerComboBox.setWorkerThreadList(workerList); //Damit immer nur ein worker thread PRO ALIAS arbeitet. Theoretisch kann man ja nach dem Starten des Frames die Combo - Box ändern. Hier wird dann ein bereits laufender Thread abgebrochen.
-					ReportLogZZZ.write(ReportLogZZZ.DEBUG, "NEUER WorkerThread für den ListContent erzeugt. Versuche diesen zu starten.(1)");
-					System.out.println(ReflectCodeZZZ.getMethodCurrentName() +"#NEUER WorkerThread für den ListContent erzeugt. Versuche diesen zu starten.(2)");
+					this.listenerComboBox.setWorkerThreadList(workerList); //Damit immer nur ein worker thread PRO ALIAS arbeitet. Theoretisch kann man ja nach dem Starten des Frames die Combo - Box ï¿½ndern. Hier wird dann ein bereits laufender Thread abgebrochen.
+					ReportLogZZZ.write(ReportLogZZZ.DEBUG, "NEUER WorkerThread fÃ¼r den ListContent erzeugt. Versuche diesen zu starten.(1)");
+					System.out.println(ReflectCodeZZZ.getMethodCurrentName() +"#NEUER WorkerThread fï¿½r den ListContent erzeugt. Versuche diesen zu starten.(2)");
 													
 					this.listenerComboBox.getWorkerThreadList().start();
 				}catch(ExceptionZZZ ez){
@@ -85,8 +85,8 @@ public class JListFileListening4ComponentResetVIA extends KernelJListListening4C
 				
 				SwingWorker4ProgramListContentVIA workerList = this.listenerComboBox.getWorkerThreadList();
 				if(workerList != null){
-					ReportLogZZZ.write(ReportLogZZZ.DEBUG, "BESTEHENDEN WorkerThread für den ListContent gefunden. Versuche diesen zu interrupten.(1)");
-					System.out.println(ReflectCodeZZZ.getMethodCurrentName() +"#BESTEHENDEN WorkerThread für den ListContent gefunden. Versuche diesen zu interrupten.(2)");
+					ReportLogZZZ.write(ReportLogZZZ.DEBUG, "BESTEHENDEN WorkerThread fÃ¼r den ListContent gefunden. Versuche diesen zu interrupten.(1)");
+					System.out.println(ReflectCodeZZZ.getMethodCurrentName() +"#BESTEHENDEN WorkerThread fï¿½r den ListContent gefunden. Versuche diesen zu interrupten.(2)");
 					this.listenerComboBox.getWorkerThreadList().setFlag("Terminate", true);											
 				}
 				

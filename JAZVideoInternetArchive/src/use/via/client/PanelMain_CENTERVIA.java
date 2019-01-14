@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import use.via.client.PanelMain_EASTVIA.ActionDlgIPLaunchVIA;
 import use.via.client.PanelMain_EASTVIA.ActionFormAboutLaunchVIA;
 import use.via.client.PanelMain_EASTVIA.ActionFormExportDataLaunchVIA;
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
@@ -29,20 +29,20 @@ import basic.zKernelUI.component.KernelJPanelCascadedZZZ;
  */
 public class PanelMain_CENTERVIA extends KernelJPanelCascadedZZZ {
 	private Image objImage;
-	public PanelMain_CENTERVIA(KernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent) throws ExceptionZZZ{
+	public PanelMain_CENTERVIA(IKernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent) throws ExceptionZZZ{
 		super(objKernel, panelParent);
 		try{
 			//BoxLayout objLayout = new BoxLayout((JPanel) this, BoxLayout.Y_AXIS);
-			//this.setLayout(objLayout);  //!!! Nur den LayoutManager zu initialisieren reicht nicht. Auch wenn das Panel-Objekt mit übergeben wird.
+			//this.setLayout(objLayout);  //!!! Nur den LayoutManager zu initialisieren reicht nicht. Auch wenn das Panel-Objekt mit ï¿½bergeben wird.
 			
-			//Merke: Der Parameter für den Logo-Dateinamen findet man aus Modulebene.
+			//Merke: Der Parameter fï¿½r den Logo-Dateinamen findet man aus Modulebene.
 			KernelJPanelCascadedZZZ panelRoot = this.searchPanelRoot();
 			JFrame frameParent = panelRoot.getFrameParent();
 			String sModule = frameParent.getClass().getName();
 			String sLogo = objKernel.getParameterByModuleAlias(sModule , "FileLogo");
 			
 			if(!StringZZZ.isEmpty(sLogo)){
-				objKernel.getLogObject().WriteLineDate("Pfad für das Logo: " + sLogo);
+				objKernel.getLogObject().WriteLineDate("Pfad fï¿½r das Logo: " + sLogo);
 				ImageIcon objImageIcon = new ImageIcon(sLogo);
 				this.objImage = objImageIcon.getImage();	
 				if(this.objImage.getWidth(null)<=0){
@@ -51,9 +51,9 @@ public class PanelMain_CENTERVIA extends KernelJPanelCascadedZZZ {
 					objKernel.getLogObject().WriteLineDate("Logobreite ist " + this.objImage.getWidth(null) );
 				}
 				if(this.objImage.getHeight(null)<=0){
-					objKernel.getLogObject().WriteLineDate("Logohöhe ist kleiner 0 !!!");
+					objKernel.getLogObject().WriteLineDate("Logohï¿½he ist kleiner 0 !!!");
 				}else{
-					objKernel.getLogObject().WriteLineDate("Logohöhe ist " + this.objImage.getHeight(null));
+					objKernel.getLogObject().WriteLineDate("Logohï¿½he ist " + this.objImage.getHeight(null));
 				}
 				
 				Dimension dim = new Dimension(this.objImage.getWidth(null), this.objImage.getHeight(null));		
@@ -64,10 +64,10 @@ public class PanelMain_CENTERVIA extends KernelJPanelCascadedZZZ {
 				this.setMaximumSize(dim);
 				this.setLayout(null);
 				
-				//!!! Das Hinzufügen des ImageIcons muß durch Überscheiben von paintComponent passieren
+				//!!! Das Hinzufï¿½gen des ImageIcons muï¿½ durch ï¿½berscheiben von paintComponent passieren
 				
 			}else{
-				objKernel.getLogObject().WriteLineDate("Pfad für das Logo ist leer");
+				objKernel.getLogObject().WriteLineDate("Pfad fï¿½r das Logo ist leer");
 			}
 			
 		} catch (ExceptionZZZ ez) {				

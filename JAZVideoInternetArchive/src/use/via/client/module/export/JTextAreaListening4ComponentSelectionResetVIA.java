@@ -2,8 +2,9 @@ package use.via.client.module.export;
 
 import java.io.File;
 
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.IFlagZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zBasic.util.log.ReportLogZZZ;
@@ -17,10 +18,10 @@ public class JTextAreaListening4ComponentSelectionResetVIA extends KernelJTextAr
 	private String sRootPrevious = null;   //mit dem File.Seperator am Ende, wie es in der Dialogbox erwartet wird.
 	
 	
-	public JTextAreaListening4ComponentSelectionResetVIA(KernelZZZ objKernel, String sTextInitial) {
+	public JTextAreaListening4ComponentSelectionResetVIA(IKernelZZZ objKernel, String sTextInitial) {
 		super(objKernel, sTextInitial);		
 	}
-	public JTextAreaListening4ComponentSelectionResetVIA(KernelZZZ objKernel, String sTextInitial, int iRow, int iColumn) {
+	public JTextAreaListening4ComponentSelectionResetVIA(IKernelZZZ objKernel, String sTextInitial, int iRow, int iColumn) {
 		super(objKernel, sTextInitial, iRow, iColumn);		
 	}
 	public void fileChanged(EventListFileSelectedVIA eventFileSelected) {
@@ -33,7 +34,7 @@ public class JTextAreaListening4ComponentSelectionResetVIA extends KernelJTextAr
 				}
 				
 				//zum Setzen des Root-Strings (Merke: Es wird als Workaround die Dateiliste des Roots des Laufwerks schon angezeigt, bevor der Verzeichnisbaum erstellt ist)
-				//Wenn ohne Verzeichnisbaum schon eine Datei gewählt wurde, sorgt die Belegung dieser Variable dafür, dass kein "ungwolltes" Leersetzen passiert.
+				//Wenn ohne Verzeichnisbaum schon eine Datei gewï¿½hlt wurde, sorgt die Belegung dieser Variable dafï¿½r, dass kein "ungwolltes" Leersetzen passiert.
 				this.sRootPrevious = FileEasyZZZ.getRoot(file) + File.separator;
 			} catch (ExceptionZZZ ez) {
 				ReportLogZZZ.write(ReportLogZZZ.ERROR, ez.getDetailAllLast());
@@ -47,11 +48,11 @@ public class JTextAreaListening4ComponentSelectionResetVIA extends KernelJTextAr
 			String sRootNew = event.getComponentText();
 			if(StringZZZ.isEmpty(sRootNew)) break main;
 			
-			//if(sRootPrevious==null && StringZZZ.isEmpty(this.getText())==false) break main; //dadurch soll verhindert werden, dass gerade eingegebener Text gelöscht wird, auch wenn z.B. noch keine Datei markiert worden ist.
+			//if(sRootPrevious==null && StringZZZ.isEmpty(this.getText())==false) break main; //dadurch soll verhindert werden, dass gerade eingegebener Text gelï¿½scht wird, auch wenn z.B. noch keine Datei markiert worden ist.
 			//FGL: 20080816 Darf nicht sein, sonst bekommt man den Wechsel einer CD nicht mit		if(sRootNew.equals(this.sRootPrevious)) break main;
 			this.sRootPrevious = sRootNew;
 			
 			this.setText(JTextAreaListening4ComponentSelectionResetVIA.sTEXT_INITIAL);
 		}//end main:
-	}
+	}	
 }

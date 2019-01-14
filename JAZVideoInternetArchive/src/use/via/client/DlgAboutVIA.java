@@ -5,9 +5,9 @@ import java.awt.Frame;
 import basic.zKernelUI.component.KernelJDialogExtendedZZZ;
 import basic.zKernelUI.component.KernelJFrameCascadedZZZ;
 import basic.zKernelUI.component.KernelJPanelCascadedZZZ;
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 
-/**Dialogbox "Help/About". Wird aus dem Menü des Hauptframes gestartet.
+/**Dialogbox "Help/About". Wird aus dem Menï¿½ des Hauptframes gestartet.
  * @author 0823
  *
  */
@@ -19,8 +19,8 @@ public class DlgAboutVIA extends KernelJDialogExtendedZZZ {
 	 * @param bSnappedToScreen
 	 * @param panelCenter
 	 */
-	public DlgAboutVIA(KernelZZZ objKernel, KernelJFrameCascadedZZZ frameOwner) {		
-		super(objKernel, frameOwner, true, null);  //true, d.h. modal, gehtl leider nur im Konstruktor zu übergeben, weil JDialog diesen Parameter im Konstruktor braucht und Super(...) kann keinen Code beinhalten, der auf eigene Properties etc. zugreift.
+	public DlgAboutVIA(IKernelZZZ objKernel, KernelJFrameCascadedZZZ frameOwner) {		
+		super(objKernel, frameOwner, true, null);  //true, d.h. modal, gehtl leider nur im Konstruktor zu ï¿½bergeben, weil JDialog diesen Parameter im Konstruktor braucht und Super(...) kann keinen Code beinhalten, der auf eigene Properties etc. zugreift.
 	}
 	public boolean isCentered(){
 		return true;
@@ -43,12 +43,12 @@ public class DlgAboutVIA extends KernelJDialogExtendedZZZ {
 		return panelContent;
 	}
 	public String getText4ContentDefault(){
-		return "Das Panel für diese Dialogbox scheint zu fehlen, wenn Sie dies lesen können";
+		return "Das Panel fï¿½r diese Dialogbox scheint zu fehlen, wenn Sie dies lesen kï¿½nnen";
 	}
 
 
 	
-	/* NICHT LÖSCHEN: !!! Testweise die Methoden mit null überschreiben. Es müssen nur die Default Einstellungen angezigt werden.
+	/* NICHT Lï¿½SCHEN: !!! Testweise die Methoden mit null ï¿½berschreiben. Es mï¿½ssen nur die Default Einstellungen angezigt werden.
 	public KernelJPanelCascadedZZZ getPanelButton(){			
 		return null;
 	}
@@ -56,7 +56,7 @@ public class DlgAboutVIA extends KernelJDialogExtendedZZZ {
 		return null;
 	}
 	public String getText4ContentDefault(){
-		return "Das ist ein Test für den Default Text.(" + ReflectionZZZ.getMethodCurrentName() + ")";
+		return "Das ist ein Test fï¿½r den Default Text.(" + ReflectionZZZ.getMethodCurrentName() + ")";
 	}
 	*/
 	

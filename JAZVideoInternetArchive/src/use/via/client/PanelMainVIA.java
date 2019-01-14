@@ -6,11 +6,11 @@ import java.awt.BorderLayout;
 import basic.zBasic.ExceptionZZZ;
 import basic.zKernelUI.component.KernelJFrameCascadedZZZ;
 import basic.zKernelUI.component.KernelJPanelCascadedZZZ;
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 
 public class PanelMainVIA  extends KernelJPanelCascadedZZZ{
 
-	public PanelMainVIA(KernelZZZ objKernel, KernelJFrameCascadedZZZ frameParent) throws ExceptionZZZ{
+	public PanelMainVIA(IKernelZZZ objKernel, KernelJFrameCascadedZZZ frameParent) throws ExceptionZZZ{
 		super(objKernel, frameParent);
 		//try {
 		
@@ -19,20 +19,20 @@ public class PanelMainVIA  extends KernelJPanelCascadedZZZ{
 				
 			//### PANEL EAST
 				PanelMain_EASTVIA objPanelEast = new PanelMain_EASTVIA(objKernel, this);				
-				this.setPanelSub("EAST", objPanelEast);       //Backend Hashtable hinzufügen
-				this.add(objPanelEast, BorderLayout.EAST); //Frontend hinzufügen
+				this.setPanelSub("EAST", objPanelEast);       //Backend Hashtable hinzufï¿½gen
+				this.add(objPanelEast, BorderLayout.EAST); //Frontend hinzufï¿½gen
 				
 			//### PANEL CENTER
 				PanelMain_CENTERVIA objPanelCenter = new PanelMain_CENTERVIA(objKernel, this);
 				this.setPanelSub("CENTER", objPanelCenter);
-				this.add(objPanelCenter, BorderLayout.CENTER); //Frontend hinzufügen
+				this.add(objPanelCenter, BorderLayout.CENTER); //Frontend hinzufï¿½gen
 				
 				
 				/*
 				//### PANEL SOUTH
 				PanelConfig_SOUTHZZZ objPanelSouth = new PanelConfig_SOUTHZZZ(objKernel, objKernelChoosen, this);
-				this.add(objPanelSouth, BorderLayout.SOUTH); //Frontend hinzufügen
-				this.setPanelSub("SOUTH", objPanelSouth);    //Backend Hashtable hinzufügen
+				this.add(objPanelSouth, BorderLayout.SOUTH); //Frontend hinzufï¿½gen
+				this.setPanelSub("SOUTH", objPanelSouth);    //Backend Hashtable hinzufï¿½gen
 				
 				
 			}//end if(bConnected == false)

@@ -24,7 +24,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.log.ReportLogZZZ;
 import basic.zBasicUI.thread.SwingWorker;
 import basic.zKernel.IKernelUserZZZ;
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 import basic.zKernelUI.component.KernelJPanelCascadedZZZ;
 import custom.zKernel.LogZZZ;
 
@@ -34,7 +34,7 @@ import custom.zKernel.LogZZZ;
  *
  */
 public class SwingWorker4ProgramListContentVIA extends SwingWorker implements IObjectZZZ, IFlagZZZ, IKernelUserZZZ{
-	private KernelZZZ objKernel;
+	private IKernelZZZ objKernel;
 	private LogZZZ objLog;
 	private KernelJPanelCascadedZZZ panelCascaded;
 	
@@ -52,13 +52,13 @@ private HashMap<String, Boolean>hmFlag = new HashMap<String, Boolean>(); //Neu 2
 	protected ExceptionZZZ objException = null;    // diese Exception hat jedes Objekt
 										
 	
-	public SwingWorker4ProgramListContentVIA(KernelZZZ objKernel, KernelJPanelCascadedZZZ panelCascaded, String sDirectoryPathSelected, String[] saFlagControlIn) throws ExceptionZZZ{
+	public SwingWorker4ProgramListContentVIA(IKernelZZZ objKernel, KernelJPanelCascadedZZZ panelCascaded, String sDirectoryPathSelected, String[] saFlagControlIn) throws ExceptionZZZ{
 		super();
 		main:{
 			this.objKernel = objKernel;
 			this.objLog = objKernel.getLogObject();
 			
-			 //setzen der �bergebenen Flags	
+			 //setzen der übergebenen Flags	
 			  if(saFlagControlIn != null){
 				  for(int iCount = 0;iCount<=saFlagControlIn.length-1;iCount++){
 					  String stemp = saFlagControlIn[iCount];
@@ -234,11 +234,11 @@ private HashMap<String, Boolean>hmFlag = new HashMap<String, Boolean>(); //Neu 2
 		return false;
 	}
 
-	public KernelZZZ getKernelObject() {
+	public IKernelZZZ getKernelObject() {
 		return this.objKernel;
 	}
 
-	public void setKernelObject(KernelZZZ objKernel) {
+	public void setKernelObject(IKernelZZZ objKernel) {
 		this.objKernel = objKernel;
 	}
 
@@ -445,7 +445,7 @@ private HashMap<String, Boolean>hmFlag = new HashMap<String, Boolean>(); //Neu 2
 		/* @see basic.zBasic.IFlagZZZ#getFlagZ(java.lang.String)
 		 * 	 Weteire Voraussetzungen:
 		 * - Public Default Konstruktor der Klasse, damit die Klasse instanziiert werden kann.
-		 * - Innere Klassen m�ssen auch public deklariert werden.(non-Javadoc)
+		 * - Innere Klassen müssen auch public deklariert werden.(non-Javadoc)
 		 */
 		public boolean getFlagZ(String sFlagName) {
 			boolean bFunction = false;
@@ -463,6 +463,32 @@ private HashMap<String, Boolean>hmFlag = new HashMap<String, Boolean>(); //Neu 2
 			}	// end main:
 			
 			return bFunction;	
+		}
+
+		@Override
+		public String[] getFlagZ(boolean bFlagValueToSearchFor) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public String[] getFlagZ() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public String[] getFlagZ_passable(boolean bValueToSearchFor,
+				IFlagZZZ objUsingFlagZ) throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public String[] getFlagZ_passable(IFlagZZZ objUsingFlagZ)
+				throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			return null;
 		}
 	
 }

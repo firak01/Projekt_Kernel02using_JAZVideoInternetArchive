@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
@@ -41,7 +41,7 @@ public class ProgramIPContentVIA extends KernelUseObjectZZZ{
 	
 	//public static final String PROGRAM_ALIAS = "IP_Context";
 	
-	public ProgramIPContentVIA(KernelZZZ objKernel, KernelJPanelCascadedZZZ panel, String[] saFlagControl) throws ExceptionZZZ{
+	public ProgramIPContentVIA(IKernelZZZ objKernel, KernelJPanelCascadedZZZ panel, String[] saFlagControl) throws ExceptionZZZ{
 		super(objKernel);
 		main:{
 			check:{	 		
@@ -74,7 +74,7 @@ public class ProgramIPContentVIA extends KernelUseObjectZZZ{
 				this.sModuleAlias = sModuleAlias;
 			}
 			
-			//### Prüfen, ob das Modul konfiguriert ist
+			//### Prï¿½fen, ob das Modul konfiguriert ist
 			boolean bIsConfigured = objKernel.proofModuleFileIsConfigured(sModuleAlias);
 			if(bIsConfigured==false){
 				ExceptionZZZ ez = new ExceptionZZZ("ModuleAlias='" + sModuleAlias + "' seems not to be configured for the Application '" + objKernel.getApplicationKey(), iERROR_CONFIGURATION_MISSING, ReflectCodeZZZ.getMethodCurrentName());
@@ -98,8 +98,8 @@ public class ProgramIPContentVIA extends KernelUseObjectZZZ{
 	public String getProgramAlias() throws ExceptionZZZ{
 		String sModuleAlias = this.getModuleAlias();
 		
-		//Ermittlung des Aliasses für das Program
-		//TODO GOON Diese Ermittlung global zugänglich machen ggf. als Static Function von KernelUIZZZ.
+		//Ermittlung des Aliasses fï¿½r das Program
+		//TODO GOON Diese Ermittlung global zugï¿½nglich machen ggf. als Static Function von KernelUIZZZ.
 		//			String sParameter= KernelActionCascadedZZZ.atest();
 		KernelJPanelCascadedZZZ panelParent = this.getPanelParent();	
 		String sParameter = KernelUIZZZ.getProgramName(panelParent);
@@ -110,7 +110,7 @@ public class ProgramIPContentVIA extends KernelUseObjectZZZ{
 			sParameter = panelParent.getDialogParent().getClass().getName();
 		}*/
 		
-		KernelZZZ objKernel = this.getKernelObject();
+		IKernelZZZ objKernel = this.getKernelObject();
 		String stemp = objKernel.getParameterByModuleAlias(sModuleAlias, sParameter);
 		return stemp;
 	}
@@ -129,7 +129,7 @@ public class ProgramIPContentVIA extends KernelUseObjectZZZ{
 	public String readUrl2Read() throws ExceptionZZZ{
 		String sReturn = null;
 		main:{
-			KernelZZZ objKernel = this.getKernelObject();
+			IKernelZZZ objKernel = this.getKernelObject();
 			String sModule = this.getModuleAlias();
 			String sProgram = this.getProgramAlias(); 
 			sReturn = objKernel.getParameterByProgramAlias(sModule, sProgram, "URL2Read");			
@@ -147,7 +147,7 @@ public class ProgramIPContentVIA extends KernelUseObjectZZZ{
 	public String readIpProxy() throws ExceptionZZZ{
 		String sReturn = null;
 		main:{
-			KernelZZZ objKernel = this.getKernelObject();
+			IKernelZZZ objKernel = this.getKernelObject();
 			String sModule = this.getModuleAlias();
 			String sProgram = this.getProgramAlias();
 			sReturn = objKernel.getParameterByProgramAlias(sModule, sProgram, "ProxyHost");			
@@ -165,7 +165,7 @@ public class ProgramIPContentVIA extends KernelUseObjectZZZ{
 	public String readPortProxy() throws ExceptionZZZ{
 		String sReturn = null;
 		main:{
-			KernelZZZ objKernel = this.getKernelObject();
+			IKernelZZZ objKernel = this.getKernelObject();
 			String sModule = this.getModuleAlias();
 			String sProgram = this.getProgramAlias();
 			sReturn = objKernel.getParameterByProgramAlias(sModule, sProgram, "ProxyPort");			
@@ -212,7 +212,7 @@ public class ProgramIPContentVIA extends KernelUseObjectZZZ{
 			//Nun alle input-Elemente holen und nach dem Namen "IPNr" suchen.
 			TagTypeInputZZZ objTagTypeInput = new TagTypeInputZZZ(objKernel);			
 			TagInputZZZ objTag = (TagInputZZZ) objReaderHTML.readTagFirstZZZ(objTagTypeInput, "IPNr");
-			sReturn = objTag.readValue();  //Merke: Das Eintragen des Wertes wird der übergeordneten Methode überlassen. 
+			sReturn = objTag.readValue();  //Merke: Das Eintragen des Wertes wird der ï¿½bergeordneten Methode ï¿½berlassen. 
 						
 		}//end main:
 		this.sIPExternal = sReturn;
@@ -232,9 +232,9 @@ public class ProgramIPContentVIA extends KernelUseObjectZZZ{
 	public boolean readProxyEnabled() throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{
-			KernelZZZ objKernel = this.getKernelObject();
+			IKernelZZZ objKernel = this.getKernelObject();
 			
-		    //+++ Ggf. notwendige Proxy-Einstellung prüfen.
+		    //+++ Ggf. notwendige Proxy-Einstellung prï¿½fen.
 			//Z.B. bei der itelligence bin ich hinter einem Proxy. Die auszulesende Seite ist aber im Web.
 			String sProxyHost = this.getIpProxy();			
 			if(!StringZZZ.isEmpty(sProxyHost)){		//Eine Proxy-Konfiguration ist nicht Pflicht		
@@ -306,7 +306,7 @@ public class ProgramIPContentVIA extends KernelUseObjectZZZ{
 	 * - isconnected
 	 * - useproxy
 	 * - haserror
-	 * - PortScanAllFinished //das ist zusammen mit "isconnected" das Zeichen für den ConnectionMonitor des Frontends, das er starten darf. Grund: Die PortScans führen ggf. zu timeouts.
+	 * - PortScanAllFinished //das ist zusammen mit "isconnected" das Zeichen fï¿½r den ConnectionMonitor des Frontends, das er starten darf. Grund: Die PortScans fï¿½hren ggf. zu timeouts.
 	 */
 	public boolean setFlag(String sFlagName, boolean bFlagValue){
 		boolean bFunction = false;
@@ -350,7 +350,7 @@ public class ProgramIPContentVIA extends KernelUseObjectZZZ{
 	public void updateLabel(String stext){
 		this.sText2Update = stext;
 		
-//		Das Schreiben des Ergebnisses wieder an den EventDispatcher thread übergeben
+//		Das Schreiben des Ergebnisses wieder an den EventDispatcher thread ï¿½bergeben
 		Runnable runnerUpdateLabel= new Runnable(){
 
 			public void run(){

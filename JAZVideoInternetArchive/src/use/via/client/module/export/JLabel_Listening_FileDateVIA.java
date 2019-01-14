@@ -8,7 +8,7 @@ import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zBasic.util.log.ReportLogZZZ;
 import basic.zKernelUI.component.KernelJLabelListening4ComponentSelectionResetZZZ;
 import basic.zKernelUI.component.model.EventComponentSelectionResetZZZ;
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 
 public class JLabel_Listening_FileDateVIA   extends KernelJLabelListening4ComponentSelectionResetZZZ implements IListenerFileSelectedVIA{
 	public static final String sTEXT_INITIAL = "";
@@ -16,7 +16,7 @@ public class JLabel_Listening_FileDateVIA   extends KernelJLabelListening4Compon
 	private String sRootPrevious = null;   //mit dem File.Seperator am Ende, wie es in der Dialogbox erwartet wird.
 	
 	
-	public JLabel_Listening_FileDateVIA(KernelZZZ objKernel, String sTextInitial) {
+	public JLabel_Listening_FileDateVIA(IKernelZZZ objKernel, String sTextInitial) {
 		super(objKernel, sTextInitial);
 	}
 
@@ -30,10 +30,10 @@ public class JLabel_Listening_FileDateVIA   extends KernelJLabelListening4Compon
 				}
 				
 				//zum Setzen des Root-Strings (Merke: Es wird als Workaround die Dateiliste des Roots des Laufwerks schon angezeigt, bevor der Verzeichnisbaum erstellt ist)
-				//Wenn ohne Verzeichnisbaum schon eine Datei gewählt wurde, sorgt die Belegung dieser Variable dafür, dass kein "ungwolltes" Leersetzen passiert.
+				//Wenn ohne Verzeichnisbaum schon eine Datei gewï¿½hlt wurde, sorgt die Belegung dieser Variable dafï¿½r, dass kein "ungwolltes" Leersetzen passiert.
 				this.sRootPrevious = FileEasyZZZ.getRoot(file) + File.separator;
 							
-				//Datum der letzten Änderung
+				//Datum der letzten ï¿½nderung
 				String sDateLastModified = CommonUtilVIA.computeDateLastModifiedByFile(file);
 				this.setText(sDateLastModified);
 			} catch (ExceptionZZZ e) {
@@ -49,7 +49,7 @@ public class JLabel_Listening_FileDateVIA   extends KernelJLabelListening4Compon
 			if(sRootNew.equals(this.sRootPrevious)) break main;
 			this.sRootPrevious = sRootNew;
 									
-			//Wenn das nicht überschreiben wird, so bekommt man vom JTree das Verzeichnis geliefert
+			//Wenn das nicht ï¿½berschreiben wird, so bekommt man vom JTree das Verzeichnis geliefert
 			this.setText(JLabel_Listening_FileSizeVIA.sTEXT_INITIAL);
 		}//end main
 	}

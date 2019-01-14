@@ -19,7 +19,7 @@ import basic.zBasic.IObjectZZZ;
 import basic.zBasic.util.log.ReportLogZZZ;
 import basic.zBasicUI.thread.SwingWorker;
 import basic.zKernel.IKernelUserZZZ;
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 import basic.zKernelUI.component.KernelActionCascadedZZZ;
 import basic.zKernelUI.component.KernelJDialogExtendedZZZ;
 import basic.zKernelUI.component.KernelJPanelCascadedZZZ;
@@ -37,7 +37,7 @@ import custom.zKernel.LogZZZ;
  */
 public class PanelDlgIPExternalContentVIA  extends KernelJPanelCascadedZZZ{
 
-	public PanelDlgIPExternalContentVIA(KernelZZZ objKernel, KernelJDialogExtendedZZZ dialogExtended) {
+	public PanelDlgIPExternalContentVIA(IKernelZZZ objKernel, KernelJDialogExtendedZZZ dialogExtended) {
 		super(objKernel, dialogExtended);
 		
 		//Diese einfache Maske besteht aus 3 Zeilen und 4 Spalten. 
@@ -85,7 +85,7 @@ public class PanelDlgIPExternalContentVIA  extends KernelJPanelCascadedZZZ{
 //		#######################################
 		//Innere Klassen, welche eine Action behandelt	
 		class ActionIPRefreshVIA extends  KernelActionCascadedZZZ{ //KernelUseObjectZZZ implements ActionListener{						
-			public ActionIPRefreshVIA(KernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent){
+			public ActionIPRefreshVIA(IKernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent){
 				super(objKernel, panelParent);			
 			}
 			
@@ -116,7 +116,7 @@ public class PanelDlgIPExternalContentVIA  extends KernelJPanelCascadedZZZ{
 			}			 							
 			
 			class SwingWorker4ProgramIPContentVIA extends SwingWorker implements IObjectZZZ, IKernelUserZZZ{
-				private KernelZZZ objKernel;
+				private IKernelZZZ objKernel;
 				private LogZZZ objLog;
 				private KernelJPanelCascadedZZZ panel;
 				private String[] saFlag4Program;
@@ -127,7 +127,7 @@ public class PanelDlgIPExternalContentVIA  extends KernelJPanelCascadedZZZ{
 							
 				protected ExceptionZZZ objException = null;    // diese Exception hat jedes Objekt
 				
-				public SwingWorker4ProgramIPContentVIA(KernelZZZ objKernel, KernelJPanelCascadedZZZ panel, String[] saFlag4Program){
+				public SwingWorker4ProgramIPContentVIA(IKernelZZZ objKernel, KernelJPanelCascadedZZZ panel, String[] saFlag4Program){
 					super();
 					this.objKernel = objKernel;
 					this.objLog = objKernel.getLogObject();
@@ -183,11 +183,11 @@ public class PanelDlgIPExternalContentVIA  extends KernelJPanelCascadedZZZ{
 					
 				}
 
-				public KernelZZZ getKernelObject() {
+				public IKernelZZZ getKernelObject() {
 					return this.objKernel;
 				}
 
-				public void setKernelObject(KernelZZZ objKernel) {
+				public void setKernelObject(IKernelZZZ objKernel) {
 					this.objKernel = objKernel;
 				}
 

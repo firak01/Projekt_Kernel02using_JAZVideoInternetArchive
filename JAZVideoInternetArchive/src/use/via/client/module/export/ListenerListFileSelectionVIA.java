@@ -12,7 +12,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.tree.TreePath;
 
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
@@ -24,7 +24,7 @@ import basic.zKernelUI.component.KernelJPanelCascadedZZZ;
 import basic.zKernelUI.component.model.JTree.ModelJTreeNodeDirectoyZZZ;
 
 /** Diese Klasse ist als ListSelectionListener an der ListBox mit den Dateinamen angemeldet.
- *   Gleichzeitig dient sie auch als Sender für den Event, dass sich die ausgewählte Datei geändert hat.
+ *   Gleichzeitig dient sie auch als Sender fï¿½r den Event, dass sich die ausgewï¿½hlte Datei geï¿½ndert hat.
  *   
  * @author lindhaueradmin
  *
@@ -32,11 +32,11 @@ import basic.zKernelUI.component.model.JTree.ModelJTreeNodeDirectoyZZZ;
 public class ListenerListFileSelectionVIA extends KernelUseObjectZZZ  implements ListSelectionListener , ISenderFileChangedVIA{
 	private KernelJPanelCascadedZZZ panelParent = null;
 	private ArrayList listaLISTENER_REGISTERED = new ArrayList();  //Das ist die Arrayliste, in welche  die registrierten Komponenten eingetragen werden 
-	  //wichtig: Sie muss private sein und kann nicht im Interace global definiert werden, weil es sonst nicht möglich ist 
-    //             mehrere Events, an verschiedenen Komponenten, unabhängig voneinander zu verwalten.
+	  //wichtig: Sie muss private sein und kann nicht im Interace global definiert werden, weil es sonst nicht mï¿½glich ist 
+    //             mehrere Events, an verschiedenen Komponenten, unabhï¿½ngig voneinander zu verwalten.
 	
 	
-    public ListenerListFileSelectionVIA(KernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent){
+    public ListenerListFileSelectionVIA(IKernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent){
     	super(objKernel);
     	this.panelParent = panelParent;
     }
@@ -52,15 +52,15 @@ public class ListenerListFileSelectionVIA extends KernelUseObjectZZZ  implements
 		main:{
 		try{
 			
-			//Merke: Der ListSelectionEvent übergibt nur .getFirstIndex(), .getLastIndex(), ... . Ergo bekommt man so nicht den gewünschten Dateinamen
+			//Merke: Der ListSelectionEvent ï¿½bergibt nur .getFirstIndex(), .getLastIndex(), ... . Ergo bekommt man so nicht den gewï¿½nschten Dateinamen
 			JList list = (JList)event.getSource();
 			String sValue = (String)list.getSelectedValue();
 			ReportLogZZZ.write(ReportLogZZZ.DEBUG, "List value selected: '" + sValue + "'");
 			if(sValue==null ) break main;  //Wenn der Event aufgrund des Leersetzens des Models gestartet wird, dann hat das alles keine echten sinn.
-			if(sValue.startsWith("No file (")) break main; //damit dieser Ausdruck nicht in die Data-Felder übernommen wird. Hintergrund: Es wir nicht mehr auf die Existenz der Datei abgeprüft. (FGL 20080816, Dadurch werden Einträge auch Selektierbar wenn die CD schon entfernt worden ist.) 
+			if(sValue.startsWith("No file (")) break main; //damit dieser Ausdruck nicht in die Data-Felder ï¿½bernommen wird. Hintergrund: Es wir nicht mehr auf die Existenz der Datei abgeprï¿½ft. (FGL 20080816, Dadurch werden Eintrï¿½ge auch Selektierbar wenn die CD schon entfernt worden ist.) 
 			
 			
-			//Nun müsste ein eigener Event gestartet werden, der die entsprechenden angemeldeten Komponenten über die neue Auswahl informiert.
+			//Nun mï¿½sste ein eigener Event gestartet werden, der die entsprechenden angemeldeten Komponenten ï¿½ber die neue Auswahl informiert.
 			//Damit nicht jede Komponente sich ggf. den Pfad holen muss, wird er hier dem Event mitgegeben.
 			String sPathTotal;
 			JTree tree = (JTree) this.getPanelParent().getComponent("tree");
@@ -107,8 +107,8 @@ public class ListenerListFileSelectionVIA extends KernelUseObjectZZZ  implements
 			
 			//Also den event erstellen.
 			File fileSelected = new File(sPathTotal);
-			///*FGL 20080818 Es soll auch möglich sein den Eintrag zu selektieren, wenn z.B. die CD schon entfernt/gewechselt wurde und noch nicht der RefreshButton gedrückt worden ist.
-			//NEIN: Weil nach dem Entfernen der CD keine Dateils (z.B. Dateigröße) ausgelesen werden können darf das nicht passieren. Es muss ein Hinweis ausgegeben werden.
+			///*FGL 20080818 Es soll auch mï¿½glich sein den Eintrag zu selektieren, wenn z.B. die CD schon entfernt/gewechselt wurde und noch nicht der RefreshButton gedrï¿½ckt worden ist.
+			//NEIN: Weil nach dem Entfernen der CD keine Dateils (z.B. Dateigrï¿½ï¿½e) ausgelesen werden kï¿½nnen darf das nicht passieren. Es muss ein Hinweis ausgegeben werden.
 			boolean bRetry = false;
 			do{
 			if(fileSelected.isFile()==false){
@@ -117,7 +117,7 @@ public class ListenerListFileSelectionVIA extends KernelUseObjectZZZ  implements
 				//Hinweismeldung: 
 				int iResult = JOptionPane.showConfirmDialog(this.getPanelParent(), "File no longer found. Insert the previous data carrier.");			
 			
-				//Wenn auf "Ja" gedrückt wurde, dann neuer Versuch
+				//Wenn auf "Ja" gedrï¿½ckt wurde, dann neuer Versuch
 				if(iResult != JOptionPane.YES_OPTION){				
 					ExceptionZZZ ez = new ExceptionZZZ("Selected file does not exist: '"+sPathTotal+"'", iERROR_PARAMETER_VALUE, this, ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
@@ -130,7 +130,7 @@ public class ListenerListFileSelectionVIA extends KernelUseObjectZZZ  implements
 				//Hinweismeldung: 
 				int iResult = JOptionPane.showConfirmDialog(this.getPanelParent(), "File no longer found. Insert the previous data carrier.");
 				
-				//Wenn auf "Ja" gedrückt wurde, dann neuer Versuch
+				//Wenn auf "Ja" gedrï¿½ckt wurde, dann neuer Versuch
 				if(iResult != JOptionPane.YES_OPTION){				
 					ExceptionZZZ ez = new ExceptionZZZ("Selected file does not exist: '"+sPathTotal+"'", iERROR_PARAMETER_VALUE, this, ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;

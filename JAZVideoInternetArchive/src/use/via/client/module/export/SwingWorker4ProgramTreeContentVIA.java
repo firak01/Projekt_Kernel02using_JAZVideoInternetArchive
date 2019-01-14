@@ -28,7 +28,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.log.ReportLogZZZ;
 import basic.zBasicUI.thread.SwingWorker;
 import basic.zKernel.IKernelUserZZZ;
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 import basic.zKernelUI.component.KernelJPanelCascadedZZZ;
 import basic.zKernelUI.component.model.JTree.ModelJTreeNodeDirectoyZZZ;
 import basic.zKernelUI.component.model.JTree.ModelJTreeNodeRootDummyZZZ;
@@ -40,7 +40,7 @@ import custom.zKernel.LogZZZ;
  *
  */
 public class SwingWorker4ProgramTreeContentVIA extends SwingWorker implements IObjectZZZ, IFlagZZZ, IKernelUserZZZ{
-	private KernelZZZ objKernel;
+	private IKernelZZZ objKernel;
 	private LogZZZ objLog;
 	private KernelJPanelCascadedZZZ panelCascaded;
 	
@@ -57,7 +57,7 @@ public class SwingWorker4ProgramTreeContentVIA extends SwingWorker implements IO
 	protected ExceptionZZZ objException = null;    // diese Exception hat jedes Objekt
 										
 	
-	public SwingWorker4ProgramTreeContentVIA(KernelZZZ objKernel, KernelJPanelCascadedZZZ panelCascaded, String sNewSelection, String[] saFlagControlIn) throws ExceptionZZZ{
+	public SwingWorker4ProgramTreeContentVIA(IKernelZZZ objKernel, KernelJPanelCascadedZZZ panelCascaded, String sNewSelection, String[] saFlagControlIn) throws ExceptionZZZ{
 		super();
 		main:{
 			this.objKernel = objKernel;
@@ -181,11 +181,11 @@ public class SwingWorker4ProgramTreeContentVIA extends SwingWorker implements IO
 	
 	///#### Interfaces
 	
-	public KernelZZZ getKernelObject() {
+	public IKernelZZZ getKernelObject() {
 		return this.objKernel;
 	}
 
-	public void setKernelObject(KernelZZZ objKernel) {
+	public void setKernelObject(IKernelZZZ objKernel) {
 		this.objKernel = objKernel;
 	}
 
@@ -409,6 +409,32 @@ public class SwingWorker4ProgramTreeContentVIA extends SwingWorker implements IO
 			}	// end main:
 			
 			return bFunction;	
+		}
+
+		@Override
+		public String[] getFlagZ(boolean bFlagValueToSearchFor) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public String[] getFlagZ() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public String[] getFlagZ_passable(boolean bValueToSearchFor,
+				IFlagZZZ objUsingFlagZ) throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public String[] getFlagZ_passable(IFlagZZZ objUsingFlagZ)
+				throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			return null;
 		}
 	
 	

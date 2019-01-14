@@ -16,7 +16,7 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zKernel.KernelContextZZZ;
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 import basic.zKernel.html.writer.KernelWriterHtmlByFileZZZ;
 import basic.zKernel.html.writer.KernelWriterXmlByContentZZZ;
 import basic.zKernel.markup.content.ContentFileZZZ;
@@ -136,7 +136,7 @@ public static String generateContent4ErrorHtml(ExceptionZZZ ez) throws Exception
 		   
 		   
 			//1. Erstellen das Z-Kernel Objekt 
-			KernelZZZ objKernel = this.getKernelObject();
+			IKernelZZZ objKernel = this.getKernelObject();
 			String sModule = this.getModuleUsed();
 			String sProgram = this.getProgramUsed();
 			
@@ -216,9 +216,9 @@ public static String generateContent4ErrorHtml(ExceptionZZZ ez) throws Exception
 	   return sReturn;
    }
 
-private String generateContent4SuccessHtml(KernelZZZ objKernel, ContentFileZZZ objContentStore) throws ExceptionZZZ {
+private String generateContent4SuccessHtml(IKernelZZZ objKernel, ContentFileZZZ objContentStore) throws ExceptionZZZ {
 	String sReturn;
-	//TODO Das Compute muss eigentlich erst dann durchgef�hrt werden, wenn eine andere Klasse den Content Store nutzt !!!
+	//TODO Das Compute muss eigentlich erst dann durchgeführt werden, wenn eine andere Klasse den Content Store nutzt !!!
 	objContentStore.setFlag("RemoveZHTML", true); //FGL 20080212 Ziel ist es das ZHTML-Tag nicht merh im Ergebnis zu haben
 	objContentStore.compute();
 			
@@ -251,7 +251,7 @@ private String generateContent4SuccessHtml(KernelZZZ objKernel, ContentFileZZZ o
 	return sReturn;
 }
 
-private String generateContent4SuccessXml(Document docCarrier, Document docFile, Document docSerie, Document docMovie, String sReturn, KernelZZZ objKernel, ContentXmlZZZ objContentXmlStore) throws ExceptionZZZ {
+private String generateContent4SuccessXml(Document docCarrier, Document docFile, Document docSerie, Document docMovie, String sReturn, IKernelZZZ objKernel, ContentXmlZZZ objContentXmlStore) throws ExceptionZZZ {
 	
 					//Notesdocumente in XML - überführen und danach nach jdom überführen
 					//Merke: Mit PipeWriter/Reader funktioniert es nicht als Servlet, obwohl als einfache Java-Applikation es funktioniert !!!

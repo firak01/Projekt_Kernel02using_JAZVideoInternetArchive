@@ -11,20 +11,20 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 import basic.zKernelUI.component.KernelActionCascadedZZZ;
 import basic.zKernelUI.component.KernelJDialogExtendedZZZ;
 import basic.zKernelUI.component.KernelJPanelCascadedZZZ;
 import basic.zKernelUI.component.KernelJPanelDialogButtonDefaultZZZ;
 
 
-/**Dies Klasse dient als Beispiel dafür, wie der ActionListener ausgetauscht wird, so dass beim OK-Button 
- *  noch anderer Code ausgeführt wird als nur die Dialogbox zu schliessen.
+/**Dies Klasse dient als Beispiel dafï¿½r, wie der ActionListener ausgetauscht wird, so dass beim OK-Button 
+ *  noch anderer Code ausgefÃ¼hrt wird als nur die Dialogbox zu schliessen.
  * @author 0823
  *
  */
 public class PanelDlgAboutButtonAlternativeVIA extends KernelJPanelDialogButtonDefaultZZZ{
-	public PanelDlgAboutButtonAlternativeVIA(KernelZZZ objKernel, KernelJDialogExtendedZZZ dialogExtended, boolean bIsButtonOkAvailable, boolean bIsButtonCancelAvailable){
+	public PanelDlgAboutButtonAlternativeVIA(IKernelZZZ objKernel, KernelJDialogExtendedZZZ dialogExtended, boolean bIsButtonOkAvailable, boolean bIsButtonCancelAvailable){
 		super(objKernel, dialogExtended, bIsButtonOkAvailable, bIsButtonCancelAvailable);
 	}
 	
@@ -34,13 +34,13 @@ public class PanelDlgAboutButtonAlternativeVIA extends KernelJPanelDialogButtonD
 		return new ActionListenerDlgAboutButtonOk(this.getKernelObject(), panelButton);
 	}	
 	class ActionListenerDlgAboutButtonOk extends KernelActionCascadedZZZ implements ActionListener {
-		public ActionListenerDlgAboutButtonOk(KernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent) {
+		public ActionListenerDlgAboutButtonOk(IKernelZZZ objKernel, KernelJPanelCascadedZZZ panelParent) {
 			super(objKernel, panelParent);
 		}
 		
-		/**Durch überschreiben dieser Methoden können erbende Klassen noch anderen Code ausführen
+		/**Durch ï¿½berschreiben dieser Methoden kï¿½nnen erbende Klassen noch anderen Code ausfï¿½hren
 		* @param ActionEvent
-		* @return true ==> es wird der weitere Code ausgeführt
+		* @return true ==> es wird der weitere Code ausgefï¿½hrt
 		* 
 		* lindhaueradmin; 09.01.2007 09:03:32
 		 */
@@ -48,7 +48,7 @@ public class PanelDlgAboutButtonAlternativeVIA extends KernelJPanelDialogButtonD
 			return true;
 		}
 		public boolean actionPerformCustom(ActionEvent ae, boolean bQueryResult){
-			System.out.println("Danke, dass Sie sich dafür interessieren.");								
+			System.out.println("Danke, dass Sie sich dafï¿½r interessieren.");								
 			return true;
 		}
 		public void actionPerformPostCustom(ActionEvent ae, boolean bQueryResult){

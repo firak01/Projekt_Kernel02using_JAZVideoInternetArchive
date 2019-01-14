@@ -2,7 +2,7 @@ package use.via.client.module.export;
 
 import java.io.File;
 
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zBasic.util.log.ReportLogZZZ;
@@ -12,7 +12,7 @@ import basic.zKernelUI.component.model.EventComponentSelectionResetZZZ;
 public class JEditorPane_Listening_ExportStatusVIA extends KernelJEditorPaneListening4ComponentSelectionResetZZZ  implements IListenerFileSelectedVIA{
 	private String sRootPrevious=null;
 	
-	public JEditorPane_Listening_ExportStatusVIA(KernelZZZ objKernel, String sInitial){
+	public JEditorPane_Listening_ExportStatusVIA(IKernelZZZ objKernel, String sInitial){
 		super(objKernel, sInitial);
 	}
 	
@@ -27,7 +27,7 @@ public class JEditorPane_Listening_ExportStatusVIA extends KernelJEditorPaneList
 				}
 				
 				//	zum Setzen des Root-Strings (Merke: Es wird als Workaround die Dateiliste des Roots des Laufwerks schon angezeigt, bevor der Verzeichnisbaum erstellt ist)
-					//Wenn ohne Verzeichnisbaum schon eine Datei gewählt wurde, sorgt die Belegung dieser Variable dafür, dass kein "ungwolltes" Leersetzen passiert.
+					//Wenn ohne Verzeichnisbaum schon eine Datei gewï¿½hlt wurde, sorgt die Belegung dieser Variable dafï¿½r, dass kein "ungwolltes" Leersetzen passiert.
 					this.sRootPrevious = FileEasyZZZ.getRoot(file) + File.separator;
 				} catch (ExceptionZZZ e) {
 					ReportLogZZZ.write(ReportLogZZZ.ERROR, e.getDetailAllLast());

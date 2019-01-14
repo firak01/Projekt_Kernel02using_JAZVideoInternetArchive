@@ -6,7 +6,7 @@ package use.via.client;
 import java.awt.Frame;
 import java.util.HashMap;
 
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 
 import basic.zKernelUI.component.KernelJDialogExtendedZZZ;
 import basic.zKernelUI.component.KernelJFrameCascadedZZZ;
@@ -24,8 +24,8 @@ public class DlgIPExternalVIA extends KernelJDialogExtendedZZZ {
 	 * @param bSnappedToScreen
 	 * @param panelCenter
 	 */
-	public DlgIPExternalVIA(KernelZZZ objKernel, KernelJFrameCascadedZZZ frameOwner, HashMap<String, Boolean> hmFlag) {		
-		super(objKernel, frameOwner, false, hmFlag);  //true, d.h. modal, geht leider nur im Konstruktor zu übergeben, weil JDialog diesen Parameter im Konstruktor braucht und Super(...) kann keinen Code beinhalten, der auf eigene Properties etc. zugreift.
+	public DlgIPExternalVIA(IKernelZZZ objKernel, KernelJFrameCascadedZZZ frameOwner, HashMap<String, Boolean> hmFlag) {		
+		super(objKernel, frameOwner, false, hmFlag);  //true, d.h. modal, geht leider nur im Konstruktor zu ï¿½bergeben, weil JDialog diesen Parameter im Konstruktor braucht und Super(...) kann keinen Code beinhalten, der auf eigene Properties etc. zugreift.
 	}
 	public boolean isCentered(){
 		return false;

@@ -1,7 +1,7 @@
 package use.via.client.module.export;
 
 import java.io.File;
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
@@ -15,7 +15,7 @@ public class JText_Listening_FileNameVIA  extends KernelJTextFieldListening4Comp
 	
 	private String sRootPrevious = null;   //mit dem File.Seperator am Ende, wie es in der Dialogbox erwartet wird.
 	
-	public JText_Listening_FileNameVIA(KernelZZZ objKernel, String sTextInitial) {
+	public JText_Listening_FileNameVIA(IKernelZZZ objKernel, String sTextInitial) {
 		super(objKernel, sTextInitial);
 	}
 

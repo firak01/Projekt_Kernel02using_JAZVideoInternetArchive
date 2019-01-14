@@ -11,14 +11,14 @@ import javax.swing.JTextField;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.data.DataFieldZZZ;
 import basic.zBasic.util.data.DataStoreZZZ;
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 import use.via.MapperStoreHttpZZZ;
 
 public class MapperStoreClientVIA extends MapperStoreHttpZZZ {
 
-	public MapperStoreClientVIA(KernelZZZ objKernel) throws ExceptionZZZ {
+	public MapperStoreClientVIA(IKernelZZZ objKernel) throws ExceptionZZZ {
 		super(objKernel);
-		this.loadAll(); //Ausführen der überiebenen abstrakten Methoden.
+		this.loadAll(); //AusfÃ¼hren der Ã¼berschriebenen abstrakten Methoden.
 	}
 	 
 	public DataStoreZZZ getDataStoreExportPanel() throws ExceptionZZZ{
@@ -26,8 +26,8 @@ public class MapperStoreClientVIA extends MapperStoreHttpZZZ {
 	}
 	
 	public void loadDataStoreAll() throws ExceptionZZZ {
-		//TODO Idee: Das Panel übergeben im Konstruktor //DataStoreZZZ objDataExportPanel = new DataStoreZZZ("ExportPanel");  //DataStore für das "Carrier - Dokument"
-		DataStoreZZZ objDataExportPanel = new DataStoreZZZ("ExportPanel");  //DataStore für das "Carrier - Dokument"
+		//TODO Idee: Das Panel ï¿½bergeben im Konstruktor //DataStoreZZZ objDataExportPanel = new DataStoreZZZ("ExportPanel");  //DataStore fï¿½r das "Carrier - Dokument"
+		DataStoreZZZ objDataExportPanel = new DataStoreZZZ("ExportPanel");  //DataStore fï¿½r das "Carrier - Dokument"
 		hmDataStore.put("ExportPanel", objDataExportPanel);
 	}
 	 
@@ -35,16 +35,16 @@ public class MapperStoreClientVIA extends MapperStoreHttpZZZ {
 		HashMap objReturn = new HashMap();
 		main:{
 			/* Aufgabe:
-			 * Eine Datenstruktur zur Vefügung stellen, in der die Parameter gemapped werden: liste(sMaske) = sParameter_namen.
-			   Aufgrund des HTTP-Parameternamens soll Alias-Parametername ermittelt werden (damit das DataStore-Objekt dazu später den passenden Feldnamen hat.
+			 * Eine Datenstruktur zur Vefï¿½gung stellen, in der die Parameter gemapped werden: liste(sMaske) = sParameter_namen.
+			   Aufgrund des HTTP-Parameternamens soll Alias-Parametername ermittelt werden (damit das DataStore-Objekt dazu spï¿½ter den passenden Feldnamen hat.
 			   
 			   Diese Datenstruktur wird dann in eine HashMap gepackt, welche als Key den Namen des Datastores besitzt.
 			   
-			/* Merke1: Aus Dokumentationsgründen (und vielleicht ist das ja auch später so verwendbar, dass der Feldname beim Laden der DataStructure nicht mehr "hart ausprogrammiert" zu werden braucht)
+			/* Merke1: Aus Dokumentationsgrï¿½nden (und vielleicht ist das ja auch spï¿½ter so verwendbar, dass der Feldname beim Laden der DataStructure nicht mehr "hart ausprogrammiert" zu werden braucht)
 			 *  wird der Feldname als 3. Parameter einfliessen.
 			
-			/* Merke2: Weil es keine einfache (!nicht wie für JTabel die Tabellen Modelle), schon fertige Tabellenstruktur gibt (hab danach mehrere Stunden gesucht),
-			*  entscheide ich mich dafür, dass die drei Werte: Feldname-Alias, HPPT-Name, Notes-Feldname in eine dreidimensionale ArrayList gepackt wird.				
+			/* Merke2: Weil es keine einfache (!nicht wie fï¿½r JTabel die Tabellen Modelle), schon fertige Tabellenstruktur gibt (hab danach mehrere Stunden gesucht),
+			*  entscheide ich mich dafï¿½r, dass die drei Werte: Feldname-Alias, HPPT-Name, Notes-Feldname in eine dreidimensionale ArrayList gepackt wird.				
 			*  
 			*    TODO: Klasse, die Methoden bietet, auf die mehrdimensionale ArrayList zuzugreifen.
 			 * 
@@ -65,7 +65,7 @@ public class MapperStoreClientVIA extends MapperStoreHttpZZZ {
 			
 			//TODO: IDEE: Momentan wird hier direkt mit den aliasnamen der Swing Komponenten gearbeitet. Es sollte aber mit den Aliasnamen der "DataFieldZZZ"-Objekte gearbeitet werden.
 			alsFielda[MapperStoreHttpZZZ.iPARAMETER_FIELDNAME].add("CarrierID"); //Swing-Komponenten-alias. D.h. Die Beizeichnung eines DataFieldZZZ, ggf. ist darin eine Formel eingebaut.		
-																														  //Merke: Hier in diesem speziellen Fall ist das sogar eine Formel, die ausgeführt werden muss (mit JEXL) 
+																														  //Merke: Hier in diesem speziellen Fall ist das sogar eine Formel, die ausgefï¿½hrt werden muss (mit JEXL) 
 						
 			
 			alsFielda[MapperStoreHttpZZZ.iPARAMETER_ALIAS].add("CarrierTitle");   
@@ -132,32 +132,32 @@ public class MapperStoreClientVIA extends MapperStoreHttpZZZ {
 	}
 
 	public void loadFieldDataStoreFieldStructureAll() throws ExceptionZZZ {
-		// TODO Idee: Das befüllen der Feldstruktur ist eigentlich Aufgabe der Klasse DataStoreZZZ
+		// TODO Idee: Das befï¿½llen der Feldstruktur ist eigentlich Aufgabe der Klasse DataStoreZZZ
 //		Merke: Die Feldnamen korrespondieren mit den Feldnamen in einer Notes Maske
 		//Merke2: Die Metadaten werden in alle Dokumente eingetragen und befinden sich in einer Subform
 		
-		//TODO: Die Feldnamen für die NotesFelder werden schon im Servlet-gemapped. Dieses Mapping hier übergeben und dann die Werte dynamisch auslesen pro Alias und Datastore.
+		//TODO: Die Feldnamen fï¿½r die NotesFelder werden schon im Servlet-gemapped. Dieses Mapping hier ï¿½bergeben und dann die Werte dynamisch auslesen pro Alias und Datastore.
 		
-		//### ExportPanel (Merke: Das ist für eine Swing-Maske)
-		DataFieldZZZ objField = new DataFieldZZZ("CarrierID");  //MErke: Diese Aliaswerte entsprechen den gemappten Werten aus loadFileMapAll() für MapperStoreHttpZZZ.iPARAMETER_FIELDNAME
+		//### ExportPanel (Merke: Das ist fï¿½r eine Swing-Maske)
+		DataFieldZZZ objField = new DataFieldZZZ("CarrierID");  //MErke: Diese Aliaswerte entsprechen den gemappten Werten aus loadFileMapAll() fï¿½r MapperStoreHttpZZZ.iPARAMETER_FIELDNAME
 		objField.Datatype=DataFieldZZZ.sSTRING;                //Datentyp. Wird beachtet beim Setzen der Werte ins Ziel. 
-																				//               Entspricht dem Rückgabewert der Datamethod beim Auslesen der Werte aus der Quelle.
+																				//               Entspricht dem Rï¿½ckgabewert der Datamethod beim Auslesen der Werte aus der Quelle.
 		objField.Fieldclass = JTextField.class.getName();
 		objField.Fieldmethod="getText";
 		
 		//Name der Methode, mit der aus der Quelle der Wert ausgelesen werden soll.
-		//a) @Z-Methode: Mit JEXL Unterstützung diese Formel auflösen
+		//a) @Z-Methode: Mit JEXL Unterstï¿½tzung diese Formel auflï¿½sen
 		//b) Normale Java-MEthode: Per Reflection-API mit invoke(...) aufrufen	
 		
 		//		Das ist zu einfach. objField.Fieldmethod="CarrierCreated+'#'+CarrierSequenze";	
-		//Ziel der Formel ist, dass der Wert nur gesetzt wird, wenn es einen Wert für CarrierSequenze gibt.
-		//objField.Fieldmethod = "CarrierSequenze<?/>CarrierCreated<+/>'#'<+/>CarrierSequenze<:/>''";  //Dat hab ich mir selber ausgedacht. Heisst: WEnn CarrierSequenz gefüllt ist, dann ... ansonsten CarrierID''.
+		//Ziel der Formel ist, dass der Wert nur gesetzt wird, wenn es einen Wert fï¿½r CarrierSequenze gibt.
+		//objField.Fieldmethod = "CarrierSequenze<?/>CarrierCreated<+/>'#'<+/>CarrierSequenze<:/>''";  //Dat hab ich mir selber ausgedacht. Heisst: WEnn CarrierSequenz gefï¿½llt ist, dann ... ansonsten CarrierID''.
 		//TODO: DAS REALISIEREN 
-		//objField.Fieldmethod = "CarrierID<?/>CarrierID<:/>CarrierCreated<+/>'#'<+/>CarrierSequenze";  //Dat hab ich mir selber ausgedacht. Heisst: WEnn CarrierID gefüllt ist, dann ... ansonsten rechne aus''.
-		objField.Fieldname="textCarrierId";        ////Im Notes: DerFeldname der Maske, Im Swing: Der Aliasname der Komponente, wie er im ZKernel hinzugefügt wurde.
-		objField.Zclass="@Z"; 									 //!!!Hier: Es soll eine @Z - Methode ausgeführt werden, sonst: Klasse der Komponente
-		//objField.Zmethod="CarrierID<?/>CarrierID<:/>CarrierCreated<+/>'#'<+/>CarrierSequenze";  //Dat hab ich mir selber ausgedacht. Heisst: WEnn CarrierID gefüllt ist, dann ... ansonsten rechne aus''.
-		objField.Zmethod="CarrierID<?/>CarrierID<:/>''";  //Dat hab ich mir selber ausgedacht. Heisst: WEnn CarrierID gefüllt ist, dann ... ansonsten rechne aus''.
+		//objField.Fieldmethod = "CarrierID<?/>CarrierID<:/>CarrierCreated<+/>'#'<+/>CarrierSequenze";  //Dat hab ich mir selber ausgedacht. Heisst: WEnn CarrierID gefï¿½llt ist, dann ... ansonsten rechne aus''.
+		objField.Fieldname="textCarrierId";        ////Im Notes: DerFeldname der Maske, Im Swing: Der Aliasname der Komponente, wie er im ZKernel hinzugefï¿½gt wurde.
+		objField.Zclass="@Z"; 									 //!!!Hier: Es soll eine @Z - Methode ausgefï¿½hrt werden, sonst: Klasse der Komponente
+		//objField.Zmethod="CarrierID<?/>CarrierID<:/>CarrierCreated<+/>'#'<+/>CarrierSequenze";  //Dat hab ich mir selber ausgedacht. Heisst: WEnn CarrierID gefï¿½llt ist, dann ... ansonsten rechne aus''.
+		objField.Zmethod="CarrierID<?/>CarrierID<:/>''";  //Dat hab ich mir selber ausgedacht. Heisst: WEnn CarrierID gefï¿½llt ist, dann ... ansonsten rechne aus''.
 		this.getDataStoreExportPanel().setField(objField);
 		
 		objField = new DataFieldZZZ("CarrierSequenzeNumber");    //Merke: Dies dies ist aber z.B. ein Feld, dass im HTTP-Mapping nicht vorhanden ist. Sondern nur in einer Formel verwendet wird. Trotzdem muss der Alias in loadFieldMapAll() auftauchen.
@@ -169,10 +169,10 @@ public class MapperStoreClientVIA extends MapperStoreHttpZZZ {
 		
 		objField = new DataFieldZZZ("CarrierTitle");   //Im Konstruktor wird der Alias mitgegeben. Siehe MapperStoreHttpZZZ.loadFieldMapAllDefault
 		objField.Datatype=DataFieldZZZ.sSTRING;                //Datentyp. Wird beachtet beim Setzen der Werte ins Ziel. 
-																				 //               Entspricht dem Rückgabewert der Datamethod beim Auslesen der Werte aus der Quelle.
+																				 //               Entspricht dem Rï¿½ckgabewert der Datamethod beim Auslesen der Werte aus der Quelle.
 		objField.Fieldclass = JLabel.class.getName();       //Klasse der Komponente
 		objField.Fieldmethod="getText";							//Name der Methode, mit der aus der Quelle der Wert ausgelesen werden soll. Merke: Diese Methode soll per Reflection-API mit invoke(...) aufgerufen werden.
-		objField.Fieldname="labelCarrierTitle";                            //Im Notes: DerFeldname der Maske, Im Swing: Der Aliasname der Komponente, wie er im ZKernel hinzugefügt wurde.					
+		objField.Fieldname="labelCarrierTitle";                            //Im Notes: DerFeldname der Maske, Im Swing: Der Aliasname der Komponente, wie er im ZKernel hinzugefï¿½gt wurde.					
 		this.getDataStoreExportPanel().setField(objField);
 				
 		objField = new DataFieldZZZ("CarrierType");
