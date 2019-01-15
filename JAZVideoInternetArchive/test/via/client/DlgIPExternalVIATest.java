@@ -9,8 +9,9 @@ import javax.swing.JFrame;
 
 import junit.framework.TestCase;
 import use.via.client.DlgIPExternalVIA;
-import use.via.client.FrmMainVIA;
+import use.via.client.FrmMainSingletonVIA;
 import basic.zBasic.ExceptionZZZ;
+import basic.zKernel.IKernelZZZ;
 import basic.zKernel.KernelZZZ;
 
 /**
@@ -18,14 +19,14 @@ import basic.zKernel.KernelZZZ;
  *
  */
 public class DlgIPExternalVIATest extends TestCase{
-private FrmMainVIA frmParentTest;
+private FrmMainSingletonVIA frmParentTest;
 private DlgIPExternalVIA dlgTest; 
 
 protected void setUp(){
 	try {			
 
-		KernelZZZ objKernel = new KernelZZZ("TEST", "01", "", "ZKernelConfigVideoArchiveClient_test.ini",(String)null);
-		frmParentTest = new FrmMainVIA(objKernel, null);
+		IKernelZZZ objKernel = new KernelZZZ("TEST", "01", "", "ZKernelConfigVideoArchiveClient_test.ini",(String)null);
+		frmParentTest = FrmMainSingletonVIA.getInstance(objKernel, null);//new FrmMainSingletonVIA(objKernel, null);
 		frmParentTest.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmParentTest.setSize(200, 200);
 		frmParentTest.setVisible(true);

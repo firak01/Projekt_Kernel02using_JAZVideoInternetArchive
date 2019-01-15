@@ -1,18 +1,19 @@
 package via.client;
 
-import use.via.client.FrmMainVIA;
+import use.via.client.FrmMainSingletonVIA;
 import use.via.client.PanelMainVIA;
 import junit.framework.TestCase;
 import basic.zBasic.ExceptionZZZ;
+import basic.zKernel.IKernelZZZ;
 import basic.zKernel.KernelZZZ;
 
 public class FrmMainVIATest  extends TestCase{
-	private FrmMainVIA frmMainTest;
+	private FrmMainSingletonVIA frmMainTest;
 	
 	protected void setUp(){
 		try {			
-			KernelZZZ objKernel = new KernelZZZ("TEST", "01", "", "ZKernelConfigVideoArchiveClient_test.ini",(String)null);
-			frmMainTest = new FrmMainVIA(objKernel, null);
+			IKernelZZZ objKernel = new KernelZZZ("TEST", "01", "", "ZKernelConfigVideoArchiveClient_test.ini",(String)null);
+			frmMainTest = FrmMainSingletonVIA.getInstance(objKernel, null);//new FrmMainSingletonVIA(objKernel, null);
 			frmMainTest.launch(objKernel.getApplicationKey() + " - Client (Status, Information & Dataimport)");
 									
 		} catch (ExceptionZZZ ez) {
