@@ -83,7 +83,8 @@ public class KernelSingletonVIA extends KernelKernelZZZ{
 		public IKernelConfigZZZ getConfigObject() throws ExceptionZZZ{
 			IKernelConfigZZZ objConfig = super.getConfigObject();
 			if(objConfig==null){
-				objConfig = new ConfigVIA();			
+				objConfig = new ConfigVIA();
+				super.setConfigObject(objConfig);
 			}
 			return objConfig;
 }
