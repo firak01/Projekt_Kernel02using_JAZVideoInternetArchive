@@ -54,7 +54,7 @@ public class PanelDlgIPExternalButtonAlternativeVIA  extends KernelJPanelDialogB
 			boolean bReturn = false;
 			try{
 				main:{
-				//Hier erst einmal den Inhalt einer per Alias zug�nglich gemachten Komponente (siehe KernelPanelCascadedZZZ) auslesen
+				//Hier erst einmal den Inhalt einer per Alias zugänglich gemachten Komponente (siehe KernelPanelCascadedZZZ) auslesen
 				KernelJPanelCascadedZZZ panelButton = (KernelJPanelCascadedZZZ) this.getPanelParent();
 				KernelJPanelCascadedZZZ panelCenter = (KernelJPanelCascadedZZZ) panelButton.getPanelNeighbour("CENTER");
 				JTextField texttemp = (JTextField) panelCenter.getComponent("text1");
