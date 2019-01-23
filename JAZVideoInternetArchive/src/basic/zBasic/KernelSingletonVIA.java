@@ -35,7 +35,7 @@ public class KernelSingletonVIA extends KernelKernelZZZ{
 		
 	public static KernelSingletonVIA getInstance(String sSystemNumber, String sFileConfigPath, String sFileConfigName, String[] saFlagControl ) throws ExceptionZZZ{			
 		if(objKernelSingleton==null){
-			//Verwende hier das Suffix der Klasse als Applicationkey, also THM.
+			//Verwende hier das Suffix der Klasse als Applicationkey, also VIA.
 			objKernelSingleton = new KernelSingletonVIA("VIA", sSystemNumber, sFileConfigPath, sFileConfigName, saFlagControl);
 		}
 		return objKernelSingleton;	

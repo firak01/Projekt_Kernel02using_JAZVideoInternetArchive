@@ -20,12 +20,12 @@ public class PanelMainVIA  extends KernelJPanelCascadedZZZ{
 			//### PANEL EAST
 				PanelMain_EASTVIA objPanelEast = new PanelMain_EASTVIA(objKernel, this);				
 				this.setPanelSub("EAST", objPanelEast);       //Backend Hashtable hinzuf�gen
-				this.add(objPanelEast, BorderLayout.EAST); //Frontend hinzuf�gen
+				this.add(objPanelEast, BorderLayout.EAST); //Frontend hinzufügen
 				
 			//### PANEL CENTER
 				PanelMain_CENTERVIA objPanelCenter = new PanelMain_CENTERVIA(objKernel, this);
 				this.setPanelSub("CENTER", objPanelCenter);
-				this.add(objPanelCenter, BorderLayout.CENTER); //Frontend hinzuf�gen
+				this.add(objPanelCenter, BorderLayout.CENTER); //Frontend hinzufügen
 				
 				
 				/*

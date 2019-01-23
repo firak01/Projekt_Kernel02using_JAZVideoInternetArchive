@@ -35,7 +35,7 @@ public class PanelDlgIPExternalButtonAlternativeVIA  extends KernelJPanelDialogB
 	}	
 	
 	class ActionListenerDlgIPExternalButtonOk extends  ActionListenerButtonOkDefaultZZZ {
-		/**  Durch �berschreiben des Standardbuttons f�r die Dialogbox, k�nnen hier noch andere Aktionen durchgef�hrt werden, als nur das Schliessen der Dialogbox. 
+		/**  Durch Überschreiben des Standardbuttons für die Dialogbox, können hier noch andere Aktionen durchgef�hrt werden, als nur das Schliessen der Dialogbox. 
 		* lindhaueradmin; 17.01.2007 10:10:21
 		 * @param objKernel
 		 * @param panelParent
@@ -44,7 +44,7 @@ public class PanelDlgIPExternalButtonAlternativeVIA  extends KernelJPanelDialogB
 			super(objKernel, panelParent);
 		}
 		
-		/**Durch �berschreiben dieser Methoden k�nnen erbende Klassen noch anderen Code ausf�hren
+		/**Durch überschreiben dieser Methoden können erbende Klassen noch anderen Code ausf�hren
 		* @param ActionEvent
 		* @return true ==> es wird der weitere Code ausgef�hrt
 		* 
@@ -62,37 +62,31 @@ public class PanelDlgIPExternalButtonAlternativeVIA  extends KernelJPanelDialogB
 				
 				ReportLogZZZ.write(ReportLogZZZ.INFO, "IP/URL found for 'Export Data via Http': " + sIP);
 				
+//				Wichtige Informationen, zum Auslesen von Parametern aus der KernelConfiguration
 				IKernelZZZ objKernel = this.getKernelObject();
 				KernelJDialogExtendedZZZ dialog = panelCenter.getDialogParent();	
 				KernelJFrameCascadedZZZ frameParent = null;
 				if(dialog==null){
 					frameParent = panelCenter.getFrameParent();	
-					
-					//				Wichtige Informationen, zum Auslesen von Parametern aus der KernelConfiguration
-					//KernelJFrameCascadedZZZ frameParent = (KernelJFrameCascadedZZZ) this.getFrameParent();
 					String sProgram = frameParent.getClass().getName(); //der Frame, in den dieses Panel eingebettet ist
-					
-					
 					String sModule = KernelUIZZZ.searchModuleFirstConfiguredClassname(frameParent); 
 					if(StringZZZ.isEmpty(sModule)){
 						ExceptionZZZ ez = new ExceptionZZZ("No module configured for the parent frame/program: '" +  sProgram + "'", iERROR_CONFIGURATION_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
 						throw ez;
 					}
-				
+									
 					objKernel.setParameterByProgramAlias(sModule, "IP_Context", "IPExternal", sIP);
-					bReturn = true; //erst dann wird das PostCustom-ausgef�hrt				
+					bReturn = true; //erst dann wird das PostCustom-ausgeführt				
 				}else{		
 					System.out.println(ReflectCodeZZZ.getMethodCurrentName() + "# This is a dialog.....");
 					Frame frameParentDlg = dialog.getFrameParent();
 					
 					String sModule = frameParentDlg.getClass().getName();  //der Frame, �ber den diese Dialogbox liegt	
-					KernelJPanelCascadedZZZ panelParent = this.getPanelParent();
-					
+					KernelJPanelCascadedZZZ panelParent = this.getPanelParent();					
 					String sProgram = panelParent.getDialogParent().getClass().getName();           //Die Dialogbox selbst 
-
-					//objKernel.setParameterByProgramAlias(sModule, "IP_Context", "IPExternal", sIP);
+					
 					objKernel.setParameterByProgramAlias(sModule, sProgram, "IPExternal", sIP);
-					bReturn = true; //erst dann wird das PostCustom-ausgef�hrt
+					bReturn = true; //erst dann wird das PostCustom-ausgeführt
 				}		
 							
 				}//END main:
