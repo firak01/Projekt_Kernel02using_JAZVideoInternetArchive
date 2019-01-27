@@ -39,22 +39,21 @@ public class ApplicationVIA extends KernelUseObjectZZZ{
 			//Das ist dann die Stelle für globale Aktionen, z.B. in TileHexMap-Projekt
 			//---- Bereite Hibernate und die SQLite Datenbank vor.
 			
-			//---- Bereite das Reporten über Log4J vor...
-			//KernelReportContextProviderZZZ objContext = new KernelReportContextProviderZZZ(objKernel, frmMain.getClass().getName(), frmMain.getClass().getName());					
+			//---- Bereite das Reporten über Log4J vor...			
 			KernelReportContextProviderZZZ objContext = new KernelReportContextProviderZZZ(objKernel, frameInfo.getClass().getName());  //Damit ist das ein Context Provider, der die Informationen auf "Modulebene" sucht.
 			ReportLogZZZ.loadKernelContext(objContext, true);  //Mit dem true bewirkt man, dass das file immer neu aus dem ConfigurationsPattern erzeugt wird.		
 			ReportLogZZZ.write(ReportLogZZZ.DEBUG, "Launching Application. Start of main-frame");
 					
 			//---- Starte den Frame
-			boolean bLaunched = frameInfo.launch(objKernel.getApplicationKey() + " - Client (Map)");
+			boolean bLaunched = frameInfo.launch(objKernel.getApplicationKey() + " - Client (Für Domino 8.5.2 Servlet)");
 			if(bLaunched == true){
-				ReportLogZZZ.write(ReportLogZZZ.DEBUG, "Performing action: Launch 'MainVIA', was successfull");
+				ReportLogZZZ.write(ReportLogZZZ.DEBUG, "Performing action: Launch 'ApplicationVIA', was successfull");
 				
 				boolean bCentered = frameInfo.centerOnParent();
 				if(bCentered==true){
-					ReportLogZZZ.write(ReportLogZZZ.DEBUG, "Performing action: CenterOnParent 'MainVIA', was successfull");					
+					ReportLogZZZ.write(ReportLogZZZ.DEBUG, "Performing action: CenterOnParent 'ApplicationVIA', was successfull");					
 				}else{
-					ReportLogZZZ.write(ReportLogZZZ.ERROR, "Performing action: CenterOnParent 'MainVIA', was NOT successfull");	
+					ReportLogZZZ.write(ReportLogZZZ.ERROR, "Performing action: CenterOnParent 'ApplicationVIA', was NOT successfull");	
 				}
 				
 			}

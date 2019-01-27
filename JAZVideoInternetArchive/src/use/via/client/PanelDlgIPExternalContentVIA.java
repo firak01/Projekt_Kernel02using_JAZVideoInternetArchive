@@ -90,6 +90,8 @@ public class PanelDlgIPExternalContentVIA  extends KernelJPanelCascadedZZZ{
 			}
 			sIp = objKernel.getParameterByProgramAlias(sModule, sProgram, "IPExternal");			
 		}		
+		
+		//TODO GOON 20190124: Hier soll unterschieden werden zwischen einem absichtlich eingeragenenne Lersstring und nix.
 		if(StringZZZ.isEmpty(sIp)){
 			sIp = "Enter or refresh";
 		}
