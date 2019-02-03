@@ -2,7 +2,9 @@ package use.via;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.KernelSingletonVIA;
+import basic.zBasic.util.ConfigVIA;
 import basic.zBasic.util.log.ReportLogZZZ;
+import basic.zKernel.IKernelConfigZZZ;
 import basic.zKernel.IKernelZZZ;
 
 public class ApplicationSingletonVIA extends ApplicationVIA{
@@ -42,20 +44,27 @@ public class ApplicationSingletonVIA extends ApplicationVIA{
 	
 		
 	//###################################################
-	/** TODO What the method does.
+	/** Start der Anwendung
 	 * @param args
 	 * 
 	 * lindhaueradmin; 10.09.2008 14:31:05
 	 */
-	public static void main(String[] args) {
-		try{
-		//NEIN, nur im frmMain:   ConfigZZZ objConfig = new ConfigZZZ(saArg);
-		
+	public static void main(String[] saArgs) {
+		try{		
 		//---- Nun das eigentliche KernelObjekt initiieren. Dabei können z.B. Debug-Einstellungen ausgwählt worden sein.
 		//KernelZZZ objKernel = new KernelZZZ(sApplicationKey, sSystemNr, sDir, sFile,(String)null);
 		//20170413 ERSETZE DIESE ZENTRALE STELLE DURCH EIN SINGELTON... KernelZZZ objKernel = new KernelZZZ("THM", "01", "", "ZKernelConfigTileHexMap02Client.ini", (String[]) null);
 	    String[] saFlagZpassed={"USEFORMULA","USEFORMULA_MATH"};
-		KernelSingletonVIA objKernel = KernelSingletonVIA.getInstance( "01", "", "ZKernelConfigVideoArchiveClient.ini", saFlagZpassed);
+	    
+	    KernelSingletonVIA objKernel = null;
+	    if(saArgs==null){
+	    	//Starten mit defaultwerten
+	    	objKernel = KernelSingletonVIA.getInstance( "01", "", "ZKernelConfigVideoArchiveClient.ini", saFlagZpassed);
+	    }else{
+	    	//Entgegennehmen von Argumenten aus der Kommandozeile
+	    	IKernelConfigZZZ objConfig = new ConfigVIA(saArgs);
+	    	objKernel = KernelSingletonVIA.getInstance( objConfig, saFlagZpassed);
+	    }
 		
 		ApplicationSingletonVIA objApplication = ApplicationSingletonVIA.getInstance(objKernel);
 		objApplication.launchIt();
