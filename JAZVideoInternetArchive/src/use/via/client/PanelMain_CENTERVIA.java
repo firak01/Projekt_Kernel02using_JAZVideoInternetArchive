@@ -42,7 +42,7 @@ public class PanelMain_CENTERVIA extends KernelJPanelCascadedZZZ {
 			String sLogo = objKernel.getParameterByModuleAlias(sModule , "FileLogo");
 			
 			if(!StringZZZ.isEmpty(sLogo)){
-				objKernel.getLogObject().WriteLineDate("Pfad f�r das Logo: " + sLogo);
+				objKernel.getLogObject().WriteLineDate("Pfad für das Logo: " + sLogo);
 				ImageIcon objImageIcon = new ImageIcon(sLogo);
 				this.objImage = objImageIcon.getImage();	
 				if(this.objImage.getWidth(null)<=0){

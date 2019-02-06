@@ -9,6 +9,7 @@ public class ConfigVIA extends KernelConfigZZZ{
 	private static String sFILE_CONFIG_DEFAULT = "ZKernelConfigVideoArchiveClient.ini";
 	private static String sKEY_APPLICATION_DEFAULT = "VIA";
 	private static String sNUMBER_SYSTEM_DEFAULT= "01";
+	private static String sPATTERN_DEFAULT="k:s:f:d:";
 
 	public ConfigVIA() throws ExceptionZZZ{
 		super();
@@ -31,10 +32,10 @@ public class ConfigVIA extends KernelConfigZZZ{
 	}
 	@Override
 	public String getPatternStringDefault() {
-		return "k:s:f:d:";
+		return ConfigVIA.sPATTERN_DEFAULT;
 	}
 	@Override
 	public String getSystemNumberDefault() {
 		return ConfigVIA.sNUMBER_SYSTEM_DEFAULT;
-}
+	}
 }
