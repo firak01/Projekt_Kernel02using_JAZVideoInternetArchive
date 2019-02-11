@@ -313,12 +313,28 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		JButton buttonCd = new JButton();
 		buttonCd.setPreferredSize(dimButtonTiny);
 		
-		//Bild hinzuf�gen
-		ImageIcon bild = new ImageIcon("./Jade Metallic_32.png");
+		//Bild hinzufügen
+		//20190211: Lies den Namen der Datei aus der Konfiguration aus
+		String  sImageCdClosed = "";
+		try{
+			sImageCdClosed = objKernel.getParameterByProgramAlias(sModule, sProgram, "Image_CD_closed");
+		}catch(ExceptionZZZ ez){
+			ReportLogZZZ.write(ReportLogZZZ.ERROR, "Image_CD_closed not configured. Will use image/quit.png");
+			sImageCdClosed = "image/quit.png";
+		}
+		ImageIcon bild = new ImageIcon(sImageCdClosed);//ImageIcon bild = new ImageIcon("./Jade Metallic_32.png");
 		buttonCd.setIcon(bild);
 		
-		bild = new ImageIcon("./Red Metallic_32.png");
+		String  sImageCdOpened= "";
+		try{
+			sImageCdOpened = objKernel.getParameterByProgramAlias(sModule, sProgram, "Image_CD_opened");
+		}catch(ExceptionZZZ ez){
+			ReportLogZZZ.write(ReportLogZZZ.ERROR, "Image_CD_opened not configured. Will use image/quit.png");
+			sImageCdOpened = "image/quit.png";
+		}
+		bild = new ImageIcon(sImageCdOpened);//ImageIcon bild = new ImageIcon("./Red Metallic_32.png");		
 		buttonCd.setPressedIcon(bild);
+		
 		buttonCd.setHorizontalAlignment(SwingConstants.CENTER);
 		buttonCd.setVerticalAlignment(SwingConstants.CENTER);
 		
