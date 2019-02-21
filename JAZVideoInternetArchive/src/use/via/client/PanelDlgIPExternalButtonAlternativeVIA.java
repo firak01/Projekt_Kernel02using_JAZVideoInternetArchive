@@ -7,6 +7,7 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JTextField;
+
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
@@ -79,11 +80,27 @@ public class PanelDlgIPExternalButtonAlternativeVIA  extends KernelJPanelDialogB
 					bReturn = true; //erst dann wird das PostCustom-ausgeführt				
 				}else{		
 					System.out.println(ReflectCodeZZZ.getMethodCurrentName() + "# This is a dialog.....");
-					Frame frameParentDlg = dialog.getFrameParent();
 					
-					String sModule = frameParentDlg.getClass().getName();  //der Frame, �ber den diese Dialogbox liegt	
-					KernelJPanelCascadedZZZ panelParent = this.getPanelParent();					
-					String sProgram = panelParent.getDialogParent().getClass().getName();           //Die Dialogbox selbst 
+					String sProgram = "";
+					KernelJPanelCascadedZZZ panelParent = this.getPanelParent();
+					if(panelParent!=null){
+						sProgram = KernelUIZZZ.getProgramName(panelParent);
+					}else{
+						sProgram = this.getClass().getName();
+					}
+								
+					String sModule = dialog.getClass().getName();  //der Frame, über den diese Dialogbox liegt								 
+					if(StringZZZ.isEmpty(sProgram)){
+						ExceptionZZZ ez = new ExceptionZZZ("No program '" + sProgram + "' configured for the module: '" +  sModule + "'", iERROR_CONFIGURATION_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
+						throw ez;
+					}
+					
+					
+//					Frame frameParentDlg = dialog.getFrameParent();
+//					
+//					String sModule = frameParentDlg.getClass().getName();  //der Frame, über den diese Dialogbox liegt	
+//					KernelJPanelCascadedZZZ panelParent = this.getPanelParent();					
+//					String sProgram = panelParent.getDialogParent().getClass().getName();           //Die Dialogbox selbst 
 					
 					objKernel.setParameterByProgramAlias(sModule, sProgram, "IPExternal", sIP);
 					bReturn = true; //erst dann wird das PostCustom-ausgeführt

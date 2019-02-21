@@ -5,7 +5,7 @@ import basic.zKernel.KernelConfigZZZ;
 
 public class ConfigVIA extends KernelConfigZZZ{
 	private static final long serialVersionUID = 1L;
-	private static String sDIRECTORY_CONFIG_DEFAULT = ".";
+	private static String sDIRECTORY_CONFIG_DEFAULT = "<z:Null/>";//Merke: Ein Leerstring ist der Root vom Classpath, z.B. in Eclipse der src-Ordner. Ein "." oder ein NULL-Wert ist der Projektordner in Eclipse
 	private static String sFILE_CONFIG_DEFAULT = "ZKernelConfigVideoArchiveClient.ini";
 	private static String sKEY_APPLICATION_DEFAULT = "VIA";
 	private static String sNUMBER_SYSTEM_DEFAULT= "01";

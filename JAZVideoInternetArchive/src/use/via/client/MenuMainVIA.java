@@ -147,7 +147,7 @@ public class MenuMainVIA extends JMenuBar implements IConstantZZZ, IObjectZZZ, I
 			ReportLogZZZ.write(ReportLogZZZ.DEBUG, "Performing Action: 'Connection/IP External Current'");
 			if(this.dlgIPExternal==null){
 				HashMap<String, Boolean> hmFlag = new HashMap<String, Boolean>();
-				hmFlag.put("isKernelProgram", true);
+				//NEIN: Die Dialogbox ist ein Modul. Das darin enthaltene Panel ist das KernelProgram. hmFlag.put("isKernelProgram", true);
 				
 				this.dlgIPExternal = new DlgIPExternalVIA(this.getKernelObject(), this.getFrameParent(), hmFlag);		
 				this.dlgIPExternal.setText4ButtonOk("USE VALUE");

@@ -40,11 +40,21 @@ import custom.zKernel.LogZZZ;
  * @author 0823
  *
  */
-public class PanelDlgIPExternalContentVIA  extends KernelJPanelCascadedZZZ{
-
+public class PanelDlgIPExternalContentVIA  extends KernelJPanelCascadedZZZ{	
+	/**
+	 * DEFAULT Konstruktor, notwendig, damit man objClass.newInstance(); einfach machen kann.
+	 *                                 
+	 * lindhaueradmin, 23.07.2013
+	 */
+	public PanelDlgIPExternalContentVIA(){
+		super();
+	}
 	public PanelDlgIPExternalContentVIA(IKernelZZZ objKernel, KernelJDialogExtendedZZZ dialogExtended) {
 		super(objKernel, dialogExtended);
 		try{
+		//Diese Panel ist Grundlage für diverse INI-Werte auf die über Buttons auf "Programname" zugegriffen wird.
+		this.setFlagZ(KernelJPanelCascadedZZZ.FLAGZ.COMPONENT_KERNEL_PROGRAM.name(), true);	
+			
 		//Diese einfache Maske besteht aus 3 Zeilen und 4 Spalten. 
 		//Es gibt außen einen Rand von jeweils einer Spalte/Zeile
 		//Merke: gibt man pref an, so bewirkt dies, das die Spalte beim ver�ndern der Fenstergröße nicht angepasst wird, auch wenn grow dahinter steht.
@@ -64,6 +74,7 @@ public class PanelDlgIPExternalContentVIA  extends KernelJPanelCascadedZZZ{
 //		Wichtige Informationen, zum Auslesen von Parametern aus der KernelConfiguration
 		KernelJDialogExtendedZZZ dialog = this.getDialogParent();
 		KernelJFrameCascadedZZZ frameParent = null;
+		//Hier nicht, da die Dialogbox schon ein Flag bekommen hat. this.setFlagZ(KernelJPanelCascadedZZZ.FLAGZ.COMPONENT_KERNEL_PROGRAM.name(), true);//Damit wird es zum PROGRAM
 		if(dialog==null){
 			frameParent = this.getFrameParent();									
 			String sProgram = frameParent.getClass().getName(); //der Frame, in den dieses Panel eingebettet ist
@@ -72,6 +83,8 @@ public class PanelDlgIPExternalContentVIA  extends KernelJPanelCascadedZZZ{
 				ExceptionZZZ ez = new ExceptionZZZ("No module configured for the parent frame/program: '" +  sProgram + "'", iERROR_CONFIGURATION_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;
 			}		
+			
+			//DARIN WIRD NACH DEM ALIASNAMEN 'IP_CONTEXT' GESUCHT, UND DER WERT  FÜR 'IPExternal' geholt.					
 			sIp = objKernel.getParameterByProgramAlias(sModule, "IP_Context", "IPExternal");
 		}else{
 			System.out.println(ReflectCodeZZZ.getMethodCurrentName() + "# This is a dialog.....");
@@ -79,15 +92,17 @@ public class PanelDlgIPExternalContentVIA  extends KernelJPanelCascadedZZZ{
 			String sProgram = "";
 			KernelJPanelCascadedZZZ panelParent = this.getPanelParent();
 			if(panelParent!=null){
-				sProgram = panelParent.getFrameParent().getClass().getName();           //Die Dialogbox selbst
+				sProgram = KernelUIZZZ.getProgramName(panelParent);
 			}else{
 				sProgram = this.getClass().getName();
 			}
+						
 			String sModule = dialog.getClass().getName();  //der Frame, über den diese Dialogbox liegt								 
 			if(StringZZZ.isEmpty(sProgram)){
 				ExceptionZZZ ez = new ExceptionZZZ("No program '" + sProgram + "' configured for the module: '" +  sModule + "'", iERROR_CONFIGURATION_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;
 			}
+			//DARIN WIRD NACH DEM ALIASNAMEN 'IP_CONTEXT' GESUCHT, UND DER WERT  FÜR 'IPExternal' geholt.
 			sIp = objKernel.getParameterByProgramAlias(sModule, sProgram, "IPExternal");			
 		}		
 		

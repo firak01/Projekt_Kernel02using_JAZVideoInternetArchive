@@ -314,25 +314,23 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 		buttonCd.setPreferredSize(dimButtonTiny);
 		
 		//Bild hinzufügen
-		//20190211: Lies den Namen der Datei aus der Konfiguration aus
-		String  sImageCdClosed = "";
-		try{
-			sImageCdClosed = objKernel.getParameterByProgramAlias(sModule, sProgram, "Image_CD_closed");
-		}catch(ExceptionZZZ ez){
-			ReportLogZZZ.write(ReportLogZZZ.ERROR, "Image_CD_closed not configured. Will use image/quit.png");
-			sImageCdClosed = "image/quit.png";
+		//20190211: Lies den Namen der Datei aus der Konfiguration aus und hole dies als ImageIcon-Parameter.		
+		ImageIcon bild = objKernel.getParameterImageIconByProgramAlias(sModule, sProgram, "Image_CD_closed");
+		if(bild==null){
+			String sFilePath = "image/quit.png";
+			java.io.File objFile = FileEasyZZZ.searchFile(sFilePath);
+			String sImageAlternative = objFile.getAbsolutePath();
+			bild = new ImageIcon(sImageAlternative);
 		}
-		ImageIcon bild = new ImageIcon(sImageCdClosed);//ImageIcon bild = new ImageIcon("./Jade Metallic_32.png");
 		buttonCd.setIcon(bild);
-		
-		String  sImageCdOpened= "";
-		try{
-			sImageCdOpened = objKernel.getParameterByProgramAlias(sModule, sProgram, "Image_CD_opened");
-		}catch(ExceptionZZZ ez){
-			ReportLogZZZ.write(ReportLogZZZ.ERROR, "Image_CD_opened not configured. Will use image/quit.png");
-			sImageCdOpened = "image/quit.png";
+			
+		bild = objKernel.getParameterImageIconByProgramAlias(sModule, sProgram, "Image_CD_opened");	
+		if(bild==null){
+			String sFilePath = "image/quit.png";
+			java.io.File objFile = FileEasyZZZ.searchFile(sFilePath);
+			String sImageAlternative = objFile.getAbsolutePath();
+			bild = new ImageIcon(sImageAlternative);
 		}
-		bild = new ImageIcon(sImageCdOpened);//ImageIcon bild = new ImageIcon("./Red Metallic_32.png");		
 		buttonCd.setPressedIcon(bild);
 		
 		buttonCd.setHorizontalAlignment(SwingConstants.CENTER);

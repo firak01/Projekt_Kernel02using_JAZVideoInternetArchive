@@ -1,9 +1,13 @@
 package use.via.client.module.ip;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import custom.zKernel.file.ini.FileIniZZZ;
 import basic.zKernel.IKernelZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
@@ -17,6 +21,7 @@ import basic.zKernel.net.client.KernelPingHostZZZ;
 import basic.zKernel.net.client.KernelReaderPageZZZ;
 import basic.zKernel.net.client.KernelReaderURLZZZ;
 import basic.zKernelUI.KernelUIZZZ;
+import basic.zKernelUI.component.KernelJDialogExtendedZZZ;
 import basic.zKernelUI.component.KernelJFrameCascadedZZZ;
 import basic.zKernelUI.component.KernelJPanelCascadedZZZ;
 
@@ -26,7 +31,8 @@ import basic.zKernelUI.component.KernelJPanelCascadedZZZ;
  *
  */
 public class ProgramIPContentVIA extends KernelUseObjectZZZ{
-	private String sModuleAlias=null;
+	private String sModuleName=null;
+	private String sProgramName=null;
 	private String sURL2Read=null;
 	private String sIPExternal = null;
 	private String sIPProxy = null;
@@ -61,30 +67,43 @@ public class ProgramIPContentVIA extends KernelUseObjectZZZ{
 				}							
 			}//End check
 			
-			this.panel = panel;
-		
-			KernelJFrameCascadedZZZ frameParent = this.panel.getFrameParent();								
-			JFrame frameRoot = frameParent.searchFrameRoot();//frameParent.getFrameParent().getClass().getName(); 
-			String sModuleAlias = frameRoot.getClass().getName();
+			this.setPanelParent(panel);
 			
-			if(StringZZZ.isEmpty(sModuleAlias)){
-				ExceptionZZZ ez = new ExceptionZZZ("ModuleAlias", iERROR_PARAMETER_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
+			KernelJDialogExtendedZZZ dialog = this.getPanelParent().getDialogParent();  //this.getDialogParent();
+			String sModuleName = dialog.getClass().getName();  //der Frame, über den diese Dialogbox liegt	
+			if(StringZZZ.isEmpty(sModuleName)){
+				ExceptionZZZ ez = new ExceptionZZZ("ModuleName", iERROR_PARAMETER_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;
 			}else{
-				this.sModuleAlias = sModuleAlias;
+				this.setModuleName(sModuleName);
 			}
 			
-			//### Pr�fen, ob das Modul konfiguriert ist
-			boolean bIsConfigured = objKernel.proofModuleFileIsConfigured(sModuleAlias);
-			if(bIsConfigured==false){
-				ExceptionZZZ ez = new ExceptionZZZ("ModuleAlias='" + sModuleAlias + "' seems not to be configured for the Application '" + objKernel.getApplicationKey(), iERROR_CONFIGURATION_MISSING, ReflectCodeZZZ.getMethodCurrentName());
+			KernelJPanelCascadedZZZ panelParent = this.getPanelParent();
+			String sProgramName = ""; 
+			if(panelParent!=null){
+				sProgramName = KernelUIZZZ.getProgramName(panelParent);
+			}else{
+				sProgramName = this.getClass().getName();
+			}
+			if(StringZZZ.isEmpty(sProgramName)){
+				ExceptionZZZ ez = new ExceptionZZZ("ProgramName", iERROR_PARAMETER_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;
-			}		
-			boolean bExists = objKernel.proofModuleFileExists(sModuleAlias);
-			if(bExists==false){
-				ExceptionZZZ ez = new ExceptionZZZ("ModuleAlias='" + sModuleAlias + "' is configured, but the file does not exist for the Application '" + objKernel.getApplicationKey(), iERROR_CONFIGURATION_MISSING, ReflectCodeZZZ.getMethodCurrentName());
-				throw ez;
-			}	
+			}else{
+				this.setProgramName(sProgramName);
+			}
+			
+			
+			//### Prüfen, ob das Modul konfiguriert ist
+//			boolean bIsConfigured = objKernel.proofModuleFileIsConfigured(sModuleAlias);
+//			if(bIsConfigured==false){
+//				ExceptionZZZ ez = new ExceptionZZZ("ModuleAlias='" + sModuleAlias + "' seems not to be configured for the Application '" + objKernel.getApplicationKey(), iERROR_CONFIGURATION_MISSING, ReflectCodeZZZ.getMethodCurrentName());
+//				throw ez;
+//			}		
+//			boolean bExists = objKernel.proofModuleFileExists(sModuleAlias);
+//			if(bExists==false){
+//				ExceptionZZZ ez = new ExceptionZZZ("ModuleAlias='" + sModuleAlias + "' is configured, but the file does not exist for the Application '" + objKernel.getApplicationKey(), iERROR_CONFIGURATION_MISSING, ReflectCodeZZZ.getMethodCurrentName());
+//				throw ez;
+//			}	
 			
 			
 		}//END main
@@ -95,27 +114,79 @@ public class ProgramIPContentVIA extends KernelUseObjectZZZ{
 	public KernelJPanelCascadedZZZ getPanelParent(){
 		return this.panel;
 	}
-	public String getProgramAlias() throws ExceptionZZZ{
-		String sModuleAlias = this.getModuleAlias();
-		
-		//Ermittlung des Aliasses f�r das Program
-		//TODO GOON Diese Ermittlung global zug�nglich machen ggf. als Static Function von KernelUIZZZ.
-		//			String sParameter= KernelActionCascadedZZZ.atest();
-		KernelJPanelCascadedZZZ panelParent = this.getPanelParent();	
-		String sParameter = KernelUIZZZ.getProgramName(panelParent);
-		/*
-		if(panelParent.getDialogParent()==null){
-			sParameter = panelParent.getPanelParent().getClass().getName();
-		}else{
-			sParameter = panelParent.getDialogParent().getClass().getName();
-		}*/
-		
-		IKernelZZZ objKernel = this.getKernelObject();
-		String stemp = objKernel.getParameterByModuleAlias(sModuleAlias, sParameter);
-		return stemp;
+	public void setPanelParent(KernelJPanelCascadedZZZ panel){
+		this.panel = panel;
 	}
-	public String getModuleAlias(){
-		return this.sModuleAlias;
+	/**Merke: Man kann den konkreten Program Alias nicht ermitteln, wenn man nicht weiss, in welchen Wert er gesetzt werden soll.
+	 *        Darum kann hier nur eine ArrayListe zurückgegeben werden.
+	 * @return
+	 * @throws ExceptionZZZ
+	 */
+	public ArrayList<String> getProgramAlias() throws ExceptionZZZ{
+		ArrayList<String> listasReturn = new ArrayList<String>();
+		main:{			
+		IKernelZZZ objKernel = this.getKernelObject();
+		
+		FileIniZZZ objFileIniConfig = objKernel.getFileConfigIni();
+		String sMainSection = this.getModuleName();
+		String sProgramName = this.getProgramName();
+		String sSystemNumber = objKernel.getSystemNumber();
+		listasReturn = objKernel.getProgramAliasUsed(objFileIniConfig, sMainSection, sProgramName, sSystemNumber);
+
+		}//end main:
+		return listasReturn;
+	}
+	/**Gehe die ProgramAlias-Namen durch und prüfe, wo der Wert gesetzt ist . 
+	 * Das ist dann der verwendete Alias.
+	 * @param sPropertyName
+	 * @return
+	 * @throws ExceptionZZZ 
+	 */
+	public String getProgramAlias(String sProperty) throws ExceptionZZZ{
+		String sReturn = null;
+		main:{
+			ArrayList<String> listasProgramAlias = this.getProgramAlias();
+			
+			String sModule = this.getModuleUsed();
+			FileIniZZZ objFileIniConfig = this.getKernelObject().getFileConfigIniByAlias(sModule);
+			
+			//+++ Als Program mit Alias:
+			Iterator<String> itAlias = listasProgramAlias.iterator();
+			while(itAlias.hasNext()){				
+				String sProgramAliasUsed = itAlias.next();
+				String sSection = sProgramAliasUsed;
+				System.out.println(ReflectCodeZZZ.getMethodCurrentNameLined(0)+ ": (x) Verwende als sSection '"+ sSection + "' für die Suche nach der Property '" + sProperty + "'");
+				if(!StringZZZ.isEmpty(sSection)){
+					boolean bSectionExists = objFileIniConfig.proofSectionExists(sSection);
+					if(bSectionExists==true){
+						String sValue = objFileIniConfig.getPropertyValue(sSection, sProperty);
+						if(sValue != null){
+							System.out.println(ReflectCodeZZZ.getMethodCurrentNameLined(0)+ ": (x)Value gefunden für Property '" + sProperty + "'='" + sReturn + "'");
+							sReturn = sSection;
+							break main;
+						}else{
+							System.out.println(ReflectCodeZZZ.getMethodCurrentNameLined(0)+ ": (x) Kein Value gefunden in Section '" + sSection + "' für die Property: '" + sProperty + "'.");
+						}
+					}
+				}
+			}
+			System.out.println(ReflectCodeZZZ.getMethodCurrentNameLined(0)+ ": (x) Keinen Value gefunden in einem möglichen Programalias. Suche direkter nach der Property.'" + sProperty +"'.");			
+		}
+		return sReturn;
+	}
+
+	public String getProgramName(){
+		return this.sProgramName;
+	}
+	public void setProgramName(String sProgramName){
+		this.sProgramName = sProgramName;
+	}
+	
+	public String getModuleName(){
+		return this.sModuleName;
+	}
+	public void setModuleName(String sModuleName){
+		this.sModuleName=sModuleName;
 	}
 	
 	public String getUrl2Read() throws ExceptionZZZ{
@@ -130,8 +201,8 @@ public class ProgramIPContentVIA extends KernelUseObjectZZZ{
 		String sReturn = null;
 		main:{
 			IKernelZZZ objKernel = this.getKernelObject();
-			String sModule = this.getModuleAlias();
-			String sProgram = this.getProgramAlias(); 
+			String sModule = this.getModuleName();
+			String sProgram = this.getProgramName();
 			sReturn = objKernel.getParameterByProgramAlias(sModule, sProgram, "URL2Read");			
 		}
 		return sReturn;
@@ -148,8 +219,8 @@ public class ProgramIPContentVIA extends KernelUseObjectZZZ{
 		String sReturn = null;
 		main:{
 			IKernelZZZ objKernel = this.getKernelObject();
-			String sModule = this.getModuleAlias();
-			String sProgram = this.getProgramAlias();
+			String sModule = this.getModuleName();
+			String sProgram = this.getProgramName();
 			sReturn = objKernel.getParameterByProgramAlias(sModule, sProgram, "ProxyHost");			
 		}
 		return sReturn;		
@@ -166,8 +237,8 @@ public class ProgramIPContentVIA extends KernelUseObjectZZZ{
 		String sReturn = null;
 		main:{
 			IKernelZZZ objKernel = this.getKernelObject();
-			String sModule = this.getModuleAlias();
-			String sProgram = this.getProgramAlias();
+			String sModule = this.getModuleName();
+			String sProgram = this.getProgramName();
 			sReturn = objKernel.getParameterByProgramAlias(sModule, sProgram, "ProxyPort");			
 		}
 		return sReturn;		
