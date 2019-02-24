@@ -1,6 +1,7 @@
 package basic.zBasic;
 
 import basic.zBasic.util.ConfigVIA;
+import basic.zBasic.util.file.JarEasyZZZ;
 import basic.zKernel.IKernelConfigZZZ;
 import basic.zKernel.KernelKernelZZZ;
 
@@ -88,4 +89,35 @@ public class KernelSingletonVIA extends KernelKernelZZZ{
 			}
 			return objConfig;
 }
+
+		//Aus iRessourceHandlingObjectZZZ
+		//### Ressourcen werden anders geholt, wenn die Klasse in einer JAR-Datei gepackt ist. Also:
+		/** Das Problem ist, das ein Zugriff auf Ressourcen anders gestaltet werden muss, wenn die Applikation in einer JAR-Datei läuft.
+		 *   Merke: Static Klassen müssen diese Methode selbst implementieren.
+		 * @return
+		 * @author lindhaueradmin, 21.02.2019
+		 * @throws ExceptionZZZ 
+		 */
+		@Override
+		public boolean isInJar() throws ExceptionZZZ{
+			boolean bReturn = false;
+			main:{
+				bReturn = JarEasyZZZ.isInJar(this.getClass());
+			}
+			return bReturn;
+		}
+		
+		/** Das Problem ist, das ein Zugriff auf Ressourcen anders gestaltet werden muss, wenn die Applikation in einer JAR-Datei läuft.
+		 *   Merke: Static Klassen müssen diese Methode selbst implementieren. Das ist dann das Beispiel.
+		 * @return
+		 * @author lindhaueradmin, 21.02.2019
+		 * @throws ExceptionZZZ 
+		 */
+		public static boolean isInJarStatic() throws ExceptionZZZ{
+			boolean bReturn = false;
+			main:{
+				bReturn = JarEasyZZZ.isInJar(KernelSingletonVIA.class);
+			}
+			return bReturn;
+		}
 }
