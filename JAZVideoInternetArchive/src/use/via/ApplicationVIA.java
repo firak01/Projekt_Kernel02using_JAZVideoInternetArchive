@@ -5,14 +5,17 @@ import java.util.HashMap;
 import use.via.client.FrmMainSingletonVIA;
 import custom.zKernel.file.ini.FileIniZZZ;
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.IRessourceHandlingObjectZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import basic.zBasic.util.file.JarEasyZZZ;
 import basic.zBasic.util.log.KernelReportContextProviderZZZ;
 import basic.zBasic.util.log.ReportLogZZZ;
 import basic.zKernel.IKernelZZZ;
 import basic.zKernel.KernelUseObjectZZZ;
+import basic.zKernel.KernelZZZ;
 
-public class ApplicationVIA extends KernelUseObjectZZZ{
+public class ApplicationVIA extends KernelUseObjectZZZ implements IRessourceHandlingObjectZZZ{
 	//Hier wäre der Platz für globale Variablen, Beispiele stammen aus dem TileHexMap-Projekt	
 //	private String sBaseDirectoryImages = null;
 //	private String sApplicationDirectoryDownload = null;
@@ -101,7 +104,8 @@ public class ApplicationVIA extends KernelUseObjectZZZ{
 //				String sHexZoomFactorUsed = hmZoomFactor.get(sHexZoomFactorAlias);				
 //				objIni.setVariable("GuiZoomFactorUsed", sHexZoomFactorUsed);
 //			}
-						
+				
+			bReturn = true;
 		}//end main:		
 		return bReturn;
 	}
@@ -269,5 +273,30 @@ public class ApplicationVIA extends KernelUseObjectZZZ{
 				System.out.println("ExceptionZZZ (aus compatibilitaetgruenden mit Version vor Java 6 nicht weitergereicht) : " + e.getDetailAllLast());
 				return false;
 			}
-		}		
+		}
+		
+		//aus IResscourceHandlingObjectZZZ
+		//### Ressourcen werden anders geholt, wenn die Klasse in einer JAR-Datei gepackt ist. Also:					
+			/** Das Problem ist, das ein Zugriff auf Ressourcen anders gestaltet werden muss, wenn die Applikation in einer JAR-Datei läuft.
+			 *   Merke: Static Klassen müssen diese Methode selbst implementieren. Das ist dann das Beispiel.
+			 * @return
+			 * @author lindhaueradmin, 21.02.2019
+			 * @throws ExceptionZZZ 
+			 */
+			public static boolean isInJarStatic() throws ExceptionZZZ{
+				boolean bReturn = false;
+				main:{
+					bReturn = JarEasyZZZ.isInJar(KernelZZZ.class);
+				}
+				return bReturn;
+			}
+			@Override
+			public boolean isInJar() throws ExceptionZZZ {
+				boolean bReturn = false;
+				main:{
+					bReturn = JarEasyZZZ.isInJar(this.getClass());
+				}
+				return bReturn;
+			}
+		
 }
