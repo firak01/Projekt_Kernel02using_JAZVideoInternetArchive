@@ -5,7 +5,7 @@ import java.util.HashMap;
 import use.via.client.FrmMainSingletonVIA;
 import custom.zKernel.file.ini.FileIniZZZ;
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.IRessourceHandlingObjectZZZ;
+import basic.zBasic.IResourceHandlingObjectZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.file.JarEasyZZZ;
@@ -15,7 +15,7 @@ import basic.zKernel.IKernelZZZ;
 import basic.zKernel.KernelUseObjectZZZ;
 import basic.zKernel.KernelZZZ;
 
-public class ApplicationVIA extends KernelUseObjectZZZ implements IRessourceHandlingObjectZZZ{
+public class ApplicationVIA extends KernelUseObjectZZZ implements IResourceHandlingObjectZZZ{
 	//Hier wäre der Platz für globale Variablen, Beispiele stammen aus dem TileHexMap-Projekt	
 //	private String sBaseDirectoryImages = null;
 //	private String sApplicationDirectoryDownload = null;
