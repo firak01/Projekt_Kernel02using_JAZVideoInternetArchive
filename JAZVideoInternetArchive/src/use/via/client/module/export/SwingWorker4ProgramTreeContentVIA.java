@@ -311,8 +311,9 @@ public class SwingWorker4ProgramTreeContentVIA extends SwingWorker implements IO
 		 * @param sFlagName
 		 * @return
 		 * lindhaueradmin, 23.07.2013
+		 * @throws ExceptionZZZ 
 		 */
-		public boolean proofFlagZExists(String sFlagName){
+		public boolean proofFlagZExists(String sFlagName) throws ExceptionZZZ{
 			boolean bReturn = false;
 			main:{
 				if(StringZZZ.isEmpty(sFlagName))break main;
