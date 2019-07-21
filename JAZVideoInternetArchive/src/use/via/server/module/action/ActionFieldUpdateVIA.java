@@ -12,7 +12,6 @@ import lotus.domino.View;
 import use.via.server.DocumentCategorizerZZZ;
 import use.via.server.IActionConstantZZZ;
 import use.via.server.ICategoryConstantZZZ;
-
 import custom.zKernel.LogZZZ;
 import custom.zNotes.kernel.KernelNotesLogZZZ;
 import custom.zNotes.kernel.KernelNotesZZZ;
@@ -21,6 +20,7 @@ import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.web.cgi.UrlLogicEeZZZ;
 import basic.zBasic.util.web.cgi.UrlLogicZZZ;
+import basic.zKernel.IKernelConfigSectionEntryZZZ;
 import basic.zNotes.basic.util.web.cgi.NotesCgiAnalyserZZZ;
 import basic.zNotes.document.DocumentZZZ;
 import basic.zNotes.use.log4j.NotesReportLogZZZ;
@@ -31,7 +31,7 @@ public class ActionFieldUpdateVIA extends ActionHttpVIA implements IActionResult
 	private Vector vecValueNew = new Vector();
 	private boolean bFlagDontSaveInitialDocument = false;
 	
-	/** Dieser Konstruktor wird verwendet in diversen Tests. Paramer, die sonst per HttpServletRequest übergeben werden müssen dann manuell gesetz werden
+	/** Dieser Konstruktor wird verwendet in diversen Tests. Paramer, die sonst per HttpServletRequest ï¿½bergeben werden mï¿½ssen dann manuell gesetz werden
 	* lindhaueradmin; 11.07.2008 11:41:05
 	 * @param objKernelNotes
 	 * @param sFlagControl
@@ -42,11 +42,11 @@ public class ActionFieldUpdateVIA extends ActionHttpVIA implements IActionResult
 	}
 	
 	
-	/** Konstruktor, wie er im Servlet verwendet wird. Diverse Übergabeparameter werden aus dem HttpServletRequest ausgelesen
+	/** Konstruktor, wie er im Servlet verwendet wird. Diverse ï¿½bergabeparameter werden aus dem HttpServletRequest ausgelesen
 	* lindhaueradmin; 11.07.2008 11:41:57
 	 * @param objKernelNotes
 	 * @param req  
-	 * @param sFlagControl:   "dont_save_initial_document  -- bewirkt, dass der neuen Wert in dem eigentlichen Ausgangsdokument nicht gespeichert wird, sondern nur in den abhängingen Dokumente 
+	 * @param sFlagControl:   "dont_save_initial_document  -- bewirkt, dass der neuen Wert in dem eigentlichen Ausgangsdokument nicht gespeichert wird, sondern nur in den abhï¿½ngingen Dokumente 
 	 * @throws ExceptionZZZ
 	 */
 	public ActionFieldUpdateVIA(KernelNotesZZZ objKernelNotes, HttpServletRequest req, String[] saFlagControl) throws ExceptionZZZ{
@@ -59,7 +59,7 @@ public class ActionFieldUpdateVIA extends ActionHttpVIA implements IActionResult
 			}
 					
 			
-			//TODO: Eigenltich sollte hier ein Mapper Store Objekt übergeben werden. Das kann man dann für einen Test als Eingabe-Objekt verwenden !!!
+			//TODO: Eigenltich sollte hier ein Mapper Store Objekt ï¿½bergeben werden. Das kann man dann fï¿½r einen Test als Eingabe-Objekt verwenden !!!
 	
 			//1. Parameter DocId entgegennehmen
 			String sDocId = req.getParameter(IActionConstantZZZ.sPARAMETER_DOCID);
@@ -68,7 +68,7 @@ public class ActionFieldUpdateVIA extends ActionHttpVIA implements IActionResult
 				throw ez;
 			}
 			NotesReportLogZZZ.write(NotesReportLogZZZ.DEBUG, "DocID=" + sDocId, true);
-			this.setDocIdCurrent(sDocId); //Merke: prüft gleichzeitig auf eine "valide" docId
+			this.setDocIdCurrent(sDocId); //Merke: prï¿½ft gleichzeitig auf eine "valide" docId
 			
 			
 			//2. Parameter Feldname entgegennehmen
@@ -81,14 +81,14 @@ public class ActionFieldUpdateVIA extends ActionHttpVIA implements IActionResult
 			this.setFieldname(sFieldname);
 			
 			//3. Parameter neuer Wert entgegennehmen
-			//TODO: ÜBERGABE VON MEHERFACHWERTEN _ JASON SYNTAX
+			//TODO: ï¿½BERGABE VON MEHERFACHWERTEN _ JASON SYNTAX
 			String sFieldValue = req.getParameter(IActionConstantZZZ.sPARAMETER_FIELDVALUE);
 			NotesReportLogZZZ.write(NotesReportLogZZZ.DEBUG, "value=" + sFieldValue, true);
 			
-			//!!! Ein leerwet bedeutet Feld löschen !!!
+			//!!! Ein leerwet bedeutet Feld lï¿½schen !!!
 			
 			Vector vecValue = this.getValueNew();
-			vecValue.add(sFieldValue); //TODO Das müssen bei Mehrfachwerten die unterschiedlichen Werte sein !!!
+			vecValue.add(sFieldValue); //TODO Das mï¿½ssen bei Mehrfachwerten die unterschiedlichen Werte sein !!!
 			
 		}//END MAIN:
 	}
@@ -96,7 +96,7 @@ public class ActionFieldUpdateVIA extends ActionHttpVIA implements IActionResult
 	
 
 
-	/* Führt die Aktualsierung des Felds im Dokument durch
+	/* Fï¿½hrt die Aktualsierung des Felds im Dokument durch
 	 * 
 	 *  (non-Javadoc)
 	 * @see use.via.server.module.action.ActionVIA#start()
@@ -121,7 +121,7 @@ public class ActionFieldUpdateVIA extends ActionHttpVIA implements IActionResult
 				}
 				
 				Vector vecValueNew = this.getValueNew();
-				//Merke: Entfernen des Felds wäre bei leerem Vector möglich
+				//Merke: Entfernen des Felds wï¿½re bei leerem Vector mï¿½glich
 				
 				objKernelNotes = this.getKernelNotesObject();
 				if(objKernelNotes==null){
@@ -163,7 +163,7 @@ public class ActionFieldUpdateVIA extends ActionHttpVIA implements IActionResult
 				
 				 DocumentCategorizerZZZ objCat = new DocumentCategorizerZZZ(objKernelNotes, doc2update);
 				
-				//3a Neuen Feldwert in das Dokument setzen, damit für die abhängigen Dokumente auch schon etwas zu aktualiseren ist
+				//3a Neuen Feldwert in das Dokument setzen, damit fï¿½r die abhï¿½ngigen Dokumente auch schon etwas zu aktualiseren ist
 				objCat.updateCategory(sFieldname, vecValueNew);
 				boolean bSaveInitialDoc = this.getFlag("dont_save_initial_document"); //Damit soll ggf. die Entstehung von Replzierkonflikten vermieden werden
 				if(bSaveInitialDoc==true){
@@ -176,8 +176,8 @@ public class ActionFieldUpdateVIA extends ActionHttpVIA implements IActionResult
 					NotesReportLogZZZ.write(NotesReportLogZZZ.DEBUG, "Flag 'Dont_Save_inital_document' was set. Document was not saved. Will only save depending documents.", true);
 				}
 				 
-				//3b  Die Dokumente in der Kategorsierung dieses Felds ändern
-				//+++"abhängige"  Dokumente zusammensuchen
+				//3b  Die Dokumente in der Kategorsierung dieses Felds ï¿½ndern
+				//+++"abhï¿½ngige"  Dokumente zusammensuchen
 				 DocumentCollection colFound = objCat.searchDocumentDependingAll(db);
 				 if(colFound.getCount()==0){
 					 NotesReportLogZZZ.write(NotesReportLogZZZ.DEBUG, "NO depending document found", true);
@@ -191,7 +191,7 @@ public class ActionFieldUpdateVIA extends ActionHttpVIA implements IActionResult
 						boolean bSuccess = objCat.updateDocumentCategory(doctemp, sFieldname);											
 						
 						if(bSuccess==true){						
-							//Gefundene und veränderte Dokumente speichern
+							//Gefundene und verï¿½nderte Dokumente speichern
 							if( doctemp.save(true,false, false)==false){
 								ExceptionZZZ ez = new ExceptionZZZ("Unable to save document, which uses the documents categories: '" + doctemp.getUniversalID() +"'", iERROR_RUNTIME, this.getClass().getName(), ReflectCodeZZZ.getMethodCurrentName());
 								throw ez;
@@ -202,7 +202,7 @@ public class ActionFieldUpdateVIA extends ActionHttpVIA implements IActionResult
 				 										
 				iReturn = IActionConstantZZZ.iSUCCESS_CASE;
 				
-				//20080710: TODO Alle als embedded View genutzten Ansichten (im Ausgangsdokument) aktualisieren, damit diese auch die abhängigen Dokumente enthält
+				//20080710: TODO Alle als embedded View genutzten Ansichten (im Ausgangsdokument) aktualisieren, damit diese auch die abhï¿½ngigen Dokumente enthï¿½lt
 				boolean bResult = this.refreshViewEmbedded(sDocId);
 				if(bResult==true){
 					 NotesReportLogZZZ.write(NotesReportLogZZZ.DEBUG, "Refreshing Embedded View was successful.", true);
@@ -248,7 +248,7 @@ public class ActionFieldUpdateVIA extends ActionHttpVIA implements IActionResult
 
 	
 	//########   GETTER / SETTER
-	/** DocId wird per Parameter aus dem HttpRequest geholt und hier intern gesetzt. Dabei findet eine Prüfung auf Validität statt.
+	/** DocId wird per Parameter aus dem HttpRequest geholt und hier intern gesetzt. Dabei findet eine Prï¿½fung auf Validitï¿½t statt.
 	* @param sDocId
 	* @throws ExceptionZZZ
 	* 
@@ -295,7 +295,8 @@ public class ActionFieldUpdateVIA extends ActionHttpVIA implements IActionResult
 		main:{
 			//try{
 				if(iCase == ActionVIA.iSUCCESS_CASE){					
-					String sPage = this.getKernelObject().getParameterByProgramAlias(ServletActionExecuteVIA.class.getName(), this.getClass().getName(), "PageOnCaseSuccess");
+					IKernelConfigSectionEntryZZZ objEntry = this.getKernelObject().getParameterByProgramAlias(ServletActionExecuteVIA.class.getName(), this.getClass().getName(), "PageOnCaseSuccess");
+					String sPage = objEntry.getValue();
 					if(sPage.startsWith("/")){ //Zugriff auf Ressource in der lokalen Datenbank
 											
 						//FGL 20090404 - Hier den Pfad mit dem "richtigen" Servernamen ersetzen (der sich unterscheidet je nachdem, ob der Aufruf aus dem Internet oder Intranet stammt....

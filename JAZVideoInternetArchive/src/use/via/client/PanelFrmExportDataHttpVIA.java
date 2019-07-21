@@ -51,6 +51,7 @@ import javax.swing.tree.TreeSelectionModel;
 
 import lotus.domino.Document;
 
+
 //import org.apache.commons.httpclient.Cookie;
 //import org.apache.commons.httpclient.Credentials;
 //import org.apache.commons.httpclient.Header;
@@ -147,6 +148,7 @@ import basic.zKernelUI.component.model.ISenderSelectionResetZZZ;
 import basic.zKernelUI.component.model.KernelSenderComponentSelectionResetZZZ;
 import basic.zKernelUI.component.model.JTree.ModelJTreeNodeRootDummyZZZ;
 import basic.zKernelUI.util.KernelJComboBoxHelperZZZ;
+import basic.zKernel.IKernelConfigSectionEntryZZZ;
 import basic.zKernel.IKernelZZZ;
 import custom.zUtil.io.FileZZZ;
 import de.tOnline.homepage.fgl.jazVideoInternetArchiveClient.ArchiveEntry;
@@ -259,7 +261,8 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 				
 		String sDriveDefault;
 		try{
-			sDriveDefault = objKernel.getParameterByProgramAlias(sModule, sProgram, "DriveDefault");
+			IKernelConfigSectionEntryZZZ objEntry = objKernel.getParameterByProgramAlias(sModule, sProgram, "DriveDefault");
+			sDriveDefault = objEntry.getValue();
 		}catch(ExceptionZZZ ez){
 			ReportLogZZZ.write(ReportLogZZZ.ERROR, "DriveDefault not configured. Will use c:\\");
 			sDriveDefault = "C:\\";
@@ -633,7 +636,8 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 			
 			//Falls die Datei nicht existiert, dort erzeugen und mit Vorbelegung versehen.
 			if(fileCatalogFileCompression.exists()==false){
-				String sCatalogFileCompression = objKernel.getParameterByProgramAlias(sModule, sProgram, "CatalogFileCompressionFilename");
+				IKernelConfigSectionEntryZZZ objEntry =  objKernel.getParameterByProgramAlias(sModule, sProgram, "CatalogFileCompressionFilename");
+				String sCatalogFileCompression = objEntry.getValue();
 				if(!StringZZZ.isEmpty(sCatalogFileCompression)){					
 					try {
 						Stream stream = new Stream(fileCatalogFileCompression.getPath(), 1);
@@ -1150,7 +1154,8 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 					break main;
 				}else if(fileCatalog.exists()==false){
 					ReportLogZZZ.write(ReportLogZZZ.INFO, "File not found, generating it !!! : '" + fileCatalog.getPath() + "', configured for the property 'CatalogSerieTitleFilename' in the program '" + sProgram + "', and module '" + sModule +"'");
-					String sCatalog = objKernel.getParameterByProgramAlias(sModule, sProgram, "CatalogSerieTitleFilename");
+					IKernelConfigSectionEntryZZZ objEntry =  objKernel.getParameterByProgramAlias(sModule, sProgram, "CatalogSerieTitleFilename");
+					String sCatalog = objEntry.getValue();
 					try {
 						Stream streamTemp = new Stream(sCatalog, 1);
 						streamTemp.flush();
@@ -1408,16 +1413,20 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 				//TODO						
 				
 				//+++ lies den Benutzernamen und das Kennwort aus der ini-Konfiguration aus.	
-				String sUsername = objKernel.getParameterByProgramAlias(sModule, "Login_Context", "Username");
-				String sPassword = objKernel.getParameterByProgramAlias(sModule, "Login_Context", "Password");
+				IKernelConfigSectionEntryZZZ objEntry =  objKernel.getParameterByProgramAlias(sModule, "Login_Context", "Username");
+				String sUsername = objEntry.getValue();
+				objEntry =  objKernel.getParameterByProgramAlias(sModule, "Login_Context", "Password");
+				String sPassword = objEntry.getValue();
 								
 				//+++ lies die URL des Servlets UND der Authentifizierung aus
-				//a) Das geh�rt in den Export_Context
-				String sUrlServlet = objKernel.getParameterByProgramAlias(sModule, "Export_Context", "URLServlet"); //"http://" + sIPExternal + "/servlet/VIADocumentCreate";
+				//a) Das gehört in den Export_Context
+				objEntry = objKernel.getParameterByProgramAlias(sModule, "Export_Context", "URLServlet"); //"http://" + sIPExternal + "/servlet/VIADocumentCreate";
+				String sUrlServlet = objEntry.getValue();
 				sUrlServlet = StringZZZ.trimQuotationMarked(sUrlServlet);
 				
-				//b) Das geh�rt in den "Login_Context"					
-				String sUrlAuthentification = objKernel.getParameterByProgramAlias(sModule, "Login_Context", "URLLogin");	//"http://" + sIPExternal + "/names.nsf?Login";				
+				//b) Das gehört in den "Login_Context"					
+				objEntry = objKernel.getParameterByProgramAlias(sModule, "Login_Context", "URLLogin");	//"http://" + sIPExternal + "/names.nsf?Login";
+				String sUrlAuthentification = objEntry.getValue();
 				sUrlAuthentification = StringZZZ.trimQuotationMarked(sUrlAuthentification);
 				
 				//######################################
@@ -1730,7 +1739,8 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 //				*/
 //				
 				//+++ Im Client soll konfiguriert werden k�nnen, was als Antwort zur�ckkommen soll, XML oder html. Das wird vom Servlet ausgewertet.
-				String sResultContentType = objKernel.getParameterByProgramAlias(sModule, "Export_Context", "ResultContentType");  //Merke: text/html ist default
+				objEntry = objKernel.getParameterByProgramAlias(sModule, "Export_Context", "ResultContentType");  //Merke: text/html ist default
+				String sResultContentType = objEntry.getValue();
 				if(sResultContentType.trim().toLowerCase().equals("text/xml")){
 					nvpsServlet.add(new BasicNameValuePair("ResultContentType", sResultContentType.trim().toLowerCase()));				 
 				}
@@ -1791,10 +1801,10 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 							}
 							
 							
-							//+++ R�ckgabe an den Client,  das zuvorher alles leergesetze wieder bef�llen. Wird dies nicht ausgef�hrt, dann ist ein Fehler im Client passiert oder der Wert wurde im Servlet nicht gef�llt.
-							String sTagMessage= objKernel.getParameterByProgramAlias(sModule, "Export_Context", "ResultTagMessage"); 
-							String sTagIdCarrier= objKernel.getParameterByProgramAlias(sModule, "Export_Context", "ResultTagIdCarrier"); 
-							String sTagSequenceNrCarrier = objKernel.getParameterByProgramAlias(sModule, "Export_Context", "ResultTagSequenzeNrCarrier");
+							//+++ R�ckgabe an den Client,  das zuvorher alles leergesetze wieder bef�llen. Wird dies nicht ausgeführt, dann ist ein Fehler im Client passiert oder der Wert wurde im Servlet nicht gef�llt.
+							String sTagMessage= objKernel.getParameterByProgramAlias(sModule, "Export_Context", "ResultTagMessage").getValue(); 
+							String sTagIdCarrier= objKernel.getParameterByProgramAlias(sModule, "Export_Context", "ResultTagIdCarrier").getValue(); 
+							String sTagSequenceNrCarrier = objKernel.getParameterByProgramAlias(sModule, "Export_Context", "ResultTagSequenzeNrCarrier").getValue();
 							
 							List listElementMain=elemRoot.getChildren();
 							for(int icount = 0; icount < listElementMain.size()-1; icount++){
@@ -1939,8 +1949,8 @@ public class PanelFrmExportDataHttpVIA extends KernelJPanelCascadedZZZ{
 											
 				
 				//+++ lies den Pfad und den Dateinamen aus der ini-Konfiguration aus.	
-				String sFilePath = objKernel.getParameterByProgramAlias(sModule, "Local_Store_Context", "XMLStorePath");
-				String sFileName = objKernel.getParameterByProgramAlias(sModule, "Local_Store_Context", "XMLStoreFile");
+				String sFilePath = objKernel.getParameterByProgramAlias(sModule, "Local_Store_Context", "XMLStorePath").getValue();
+				String sFileName = objKernel.getParameterByProgramAlias(sModule, "Local_Store_Context", "XMLStoreFile").getValue();
 				ReportLogZZZ.write(ReportLogZZZ.DEBUG, "FilePath: " + sFilePath + " | FileName: " + sFileName);
 				if(StringZZZ.isEmpty(sFileName)){
 					ExceptionZZZ ez = new ExceptionZZZ("No filename configured. Modul: " + sModule + " | Program: Local_Store_Context | Parameter: XMLStoreFile.", iERROR_CONFIGURATION_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());

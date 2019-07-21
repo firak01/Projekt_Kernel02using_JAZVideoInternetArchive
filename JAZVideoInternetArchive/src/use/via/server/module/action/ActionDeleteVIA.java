@@ -3,12 +3,12 @@ package use.via.server.module.action;
 import java.util.Iterator;
 import java.util.Vector;
  
+
 import javax.servlet.http.HttpServletRequest;
 
 import use.via.server.DocumentCategorizerZZZ;
 import use.via.server.IActionConstantZZZ;
 import use.via.server.ICategoryConstantZZZ;
-
 import lotus.domino.Database;
 import lotus.domino.Document;
 import lotus.domino.DocumentCollection;
@@ -18,22 +18,22 @@ import lotus.domino.View;
 import custom.zKernel.LogZZZ;
 import custom.zNotes.kernel.KernelNotesLogZZZ;
 import custom.zNotes.kernel.KernelNotesZZZ;
-
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.web.cgi.UrlLogicEeZZZ;
 import basic.zBasic.util.web.cgi.UrlLogicZZZ;
+import basic.zKernel.IKernelConfigSectionEntryZZZ;
 import basic.zNotes.basic.util.web.cgi.NotesCgiAnalyserZZZ;
 import basic.zNotes.document.DocumentZZZ;
 import basic.zNotes.use.log4j.NotesReportLogZZZ;
 
-/** Klasse mit der über ein Servlet die als Parameter übergebene DocId 
+/** Klasse mit der ï¿½ber ein Servlet die als Parameter ï¿½bergebene DocId 
  * @author lindhaueradmin
  *
  */
 public class ActionDeleteVIA extends ActionHttpVIA implements IActionResult{
-	private String sDocIdCurrent = null;  //Die docId des zu löschenden Dokuments
+	private String sDocIdCurrent = null;  //Die docId des zu lï¿½schenden Dokuments
 	
 	
 	public ActionDeleteVIA(KernelNotesZZZ objKernelNotes, HttpServletRequest req, String sFlagControl) throws ExceptionZZZ{
@@ -45,7 +45,7 @@ public class ActionDeleteVIA extends ActionHttpVIA implements IActionResult{
 				throw ez;
 			}
 		
-			//TODO: Eigenltich sollte hier ein Mapper Store Objekt übergeben werden. Das kann man dann für einen Test als Eingabe-Objekt verwenden !!!
+			//TODO: Eigenltich sollte hier ein Mapper Store Objekt ï¿½bergeben werden. Das kann man dann fï¿½r einen Test als Eingabe-Objekt verwenden !!!
 	
 			//1. Parameter DocId entgegennehmen
 			String sDocId = req.getParameter(IActionConstantZZZ.sPARAMETER_DOCID);
@@ -54,12 +54,12 @@ public class ActionDeleteVIA extends ActionHttpVIA implements IActionResult{
 				throw ez;
 			}
 			
-			this.setDocIdCurrent(sDocId); //Merke: prüft gleichzeitig auf eine "valide" docId
+			this.setDocIdCurrent(sDocId); //Merke: prï¿½ft gleichzeitig auf eine "valide" docId
 		}//END MAIN:
 	}
 	
-	/** Führt die Löschung des Dokuments durch.
-	 *   Allerdings muss ggf. noch die Kategorisierung in verschiedenen anderen Dokumenten geändert (bzw. entfernt werden)
+	/** Fï¿½hrt die Lï¿½schung des Dokuments durch.
+	 *   Allerdings muss ggf. noch die Kategorisierung in verschiedenen anderen Dokumenten geï¿½ndert (bzw. entfernt werden)
 	 *   
 	 *   MERKE: Diese Methode wirft keinen Fehler. 
 	 *                Statt dessen wird eine ExceptionZZZ im Protokoll vermerkt
@@ -74,7 +74,7 @@ public class ActionDeleteVIA extends ActionHttpVIA implements IActionResult{
 			KernelNotesZZZ objKernelNotes = null;
 			try{
 				try{
-					//1. Holen der aktuellen DocId und das zu löschende Dokument
+					//1. Holen der aktuellen DocId und das zu lï¿½schende Dokument
 					String sDocId = this.getDocIdCurrent();
 					if(StringZZZ.isEmpty(sDocId)){
 						ExceptionZZZ ez = new ExceptionZZZ("No parameter docid in HttpServletRequest-Object provided.", iERROR_PROPERTY_MISSING, this.getClass().getName(), ReflectCodeZZZ.getMethodCurrentName());
@@ -139,7 +139,7 @@ public class ActionDeleteVIA extends ActionHttpVIA implements IActionResult{
 					
 					
 					//@IsMember("File#A9A859D9D4ED1769C125741D002B2D62#FileName"; objCatRefSourceVIA)
-					//Das wäre der Suchstring für einen dbSearch: String sSearch = "@IsMember(\"" +  sAlias + "#" + sDocId + "#" + sFieldFirst + "\"; " + ICategoryConstantZZZ.sFIELD_PREFIX_CATEGORYSOURCE_META + objKernelNotes.getApplicationKeyCurrent() +")";
+					//Das wï¿½re der Suchstring fï¿½r einen dbSearch: String sSearch = "@IsMember(\"" +  sAlias + "#" + sDocId + "#" + sFieldFirst + "\"; " + ICategoryConstantZZZ.sFIELD_PREFIX_CATEGORYSOURCE_META + objKernelNotes.getApplicationKeyCurrent() +")";
 					String sSearch = sAlias + "#" + sDocId + "#" + sFieldFirst;
 					if(this.getFlag("Debug")) System.out.println(ReflectCodeZZZ.getMethodCurrentName() + " - Suchstring: '" + sSearch + "'");
 					if(this.getFlag("Debug")) System.out.println(ReflectCodeZZZ.getMethodCurrentName() + " - LogLevel: '" + this.getKernelNotesLogObject().getLogLevelGlobal() + "'");
@@ -156,14 +156,14 @@ public class ActionDeleteVIA extends ActionHttpVIA implements IActionResult{
 						/////######################
 						 * */
 					
-					//3. Aus den gefundenen Dokumenten die Zeilen entfernen in denen die DocId des zu löschenden Dokumentes auftaucht					
+					//3. Aus den gefundenen Dokumenten die Zeilen entfernen in denen die DocId des zu lï¿½schenden Dokumentes auftaucht					
 					for (int icount = 1; icount <= colFound.getCount(); icount++ ){
 						Document doctemp = colFound.getNthDocument(icount);
 						if(doctemp != null){
 							boolean bAnyRemoved = objCat.removeDocumentFromCategory(doctemp);											
 							
 							if(bAnyRemoved==true){						
-								//Gefundene und veränderte Dokumente speichern
+								//Gefundene und verï¿½nderte Dokumente speichern
 								if( doctemp.save(true,false, false)==false){
 									ExceptionZZZ ez = new ExceptionZZZ("Unable to save document, which uses the documents categories: '" + doctemp.getUniversalID() +"'", iERROR_RUNTIME, this.getClass().getName(), ReflectCodeZZZ.getMethodCurrentName());
 									throw ez;
@@ -172,7 +172,7 @@ public class ActionDeleteVIA extends ActionHttpVIA implements IActionResult{
 						}//end if doctemp != null						
 					}//end for
 					 										
-					//4. Aktuelles dokument löschen
+					//4. Aktuelles dokument lï¿½schen
 					if(doc2delete.remove(true)==false){
 						ExceptionZZZ ez = new ExceptionZZZ("Unable to delete document: '" + doc2delete.getUniversalID() +"'", iERROR_RUNTIME, this.getClass().getName(), ReflectCodeZZZ.getMethodCurrentName());
 						throw ez;
@@ -208,7 +208,7 @@ public class ActionDeleteVIA extends ActionHttpVIA implements IActionResult{
 	
 	
 	//######### GETTER / SETTER
-	/** Merke: Muss eine als "valide" geltende DocId sein (nur Hex Werte).  Nur null ist erlaubt um den bisherigen Wert quasi zu löschen.
+	/** Merke: Muss eine als "valide" geltende DocId sein (nur Hex Werte).  Nur null ist erlaubt um den bisherigen Wert quasi zu lï¿½schen.
 	 *   Ansonsten wird ein Fehler geworfen. 
 	* @param sDocId
 	* @throws ExceptionZZZ
@@ -236,7 +236,8 @@ public class ActionDeleteVIA extends ActionHttpVIA implements IActionResult{
 		main:{
 			//try{
 				if(iCase == ActionVIA.iSUCCESS_CASE){					
-					String sPage = this.getKernelObject().getParameterByProgramAlias(ServletActionExecuteVIA.class.getName(), this.getClass().getName(), "PageOnCaseSuccess");
+					IKernelConfigSectionEntryZZZ objEntry = this.getKernelObject().getParameterByProgramAlias(ServletActionExecuteVIA.class.getName(), this.getClass().getName(), "PageOnCaseSuccess");
+					String sPage = objEntry.getValue();
 					if(sPage.startsWith("/")){ //Zugriff auf Ressource in der lokalen Datenbank
 						
 						//FGL 20090404 - Hier den Pfad mit dem "richtigen" Servernamen ersetzen (der sich unterscheidet je nachdem, ob der Aufruf aus dem Internet oder Intranet stammt....

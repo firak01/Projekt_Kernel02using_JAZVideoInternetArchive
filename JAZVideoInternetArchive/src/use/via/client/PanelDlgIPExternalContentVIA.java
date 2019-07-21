@@ -21,6 +21,7 @@ import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.log.ReportLogZZZ;
 import basic.zBasicUI.thread.SwingWorker;
+import basic.zKernel.IKernelConfigSectionEntryZZZ;
 import basic.zKernel.IKernelUserZZZ;
 import basic.zKernel.IKernelZZZ;
 import basic.zKernelUI.KernelUIZZZ;
@@ -85,7 +86,8 @@ public class PanelDlgIPExternalContentVIA  extends KernelJPanelCascadedZZZ{
 			}		
 			
 			//DARIN WIRD NACH DEM ALIASNAMEN 'IP_CONTEXT' GESUCHT, UND DER WERT  FÜR 'IPExternal' geholt.					
-			sIp = objKernel.getParameterByProgramAlias(sModule, "IP_Context", "IPExternal");
+			IKernelConfigSectionEntryZZZ objEntry = objKernel.getParameterByProgramAlias(sModule, "IP_Context", "IPExternal");
+			sIp = objEntry.getValue();
 		}else{
 			System.out.println(ReflectCodeZZZ.getMethodCurrentName() + "# This is a dialog.....");
 			
@@ -103,7 +105,8 @@ public class PanelDlgIPExternalContentVIA  extends KernelJPanelCascadedZZZ{
 				throw ez;
 			}
 			//DARIN WIRD NACH DEM ALIASNAMEN 'IP_CONTEXT' GESUCHT, UND DER WERT  FÜR 'IPExternal' geholt.
-			sIp = objKernel.getParameterByProgramAlias(sModule, sProgram, "IPExternal");			
+			IKernelConfigSectionEntryZZZ objEntry = objKernel.getParameterByProgramAlias(sModule, sProgram, "IPExternal");
+			sIp = objEntry.getValue();
 		}		
 		
 		//TODO GOON 20190124: Hier soll unterschieden werden zwischen einem absichtlich eingetragenenem Leersstring und nix.

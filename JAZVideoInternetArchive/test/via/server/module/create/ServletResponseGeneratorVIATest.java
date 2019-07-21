@@ -195,7 +195,7 @@ public class ServletResponseGeneratorVIATest extends TestCase implements IConsta
 			IKernelContextZZZ objContext = objGeneratorTest.getContextUsed();
 			String sModule = objContext.getModuleName();
 			String sProgram = objContext.getProgramName();
-			String sFileResponse = objKernel.getParameterByProgramAlias(sModule, sProgram, "FilePageSuccessResponsePath");
+			String sFileResponse = objKernel.getParameterByProgramAlias(sModule, sProgram, "FilePageSuccessResponsePath").getValue(); 
 			assertNotNull("the response file was not configured", sFileResponse);
 			assertFalse("the response file was not configured", sFileResponse.equals(""));
 			

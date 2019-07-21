@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import custom.zKernel.file.ini.FileIniZZZ;
+import basic.zKernel.IKernelConfigSectionEntryZZZ;
 import basic.zKernel.IKernelZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
@@ -159,7 +160,7 @@ public class ProgramIPContentVIA extends KernelUseObjectZZZ{
 				if(!StringZZZ.isEmpty(sSection)){
 					boolean bSectionExists = objFileIniConfig.proofSectionExists(sSection);
 					if(bSectionExists==true){
-						String sValue = objFileIniConfig.getPropertyValue(sSection, sProperty);
+						String sValue = objFileIniConfig.getPropertyValue(sSection, sProperty).getValue(); 
 						if(sValue != null){
 							System.out.println(ReflectCodeZZZ.getMethodCurrentNameLined(0)+ ": (x)Value gefunden für Property '" + sProperty + "'='" + sReturn + "'");
 							sReturn = sSection;
@@ -203,7 +204,8 @@ public class ProgramIPContentVIA extends KernelUseObjectZZZ{
 			IKernelZZZ objKernel = this.getKernelObject();
 			String sModule = this.getModuleName();
 			String sProgram = this.getProgramName();
-			sReturn = objKernel.getParameterByProgramAlias(sModule, sProgram, "URL2Read");			
+			IKernelConfigSectionEntryZZZ objEntry = objKernel.getParameterByProgramAlias(sModule, sProgram, "URL2Read");
+			sReturn = objEntry.getValue();
 		}
 		return sReturn;
 	}
@@ -221,7 +223,8 @@ public class ProgramIPContentVIA extends KernelUseObjectZZZ{
 			IKernelZZZ objKernel = this.getKernelObject();
 			String sModule = this.getModuleName();
 			String sProgram = this.getProgramName();
-			sReturn = objKernel.getParameterByProgramAlias(sModule, sProgram, "ProxyHost");			
+			IKernelConfigSectionEntryZZZ objEntry = objKernel.getParameterByProgramAlias(sModule, sProgram, "ProxyHost");
+			sReturn = objEntry.getValue();
 		}
 		return sReturn;		
 	}
@@ -239,7 +242,8 @@ public class ProgramIPContentVIA extends KernelUseObjectZZZ{
 			IKernelZZZ objKernel = this.getKernelObject();
 			String sModule = this.getModuleName();
 			String sProgram = this.getProgramName();
-			sReturn = objKernel.getParameterByProgramAlias(sModule, sProgram, "ProxyPort");			
+			IKernelConfigSectionEntryZZZ objEntry = objKernel.getParameterByProgramAlias(sModule, sProgram, "ProxyPort");
+			sReturn = objEntry.getValue();
 		}
 		return sReturn;		
 	}
