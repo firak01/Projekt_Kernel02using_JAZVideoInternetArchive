@@ -29,6 +29,7 @@ import basic.zBasic.util.log.ReportLogZZZ;
 import basic.zBasicUI.thread.SwingWorker;
 import basic.zKernel.IKernelUserZZZ;
 import basic.zKernel.IKernelZZZ;
+import basic.zKernel.KernelLogZZZ;
 import basic.zKernelUI.component.KernelJPanelCascadedZZZ;
 import basic.zKernelUI.component.model.JTree.ModelJTreeNodeDirectoyZZZ;
 import basic.zKernelUI.component.model.JTree.ModelJTreeNodeRootDummyZZZ;
@@ -377,6 +378,18 @@ public class SwingWorker4ProgramTreeContentVIA extends SwingWorker implements IO
 		public void setExceptionObject(ExceptionZZZ objException) {
 			this.objException = objException;
 		}
+		
+		//aus IKernelLogObjectUserZZZ, analog zu KernelKernelZZZ
+		@Override
+		public void logLineDate(String sLog) {
+			LogZZZ objLog = this.getLogObject();
+			if(objLog==null) {
+				String sTemp = KernelLogZZZ.computeLineDate(sLog);
+				System.out.println(sTemp);
+			}else {
+				objLog.WriteLineDate(sLog);
+			}		
+		}	
 		
 		
 		/**Overwritten and using an object of jakarta.commons.lang

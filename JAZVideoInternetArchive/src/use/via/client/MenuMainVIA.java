@@ -15,6 +15,7 @@ import basic.zBasic.IConstantZZZ;
 import basic.zBasic.IObjectZZZ;
 import basic.zBasic.util.log.ReportLogZZZ;
 import basic.zKernel.IKernelUserZZZ;
+import basic.zKernel.KernelLogZZZ;
 import basic.zKernelUI.component.KernelActionJMenuZZZ;
 import basic.zKernelUI.component.KernelJFrameCascadedZZZ;
 import basic.zKernel.IKernelZZZ;
@@ -80,6 +81,18 @@ public class MenuMainVIA extends JMenuBar implements IConstantZZZ, IObjectZZZ, I
 	public void setExceptionObject(ExceptionZZZ objException) {
 		// TODO Auto-generated method stub	
 	}
+	
+	//aus IKernelLogObjectUserZZZ, analog zu KernelKernelZZZ
+	@Override
+	public void logLineDate(String sLog) {
+		LogZZZ objLog = this.getLogObject();
+		if(objLog==null) {
+			String sTemp = KernelLogZZZ.computeLineDate(sLog);
+			System.out.println(sTemp);
+		}else {
+			objLog.WriteLineDate(sLog);
+		}		
+	}	
 
 	/* (non-Javadoc)
 	 * @see basic.zKernel.IKernelZZZ#getKernelObject()

@@ -1,6 +1,8 @@
 package basic.zBasic;
 
 import basic.zBasic.util.ConfigVIA;
+import basic.zBasic.util.file.FileEasyZZZ;
+import basic.zBasic.util.file.JarEasyUtilZZZ;
 import basic.zBasic.util.file.JarEasyZZZ;
 import basic.zKernel.IKernelConfigZZZ;
 import basic.zKernel.KernelKernelZZZ;
@@ -102,7 +104,7 @@ public class KernelSingletonVIA extends KernelKernelZZZ{
 		public boolean isInJar() throws ExceptionZZZ{
 			boolean bReturn = false;
 			main:{
-				bReturn = JarEasyZZZ.isInJar(this.getClass());
+				bReturn = JarEasyUtilZZZ.isInJar(this.getClass());
 			}
 			return bReturn;
 		}
@@ -116,7 +118,7 @@ public class KernelSingletonVIA extends KernelKernelZZZ{
 		public static boolean isInJarStatic() throws ExceptionZZZ{
 			boolean bReturn = false;
 			main:{
-				bReturn = JarEasyZZZ.isInJar(KernelSingletonVIA.class);
+				bReturn = JarEasyUtilZZZ.isInJar(KernelSingletonVIA.class);
 			}
 			return bReturn;
 		}

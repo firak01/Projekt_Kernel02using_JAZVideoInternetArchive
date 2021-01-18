@@ -25,6 +25,7 @@ import basic.zBasic.util.log.ReportLogZZZ;
 import basic.zBasicUI.thread.SwingWorker;
 import basic.zKernel.IKernelUserZZZ;
 import basic.zKernel.IKernelZZZ;
+import basic.zKernel.KernelLogZZZ;
 import basic.zKernelUI.component.KernelJPanelCascadedZZZ;
 import custom.zKernel.LogZZZ;
 
@@ -432,6 +433,17 @@ private HashMap<String, Boolean>hmFlag = new HashMap<String, Boolean>(); //Neu 2
 			this.objException = objException;
 		}
 		
+		//aus IKernelLogObjectUserZZZ, analog zu KernelKernelZZZ
+		@Override
+		public void logLineDate(String sLog) {
+			LogZZZ objLog = this.getLogObject();
+			if(objLog==null) {
+				String sTemp = KernelLogZZZ.computeLineDate(sLog);
+				System.out.println(sTemp);
+			}else {
+				objLog.WriteLineDate(sLog);
+			}		
+		}	
 		
 		/**Overwritten and using an object of jakarta.commons.lang
 		 * to create this string using reflection. 

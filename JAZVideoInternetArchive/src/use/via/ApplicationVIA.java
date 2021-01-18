@@ -8,6 +8,8 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IResourceHandlingObjectZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import basic.zBasic.util.file.FileEasyZZZ;
+import basic.zBasic.util.file.JarEasyUtilZZZ;
 import basic.zBasic.util.file.JarEasyZZZ;
 import basic.zBasic.util.log.KernelReportContextProviderZZZ;
 import basic.zBasic.util.log.ReportLogZZZ;
@@ -286,7 +288,7 @@ public class ApplicationVIA extends KernelUseObjectZZZ implements IResourceHandl
 			public static boolean isInJarStatic() throws ExceptionZZZ{
 				boolean bReturn = false;
 				main:{
-					bReturn = JarEasyZZZ.isInJar(KernelZZZ.class);
+					bReturn = JarEasyUtilZZZ.isInJar(ApplicationVIA.class);
 				}
 				return bReturn;
 			}
@@ -294,7 +296,7 @@ public class ApplicationVIA extends KernelUseObjectZZZ implements IResourceHandl
 			public boolean isInJar() throws ExceptionZZZ {
 				boolean bReturn = false;
 				main:{
-					bReturn = JarEasyZZZ.isInJar(this.getClass());
+					bReturn = JarEasyUtilZZZ.isInJar(this.getClass());
 				}
 				return bReturn;
 			}
